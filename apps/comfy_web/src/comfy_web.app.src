@@ -1,0 +1,14 @@
+{application, comfy_web,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  misultin,
+		  log4erl
+                 ]},
+  {mod, { comfy_web_app, []}},
+  {env, []}
+ ]}.

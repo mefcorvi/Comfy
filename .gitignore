@@ -1,0 +1,20 @@
+# backup files
+*.*~
+# emacs temp files
+*#*
+#ebin
+*/ebin/*
+ebin
+#eunit
+*/.eunit/*
+.eunit
+*/*.beam
+#logfile
+.log
+.dump
+#rel
+rel
+#data
+data/*
+#deps
+deps
