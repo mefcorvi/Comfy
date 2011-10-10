@@ -8,10 +8,10 @@ ebin
 #eunit
 */.eunit/*
 .eunit
-*/*.beam
+*.beam
 #logfile
 .log
-.dump
+*.dump
 #rel
 rel
 #data
