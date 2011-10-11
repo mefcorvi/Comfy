@@ -9,9 +9,7 @@
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
 	 terminate/2, code_change/3]).
 
--record(state, {
-	  db_server :: any()
-	 }).
+-record(state, {}).
 
 %%%===================================================================
 %%% API
@@ -25,24 +23,24 @@ start_link() ->
 %%%===================================================================
 
 init([]) ->
-    Server = couchbeam:server_connection(comfy_server_config:get(db_host), comfy_server_config:get(db_port)),
-    {ok, #state{
-       db_server = Server
-      }}.
+    {ok, #state{}}.
 
-handle_call({login, Login, Pwd}, From, #state{db_server=Server}=State) when is_list(Login) ->
-    case comfy_business_service:authorize(Server, Login, Pwd) of
+handle_call({login, Login, Pwd}, From, State) when is_list(Login) ->
+    case comfy_business_service:authorize(Login, Pwd) of
 	true ->
-	    NewPid = comfy_business_service:start_user_session(Server, Login, Pwd),
+	    NewPid = comfy_business_service:start_user_session(Login, Pwd),
 	    {reply, {new_server, NewPid}, State};
 	false ->
 	    {reply, {error, wrong_login_or_password}, State}
     end;
 
-handle_call({register, Login, Pwd}, From, #state{db_server=Server}=State) when is_list(Login) ->
-    {reply, comfy_business_service:create_new_user(Server, Login, Pwd), State};
+handle_call({register, Login, Pwd}, From, State) when is_list(Login) ->
+    {reply, comfy_business_service:create_new_user(Login, Pwd), State};
 
-handle_call(Request, _From, State) ->
+handle_call(stop, _, State) ->
+    {stop, normal, ok, State};
+
+handle_call(Request, _, State) ->
     Reply = {error, wrong_request, Request},
     {reply, Reply, State}.
 
