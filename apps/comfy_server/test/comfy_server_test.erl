@@ -1,4 +1,4 @@
--module(comfy_server_tests).
+-module(comfy_server_test).
 -compile(export_all).
 -include("comfy_server.hrl").
 -include_lib("eunit/include/eunit.hrl").
