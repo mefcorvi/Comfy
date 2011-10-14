@@ -1,0 +1,169 @@
+﻿.scrollable_panel
+{
+    position: relative;
+}
+
+.scrollable_panel .focus_detector
+{
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    overflow: hidden;
+}
+
+.vscroll_container
+{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 12px;
+    bottom: 0;
+    background: #fff url('~scrollbar_track.png') center center repeat-y;
+    cursor: pointer;
+    zoom: 1;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+
+.hscroll_container
+{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 12px;
+    background: #fff url('~scrollbar_htrack.png') center center repeat-x;
+    cursor: pointer; 
+    zoom: 1;
+}
+
+.msie6 .vscroll_container
+{
+    height: 100%;
+}
+
+.msie6 .hscroll_container
+{
+    width: 100%;
+}
+
+.hscrollable_panel .vscroll_container
+{
+    bottom: 13px;
+}
+
+.vscrollable_panel .hscroll_container
+{
+    right: 13px;
+}
+
+.vscroll_container a,
+.hscroll_container a
+{
+    display: block;
+    position: absolute;
+    text-decoration: none;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    line-height: 12px;
+    font-size: 6px;
+}
+
+.vscroll_container a
+{
+    left: 0;
+    width: 12px;
+    height: 17px;
+}
+
+.hscroll_container a
+{
+    top: 0;
+    width: 17px;
+    height: 12px;
+}
+
+.hscroll_container a:hover
+{
+    background-position: 0 -12px;
+}
+
+.vscroll_container a:hover
+{
+    background-position: 0 -17px;    
+}
+
+.hscroll_container a:active
+{
+    background-position: 0 -24px;
+}
+
+.vscroll_container a:active
+{
+    background-position: 0 -34px;    
+}
+
+.vscroll_container .slider_item
+{
+    top: 17px;
+    width: 12px;
+    height: 36px;
+    background-image: url('~scrollbar_vSlider.png');
+}
+
+.hscroll_container .slider_item
+{
+    left: 17px;
+    width: 36px;
+    height: 12px;
+    background-image: url('~scrollbar_drag_grab.png');
+}
+
+.vscroll_container a.slider_item:hover
+{
+    background-position: 0 -36px;
+}
+
+.vscroll_container a.slider_item:active
+{
+    background-position: 0 -72px;
+}
+
+.hscroll_container a.slider_item:hover
+{
+    background-position: 0 -12px;
+}
+
+.hscroll_container a.slider_item:active
+{
+    background-position: 0 -24px;
+}
+
+.vscroll_container .top_arrow
+{
+    top: 0;
+    background: url('~scrollbar_arrow_up.png');    
+}
+
+.vscroll_container .bottom_arrow
+{
+    bottom: 0;
+    background: url('~scrollbar_arrow_down.png');    
+}
+
+.hscroll_container .left_arrow
+{
+    left: 0;
+    background: url('~scrollbar_arrow_left.png');    
+}
+
+.hscroll_container .right_arrow
+{
+    right: 0;
+    background: url('~scrollbar_arrow_right.png');    
+}

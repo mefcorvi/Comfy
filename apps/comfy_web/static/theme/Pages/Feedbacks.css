@@ -1,0 +1,117 @@
+﻿.feedbacks_page .feedback_item
+{
+    border-color: #eee;
+    cursor: pointer;
+}
+
+.feedbacks_page .feedback_item_hover
+{
+    background: #eee;
+}
+
+.feedbacks_page .feedback_item_selected
+{
+    background: #ecc;
+}
+
+.feedbacks_page .feedback_item .feedback_id
+{
+    font-size: 11px;
+    text-align: right;
+}
+
+.feedbacks_page .feedback_item_resolved .feedback_id
+{
+    color: #777;
+}
+
+.feedbacks_page .feedback_item .feedback_id_block
+{
+    border-color: #ddd;
+}
+
+.feedbacks_page .feedback_item .feedback_status
+{
+    font-size: 10px;
+    text-align: right;
+    color: #666;
+}
+
+.feedbacks_page .feedback_item_open .feedback_status
+{
+    color: #900;
+}
+
+.feedbacks_page .feedback_item_onprogress .feedback_status
+{
+    color: #595;
+}
+
+.feedbacks_page .feedback_item .feedback_subject
+{
+    font-size: 11px;
+    color: #666;
+}
+
+.feedbacks_page .feedback_item_open .feedback_subject
+{
+    color: #000;
+    font-size: 13px;
+}
+
+.feedbacks_page .feedback_item .feedback_type
+{
+    font-size: 11px;
+    color: #595;
+    font-weight: bold;
+}
+
+.feedbacks_page .feedback_item .feedback_type_bug
+{
+    color: #955;
+}
+
+.feedbacks_page .feedback_item .feedback_type_feature
+{
+    color: #559;
+}
+
+.feedbacks_page .feedback_item_resolved .feedback_type
+{
+    color: #777;
+}
+
+.feedbacks_page .feedback_item .posted_by
+{
+    font-size: 11px;
+    color: #333;
+}
+
+.feedbacks_page .feedback_item .user_id
+{
+    color: #666;
+    font-size: 11px;
+}
+
+.feedbacks_page .feedback_details .feedback_subject
+{
+    color: #000;
+    font-size: 15px;
+    border-color: #ddd;
+}
+
+.feedbacks_page .feedback_details .feedback_message
+{
+    font-size: 13px;
+}
+
+.feedbacks_page .feedback_details .feedback_comment
+{
+    color: #666;
+    font-size: 13px;
+}
+
+.feedbacks_page .feedback_details .feedback_comment_edit
+{
+    font-size: 13px;
+}

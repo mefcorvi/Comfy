@@ -1,0 +1,17 @@
+﻿.my_profile_page .user_roles_control .not_approved
+{
+    font-style: italic;
+    color: #aaa;
+}
+
+.my_profile_page .roles_panel
+{
+    margin-right: 3px;
+}
+
+
+.myProfile_country_item .entity_image
+{
+    float: left;
+    margin-right: 3px;
+}

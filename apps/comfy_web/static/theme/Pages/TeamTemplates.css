@@ -1,0 +1,29 @@
+﻿.team_templates_page .templates_editor
+{
+    margin-right: 3px;
+}
+
+.team_templates_page .scope_label
+{
+    margin-left: 25px;
+}
+
+.team_templates_page .role_checkBox
+{
+    margin-bottom: 5px;
+}
+
+.team_templates_page .group_name
+{
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.team_templates_page .group_block
+{
+    margin-right: 10px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+}

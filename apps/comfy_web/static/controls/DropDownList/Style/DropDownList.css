@@ -1,0 +1,102 @@
+﻿div.dropDownList
+{
+    border: 1px solid #ADADAD;
+    background: #fff url('~button.png') no-repeat right 1px;
+    cursor: pointer;
+    padding: 4px;
+    font-size: 11px;
+    padding-top: 1px;
+    padding-bottom: 7px;
+    color: #666;
+}
+
+div.dropDownList_disabled
+{
+    color: #bbb;
+    border: 1px solid #E8E8E8;
+    background-position: right -56px;
+    cursor: default;
+}
+
+div.dropDownList_hover
+{
+    background-position: right -18px;
+    color: #000;
+    border: 1px solid #999;
+}
+
+div.dropDownList_active
+{
+    background-position: right -37px;
+    color: #000;
+    border: 1px solid #A7A7A7;
+}
+
+div.dropDownList_container
+{
+    position: absolute;
+    left: -1000px;
+    top: -1000px;
+    margin: 0;
+    margin-top: 1px;
+    padding: 0;
+    background: #F6F6F6;
+    border: 1px solid #A7A7A7;
+    color: #333;
+    list-style: none;
+    display: block;
+    -moz-box-shadow: 0px 2px 5px #888;
+    -webkit-box-shadow: 0px 2px 5px #888;
+    box-shadow: 0px 2px 5px #888;
+}
+
+div.dropDownList_container .actionPane
+{
+    border-top: 1px solid #999;
+}
+
+div.dropDownList_container .actionPane a
+{
+    display: block;
+    padding: 2px;
+    border-top: 1px solid #ccc;
+    font-size: 12px;
+    text-decoration: none;
+    text-align: center;
+}
+
+div.dropDownList_container .actionPane a:hover
+{
+    background: #fff;
+}
+
+div.dropDownList_container div.dropDownItem
+{
+    font-size: 11px;
+    display: block;
+    zoom: 1;
+}
+
+div.dropDownList_container div.dropDownItem span
+{
+    display: block;
+}
+
+div.dropDownList_container div.dropDownItem_hover
+{
+    color: #fff;
+    background: #7e7e7e;
+    cursor: pointer;
+}
+
+div.dropDownList_container div.dropDownItem_selected
+{
+    color: #fff;
+    background: #5e5e5e;
+}
+
+div.dropDownList_container .scroll_panel_container
+{
+    padding-left: 0;
+    padding-right: 0;
+}

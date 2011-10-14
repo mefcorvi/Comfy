@@ -1,0 +1,89 @@
+﻿.knowledge_base_page .newHelpPageMark
+{
+    color: Red;
+}
+
+.knowledge_base_page .pages_listPanel
+{
+    margin-right: 3px;
+}
+
+.knowledge_base_page .helppages_list .data_not_found_label
+{
+    padding: 10px;
+    display: block;
+}
+
+.knowledge_base_page .pages_listPanel .section
+{
+    padding: 0;
+}
+
+.knowledge_base_page .pages_listPanel .scroll_panel_container
+{
+    padding: 0;
+}
+
+.knowledge_base_page .helppages_item
+{
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+.knowledge_base_page .helppages_item_unread
+{
+    color: #900;
+    text-decoration: underline;
+}
+
+.knowledge_base_page .helppages_item_unread:hover
+{
+    color: #000;
+    background: #fffefe;
+}
+
+.knowledge_base_page .helppages_item_selected
+{
+    background: #eee;
+}
+
+.helppage_content h1
+{
+    font-weight: normal;
+    font-size: 18px;
+    border-bottom: 1px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.helppage_content h2
+{
+    font-weight: normal;
+    font-size: 17px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.helppage_content h3
+{
+    font-weight: normal;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    color: #666;
+}
+
+.helppage_content
+{
+    font-size: 13px;
+}
+
+.knowledgeEdit_page .knowledge_page_title
+{
+    margin: 5px;
+}

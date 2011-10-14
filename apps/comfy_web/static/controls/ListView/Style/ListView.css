@@ -1,0 +1,10 @@
+﻿.listview .item_hovered
+{
+    background: #eee;
+    cursor: pointer;
+}
+
+.listview .item_selected
+{
+    background: #ddd;
+}

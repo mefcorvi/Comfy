@@ -1,0 +1,82 @@
+﻿.slider
+{
+    background: url('~slider_right.png') no-repeat right bottom;
+    height: 61px;
+    padding-right: 18px;
+}
+
+.slider h3
+{
+    display: inline;
+    background: url('~header_r.png') no-repeat right top;
+    padding-right: 5px;
+    font-weight: normal;
+    font-size: 11px;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+
+.gecko .slider h3
+{
+    padding-top: 2px;
+}
+
+.msie .slider h3
+{
+    padding-top: 0;
+}
+
+.slider h3 span
+{
+    display: inline-block;
+    background: url('~header_l.png') no-repeat left top;
+    padding: 0px;
+    line-height: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    text-align: center;
+}
+
+.slider ul
+{
+    display: block;
+    list-style: none;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    height: 42px;
+    background: url('~slider_left.png') no-repeat left bottom;
+    padding-left: 16px;
+}
+
+.slider ul li
+{
+    float: left;
+    background: url('~slider.png') no-repeat center 9px;
+    width: 50%;
+    height: 22px;
+    padding: 0;
+    margin: 0;
+    padding-top: 20px;
+    cursor: pointer;
+    color: #999;
+    text-align: center;
+}
+
+.slider ul li.selected, .slider ul li.hovered
+{
+    background-image: url('~slider_sel.png');
+    color: #000;
+}
+
+.slider ul li.first
+{
+    background-position: left 9px;
+    text-align: left;
+}
+
+.slider ul li.last
+{
+    background-position: right 9px;
+    text-align: right;
+}

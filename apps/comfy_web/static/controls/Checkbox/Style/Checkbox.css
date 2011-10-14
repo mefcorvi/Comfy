@@ -1,0 +1,45 @@
+﻿.checkbox
+{
+    font-size: 11px;
+    cursor: pointer;
+    color: #555;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.checkbox span
+{
+    background: url("~bgr.png") no-repeat left 2px;
+    width: 16px;
+    height: 16px;
+    font-size: 11px;
+    float: left;
+}
+
+.checkbox_selected
+{
+    color: #000;
+}
+
+.checkbox_selected span
+{
+    background-position: left -28px;
+}
+
+.checkbox_gray
+{
+    color: #555;
+}
+
+.checkbox_gray span
+{
+    background-position: left -58px;
+}
+
+.checkbox_disabled
+{
+    cursor: default;
+    color: #999;
+    opacity: 0.6;
+    filter:alpha(opacity=60);
+}

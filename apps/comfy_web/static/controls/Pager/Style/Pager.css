@@ -1,0 +1,24 @@
+﻿.pager_control
+{
+	background: #ececec url("~pager_bgr.png") repeat-x left bottom;
+	color: #666;
+	border-color: #dcdcdc;
+	border-top-color: #cdcdcd;
+	font-size: 11px;
+}
+
+.pager_control .link_disabled
+{
+    color: #aaa;
+    text-decoration: none;
+}
+
+.pager_control .pager_link
+{
+}
+
+.pager_control .pager_link_selected
+{
+    text-decoration: none;
+    color: #000;
+}

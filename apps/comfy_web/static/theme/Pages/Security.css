@@ -1,0 +1,70 @@
+﻿.security_page_content
+{
+    padding-right: 5px;
+}
+
+.security_page_content .workgroup_header
+{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.security_page_content .workgroup_name
+{
+    margin-right: 3px;
+}
+
+.security_page_content .workgroup_level
+{
+    color: #777;
+}
+
+.security_page .workgroup_tree div.tree_node_0 span
+{
+    margin-top: 3px;
+}
+
+.security_page .workgroup_tree div.tree_node_0 a
+{
+    font-size: 12px;
+    color: #000;
+}
+
+.security_page .workgroup_tree div.tree_node_0 .workgroup_name
+{
+    font-size: 12px;
+    color: #000;
+    padding: 1px 4px;
+}
+
+.security_page .workgroup_tree ul.treeview_1
+{
+    margin-left: 10px;
+}
+
+.role_permissions_form input
+{
+    margin-bottom: 2px;
+}
+
+.role_permissions_form span
+{
+    display: block;
+    margin-top: 2px;
+}
+
+.role_permissions_form .role_permission_scopes
+{
+    padding-top: 3px;
+}
+
+.security_page a.add_new_role
+{
+    text-align: center;
+}
+
+.security_page a.add_new_group
+{
+    text-align: center;
+}

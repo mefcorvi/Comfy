@@ -1,0 +1,14 @@
+﻿input.notValid 
+{
+    color: #f00;
+    border-color: #FF6060;
+}
+
+.validation_tooltip
+{
+    background: #666;
+    color: #fff;
+    border: 1px solid #333;
+    padding: 2px;
+    font-size: 11px;
+}

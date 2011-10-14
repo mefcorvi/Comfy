@@ -1,0 +1,68 @@
+.treeview
+{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	overflow: hidden;
+}
+
+.treeview li.tree_node
+{
+	margin: 0;
+	padding: 3px 0pt 3px 0px;
+	font-size: 11px;
+}
+
+.treeview li.tree_node .treeview li.tree_node
+{
+    padding-left: 16px;
+}
+
+.treeview a
+{
+    padding: 2px 5px;
+    color: #777777;
+    text-decoration: none;
+}
+
+.treeview a:focus,
+.treeview a:active,
+.treeview a:hover,
+.treeview .tree_node_selected a
+{
+	border: 1px solid #ccc;
+    padding: 1px 4px;
+	background: url("~sel.png") 50% 50% repeat-x;
+	color: #fff !important;
+}
+
+.treeview li.selected > div > a
+{
+	border: 1px solid #ccc;
+    padding: 1px 4px;
+	background: url("~sel0.png") 50% 50% repeat-x;
+	color: #fff !important;
+}
+
+.treeview span.tree_collapser,
+.treeview span.tree_collapser:hover
+{
+	padding: 0;
+	margin: 0;
+	border: 0;
+	display: block;
+	width: 11px;
+	height: 11px;
+	font-size: 6px;
+	float: left;
+	background: url("~plus_minus.png") left bottom no-repeat;
+	margin-top: 2px;
+	margin-right: 2px;
+	cursor: pointer;
+}
+
+.treeview span.tree_collapsed,
+.treeview span.tree_collapsed:hover
+{
+	background-position: left top;
+}

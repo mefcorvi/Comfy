@@ -1,0 +1,39 @@
+﻿.report_handset_selection .handset_row
+{
+    color: #000;
+    border-color: #f5f5f5;
+}
+
+.report_handset_selection .handset_row:hover
+{
+    background: #eee;
+}
+
+.report_handset_selection .filter_blocks .block_hovered .section
+{
+    background: url("~bckg_details.png") top left repeat-x;
+    cursor: pointer;
+}
+
+.report_handset_selection .filter_blocks .block_selected .section
+{
+	border-color: #aaa;
+    background: url("~bckg_details_sel.png") top left repeat-x;
+    cursor: default;
+}
+
+.report_handset_selection .filter_blocks .block_selected .section_header
+{
+	border-color: #990000;
+    background: url("~bckg_details_h.png") top left repeat-x;
+    cursor: default;
+    color: #fff;
+}
+
+.report_handset_selection .delete_button
+{
+    background-image: url("~cross.png");
+    display: block;
+    width: 16px;
+    height: 16px;
+}

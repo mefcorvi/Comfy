@@ -1,0 +1,209 @@
+﻿.hardware_page .handsets_block .section
+{
+    padding: 0px;
+}
+
+.hardware_page .handsets_block
+{
+    margin-right: 3px;
+}
+
+.hardware_page .handsets_block .handset_item 
+{
+    padding: 5px;
+    border: 1px solid transparent;
+}
+
+.msie6 .hardware_page .handsets_block .handset_item
+{
+    border: 1px solid #fff;
+}
+
+
+.hardware_page .handsets_block .handset_item .entity_image
+{
+    background: #fff;
+    margin: 0 auto;
+}
+
+.hardware_page .handsets_block .handset_item .name
+{
+    display: block;
+    padding-top: 5px;
+    font-size: 16px;
+    text-align: center;
+    color: #666;
+    line-height: 100%;
+    padding-bottom: 3px;
+}
+
+.hardware_page .handsets_block .handset_item .code
+{
+    display: block;
+    color: #000;
+    font-size: 14px;
+    text-align: center;
+}
+
+.hardware_page .handsets_block .handset_item .class
+{
+    margin: 0 auto;
+    margin-top: -10px;
+    display: block;
+    width: 18px;
+    height: 18px;
+    background: url("~/Handset/handset_class_bgr.png") no-repeat;
+    line-height: 18px;
+    text-align: center;
+    color: #000;
+    text-indent: -2px;
+    font-size: 11px;
+}
+
+.hardware_page .handsets_block .handset_item .year
+{
+    text-align: center;
+    display: block;
+    color: #999;
+    font-size: 11px;
+}
+
+.hardware_page .handsets_block .handset_item .chipset_name
+{
+    display: block;
+    color: #999;
+    font-size: 11px;
+    text-align: center;
+}
+
+.hardware_page .handsets_block .handset_item_hover
+{
+    border: 1px solid #eee;
+    background: #f5f5f5;
+    cursor: pointer;
+}
+
+.hardware_page .handsets_block .handset_item_hover span
+{
+    cursor: pointer;
+}
+
+.hardware_page .handsets_block .handset_item_add .name
+{
+    color: #bbb;
+    padding-top: 13px;
+}
+
+.hardware_page .handsets_block .handset_item_add .add_image
+{
+    background: url('~/Handset/handset_item_add.png') no-repeat 0 0;
+    margin: 0 auto;
+}
+
+.hardware_page .handsets_block .handset_item_add_hover .name
+{
+    color: #000;
+}
+
+.hardware_page .handsets_block .handset_item_add_hover .add_image
+{
+    background-position: 0 -120px;
+}
+
+.hardware_page .vendors_block
+{
+    margin-bottom: 3px;
+}
+
+.hardware_page .vendors_block .section
+{
+    padding: 0px;
+}
+
+.hardware_page .vendors_block .vendor_item
+{
+    border: 1px solid transparent;
+    padding-left: 5px;
+}
+
+.hardware_page .vendors_block .vendor_item_hover
+{
+    border: 1px solid #e5e5e5;
+    background: #f5f5f5;
+    cursor: pointer;
+}
+
+.hardware_page .vendors_block .vendor_item_selected
+{
+    border: 1px solid #ccc;
+    background: #eee;
+    cursor: default;
+}
+
+.hardware_page .vendors_block .vendor_item_selected span
+{
+    cursor: default;
+}
+
+.hardware_page .vendors_block .vendor_item_hover span
+{
+    cursor: pointer;
+}
+
+.hardware_page .vendors_block .vendor_item .entity_image
+{
+    background: #fff;
+    margin-top: 3px;
+}
+
+.hardware_page .vendors_block .vendor_item .name
+{
+    display: block;
+    color: #666;
+}
+
+.hardware_page .vendors_block .vendor_item .short_name
+{
+    display: block;
+    color: #999;
+}
+
+.hardware_page .chipsets_block .section
+{
+    padding: 0;
+}
+
+.hardware_page .chipsets_block .chipset_item
+{
+    border: 1px solid transparent;
+    cursor: pointer;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.hardware_page .chipsets_block .chipset_item_hover
+{
+    cursor: pointer;
+    background: #eee;
+    border: 1px solid #ccc;
+}
+
+.hardware_page .chipsets_block .chipset_item_hover span
+{
+    cursor: pointer;
+}
+
+.hardware_page .chipsets_block .chipset_item .vendor_name
+{
+    color: #999;
+}
+
+.hardware_page .chipsets_block .chipset_item .version
+{
+    color: #666;
+}
+
+.hardware_page .chipsets_block .chipset_item .name
+{
+    color: #333;
+}

@@ -1,0 +1,5 @@
+﻿.edit_constraints_page .label_availableHandsets,
+.edit_constraints_page .label_selectedHandsets
+{
+    border-color: #e2e2e2;
+}

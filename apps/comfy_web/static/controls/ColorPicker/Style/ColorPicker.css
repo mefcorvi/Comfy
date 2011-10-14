@@ -1,0 +1,12 @@
+﻿a.color_picker_control
+{
+    display: block;
+    border: 1px solid #999;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
+a.color_picker_control:hover
+{
+    border: 1px solid #000;
+}

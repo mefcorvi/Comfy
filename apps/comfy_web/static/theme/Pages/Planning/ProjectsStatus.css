@@ -1,0 +1,53 @@
+﻿.projects_status_page .dataGrid_row 
+{
+}
+
+.projects_status_page .dataGrid_row_hovered .dataGrid_cell
+{
+    background: #E5E5E5 !important;
+}
+
+.projects_status_page .item_approved
+{
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url('~/ProjectsStatus/ok_circle.png') no-repeat center center;
+}
+
+.report_handset_selection .handset_row
+{
+    cursor: pointer;
+    color: #999;
+}
+
+.report_handset_selection .handset_repeater a
+{
+    text-decoration: none;
+}
+
+.report_handset_selection .handset_repeater a:hover
+{
+	border: 1px solid #ccc;
+    padding: 1px 4px;
+	background: url("~/sel.png") 50% 50% repeat-x;
+	color: #fff !important;
+}
+
+.project_status_cell .red_light_icon
+{
+    background-position: 0 0;
+    text-indent: 20px;
+}
+
+.project_status_cell .yellow_light_icon
+{
+    background-position: 0 -30px;
+    text-indent: 20px;
+}
+
+.project_status_cell .green_light_icon
+{
+    background-position: 0 -60px;
+    text-indent: 20px;
+}

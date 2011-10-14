@@ -1,0 +1,76 @@
+﻿.wizard_control .wizardNavigation
+{
+    background: #E5E5E5;
+    padding: 5px;
+}
+
+.wizard_control .wizardNavigation .stepLink
+{
+    display: block;
+    background: url('~step_link_bgr.png') repeat-x;
+    padding: 2px 10px;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ccc;
+    text-decoration: none;
+    font-size: 11px;
+    cursor: default;
+}
+
+.wizard_control .wizardNavigation .stepLink:hover
+{
+    background: #fff;
+}
+
+.wizard_control .wizardNavigation .stepLink_selected
+{
+    background: url('~step_link_bgr_h.png') repeat-x !important;
+}
+
+.wizard_control .wizardNavigation .stepLink div
+{
+    cursor: default;
+    color: #555;
+}
+
+.wizard_control .wizardNavigation .stepLink div.step_num
+{
+    color: #000;
+}
+
+.wizard_control .wizardNavigation .stepLink_selected div
+{
+    color: #EFE0E0;
+}
+
+.wizard_control .wizardNavigation .stepLink_selected div.step_num
+{
+    color: #fff;
+}
+
+.wizard_control .wizardNavigation .navigation_buttons
+{
+    margin-bottom: 5px;
+}
+
+.wizard_control .wizardNavigation .navigation_buttons a
+{
+    display: block;
+}
+
+.wizard_control .wizardNavigation a.link_disabled
+{
+    color: #bbb;
+    cursor: default;
+}
+
+.wizard_control .wizardNavigation a.btnNext
+{
+    text-align: right;
+}
+
+.wizard_control .wizard_content
+{
+    padding-right: 5px;
+}

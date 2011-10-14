@@ -1,0 +1,81 @@
+﻿.tabs_panel
+{
+}
+
+.tabs_panel .tab_page
+{
+    background: url("~tab_bgr.png") repeat-x left top;
+    border-color: #e0e0e0;
+}
+
+ul.tab_panel_header
+{
+    list-style: none;
+    display: block;
+    overflow: hidden;
+    zoom: 1;
+    height: 26px;
+    padding: 0;
+    margin: 0;
+}
+
+ul.tab_panel_header li
+{
+    display: block;
+    float: left;
+    height: 26px;
+    width: 100px;
+    padding: 0;
+    margin: 0;
+    color: #666;
+    padding-left: 5px;
+    background: url("~tab_not_active_bgr.png") left top no-repeat;
+}
+
+ul.tab_panel_header li a
+{
+    display: block;
+    height: 26px;
+    padding: 0;
+    margin: 0;
+    line-height: 26px;
+    padding-right: 5px;
+    background: url("~tab_not_active_bgr.png") right top no-repeat;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    outline: 0;
+    color: #666;
+}
+
+ul.tab_panel_header li.hovered
+{
+    background-position: left bottom;
+    color: #000;
+}
+
+ul.tab_panel_header li.hovered a
+{
+    background-position: right bottom;
+    color: #000;
+}
+
+ul.tab_panel_header li.active
+{
+    background-image: url("~tab_active_bgr.png");
+}
+
+ul.tab_panel_header li.active a
+{
+    background-image: url("~tab_active_bgr.png");
+}
+
+div.tab_nav_panel
+{
+    background: url("~nav_bgr.png") repeat-x left top;
+}
+
+div.tab_nav_panel a
+{
+    display: block;
+}

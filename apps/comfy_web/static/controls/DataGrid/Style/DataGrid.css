@@ -1,0 +1,141 @@
+﻿.dataGrid
+{
+	width: 100%;
+	color: #000;
+	border-color: #e6e6e6;
+	padding-top: 4px;
+	background: url("~bckg_sup_h.png") repeat-x;
+}
+
+.dataGrid .dataGrid_header .dataGrid_cell
+{
+	cursor: default;
+	border-color: #aaa !important;
+	border-left-color: #fff !important;
+	background: #f3f3f3 url("~bckg_h.png") bottom left repeat-x !important;
+	font-weight: bold !important;
+}
+
+.dataGrid .dataGrid_header .dataGrid_cell .sort_down
+{
+    width: 16px;
+    height: 20px;
+    text-decoration: none;
+    background: url("~sort_arrows.png")  no-repeat;
+    background-position: right 2px;
+    zoom: 1;
+    cursor: pointer;
+}
+
+.dataGrid .dataGrid_header .dataGrid_cell .sort_down:hover
+{
+    background: url("~sort_arrows.png")  no-repeat;
+    background-position: right -46px;
+}
+
+.dataGrid .dataGrid_header .dataGrid_cell .sort_up
+{
+    width: 16px;
+    height: 20px;
+    text-decoration: none;
+    background: url("~sort_arrows.png")  no-repeat;
+    background-position: right -23px;
+    zoom: 1;
+    cursor: pointer;
+}
+
+.dataGrid .dataGrid_header .dataGrid_cell .sort_up:hover
+{
+    background: url("~sort_arrows.png")  no-repeat;
+    background-position: right -71px;
+}
+
+.dataGrid .dataGrid_header .dataGrid_cell .sort_no
+{
+    width: 16px;
+    height: 20px;
+    text-decoration: none;
+    background: none;
+    zoom: 1;
+    cursor: pointer;
+}
+
+.dataGrid .dataGrid_row 
+{
+    
+}
+
+.dataGrid .dataGrid_header .resizable
+{
+    cursor: w-resize;
+}
+
+.dataGrid .dataGrid_row .dataGrid_cell 
+{
+	padding: 0;
+	margin: 0;
+	background: #eaeaea;
+	border-color: #fff;
+	height: 25px;
+		
+	padding: 3px 6px;
+	overflow: hidden;
+}
+
+.dataGrid .dataGrid_row.odd .dataGrid_cell
+{
+    background: #efefef;
+}
+
+.dataGrid .dataGrid_addItemPanel 
+{
+    cursor: pointer;
+	background: url("~insert_pane_bgr.png") 0 0 repeat-x;
+	color: #fff;
+	padding-left: 10px;
+}
+
+.dataGrid .dataGrid_addItemPanel.hover
+{    
+    background-position: 0 -25px;
+}
+
+.dataGrid .dataGrid_addItemPanel .plusImage 
+{
+	background: url("~plus.png") left 4px no-repeat;
+	padding-left: 20px;
+	display: block;
+	line-height: 25px;
+	height: 25px;
+}
+
+.dataGrid .dataGrid_row .editCell 
+{
+    cursor: pointer;    
+}
+
+.dataGrid .dataGrid_row .editCell.hover
+{
+	background: url("~uho_sprite.png") -21px 0px no-repeat;
+}
+
+.dataGrid .dataGrid_row .editCell.hover.pressed
+{
+	background-position: -21px -24px;
+}
+
+.dataGrid .dataGrid_row .editCell.editMode
+{
+	background: url("~uho_sprite.png") -41px 0px no-repeat;
+}
+
+.dataGrid .dataGrid_row .editCell.editMode.pressed
+{
+	background-position: -41px -24px;
+}
+
+.dataGrid_cell input 
+{
+    padding: 0px !important;
+    margin: 0px !important;
+}

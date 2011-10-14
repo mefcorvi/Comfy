@@ -1,0 +1,215 @@
+﻿.create_project_page .project_page_left_column
+{
+    margin-right: 3px;
+}
+
+.create_project_page .project_page_left_column .block_hovered .section
+{
+    background: url("~/bckg_details.png") top left repeat-x;
+    cursor: pointer;
+}
+
+.create_project_page .project_page_left_column .block_selected .section
+{
+	border-color: #aaa;
+    background: url("~/bckg_details_sel.png") top left repeat-x;
+    cursor: default;
+}
+
+.create_project_page .project_page_left_column .block_selected .section_header
+{
+	border-color: #990000;
+    background: url("~/bckg_details_h.png") top left repeat-x;
+    cursor: default;
+    color: #fff;
+}
+
+.create_project_page .project_target_panel .entity_image
+{
+    margin-right: 10px;
+}
+
+.create_project_page .project_target_panel .handset_name
+{
+    font-size: 14px;
+}
+
+.create_project_page .project_target_panel .handset_details
+{
+    font-size: 11px;
+}
+
+.create_project_page .project_scope_panel .section
+{
+    padding-top: 0px;
+}
+
+.edit_project_page .project_scope_panel .section
+{
+    padding-top: 2px;
+}
+
+.edit_project_page .project_scope_panel input
+{
+    margin: 1px;
+}
+
+.create_project_page .countries_list .country_row .entity_image
+{
+    float: left;
+    margin-right: 5px;
+}
+
+.create_project_page .countries_list .country_row
+{
+    color: #777;
+}
+
+.create_project_page .localMarket .operator_row
+{
+    color: #777;
+    cursor: pointer;
+    padding: 3px;
+    margin-right: 5px;
+}
+
+.create_project_page .localMarket .operator_row span
+{
+    padding-top: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.create_project_page .localMarket .operator_row .entity_image
+{
+    float: left;
+    margin-top: 1px;
+    margin-right: 5px;
+    background-color: #fff;
+}
+
+.create_project_page .localMarket .operator_row_selected div
+{
+    color: #000;
+    background: #eee;
+}
+
+.create_project_page .localMarket .operator_row_selected .entity_image
+{
+    border: 1px solid #666;
+}
+
+.create_project_page .localMarket .operator_selector
+{
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+.create_project_page .localMarket .countries_selector_title,
+.create_project_page .localMarket .operators_selector_title
+{
+    font-size: 13px;
+    margin-right: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.create_project_page .localMarket .countries_selector_title div,
+.create_project_page .localMarket .operators_selector_title div
+{
+    color: #666;
+}
+
+.create_project_page .project_page_left_column .collapsable_panel
+{
+    margin-bottom: 2px;
+}
+
+.create_project_page .actionbar
+{
+    background: #fff;
+    padding-top: 3px;
+}
+
+.create_project_page .link_button, .create_project_page .link_button span
+{
+    background: url('~/btn_action_bar.png') repeat-x left top;
+    color: #000;
+    text-shadow: none;
+}
+
+.create_project_page .link_button_disabled, .create_project_page .link_button_disabled span
+{
+    background: url('~/btn_action_bar.png') repeat-x left -23px !important;
+    color: #ccc !important;
+}
+
+.create_project_page .link_button_disabled
+{
+    border: 1px solid #ddd !important;
+}
+
+.create_project_page .link_button:focus, .create_project_page .link_button:focus span
+{
+    background-position: 0 0;
+}
+
+.create_project_page .link_button:hover, .create_project_page .link_button:hover span
+{
+    background-position: left -23px;
+    color: #000;
+}
+
+.create_project_page .link_button:active, .create_project_page .link_button:active span
+{
+    background-position: left -46px;
+}
+
+.create_project_page .link_button
+{
+    border: 1px solid #C2C1C1;
+    line-height: 28px;
+    padding: 4px 0 1px 10px;
+}
+
+.create_project_page .link_button span
+{
+    line-height: 17px;
+    padding: 4px 12px 0 0;
+}
+
+.create_project_page .global_target .operator_name
+{
+    border-bottom: 1px solid #eee;
+}
+
+.create_project_page .global_target .operator_name .entity_image
+{
+    float: left;
+    margin-right: 5px;
+}
+
+.create_project_page .global_target .global_countries_list .entity_image
+{
+    float: left;
+    margin-right: 5px;
+}
+
+.create_project_page .global_target .global_countries_list
+{
+    color: #666;
+}
+
+.allUsersCheckbox
+{
+    margin-left: 20px;
+    margin-top: 7px;
+}
+
+.lbl_marketConflict
+{
+    display: block;
+    font-size: 13px;
+    padding: 5px;
+}

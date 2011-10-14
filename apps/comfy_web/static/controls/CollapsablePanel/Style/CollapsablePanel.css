@@ -1,0 +1,118 @@
+﻿div.section_header a.collapse_arrow
+{
+    float: right;
+    width: 18px;
+    height: 28px;
+    display: block;
+    text-decoration: none;
+    background: url("~collapse_arrow.png") 0 0 no-repeat;
+    zoom: 1;
+    cursor: pointer;
+}
+
+div.section_header a.collapse_arrow:hover, div.section_header a.collapse_arrow:focus, div.section_header a.collapse_arrow:active
+{
+    background-position: -18px 0;
+}
+
+div.section_header a.collapse_arrow_toggled
+{
+    float: right;
+    width: 18px;
+    height: 28px;
+    display: block;
+    text-decoration: none;
+    background: url("~collapse_arrow.png") -36px 0 no-repeat;
+    zoom: 1;
+    cursor: pointer;
+}
+
+div.section_header a.collapse_arrow_toggled:focus,
+div.section_header a.collapse_arrow_toggled:hover,
+div.section_header a.collapse_arrow_toggled:active
+{
+    background-position: -54px 0;
+}
+
+div.section_header
+{
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	zoom: 1;
+	font-weight: normal;
+	background: #FFFFFF url("~bckg_details_h.png") repeat-x scroll left top;
+	height: 23px;
+	padding: 0 4px 0 4px;
+	padding-left: 10px;
+	line-height: 23px;
+	border: 1px solid #dadada;
+	margin-top: 1px;
+	color: #000;
+}
+
+div.section_header_expandable
+{
+	cursor: pointer;
+}
+
+div.section
+{
+	padding: 5px;
+	padding-left: 10px;
+	padding-bottom: 0;
+	background: #fff url("~bckg_details.png") no-repeat left top;
+	margin-top: 0px;
+	border: 1px solid #dadada;
+	border-top: 0px;
+	color: #000;
+}
+
+div.section_status
+{
+    border: 1px solid #dadada;
+    border-top: 0;
+    background: #fff url("~bgr_status_bar.png") repeat-x bottom;
+}
+
+div.section_status .status_button
+{
+    display: block;
+    border-color: #dadada;
+    line-height: 20px;
+    background: #f0f0f0 url("~bgr_status_button.png") repeat-x 0 0;
+    text-decoration: none;
+}
+
+div.section_status .status_button:hover
+{
+    background-position: 0 -24px;
+    border-color: #bababa;
+}
+
+div.section_status .status_button:active,
+div.section_status .status_button:focus
+{
+    background-position: 0 -48px;
+    border-color: #aaa;
+}
+
+div.section_status .status_label
+{
+    line-height: 24px;
+    text-align: right;
+    padding-left: 5px;
+    color: #666;
+    display: block;
+}
+
+div.section_status .status_button_first
+{
+    margin-left: 5px;
+}
+
+div.section_no_padding
+{
+    padding: 0;
+}

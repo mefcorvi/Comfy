@@ -1,0 +1,86 @@
+﻿a.link_button
+{
+	margin: 0;
+	float: none;
+	background: url("~button_bgr.png") no-repeat left top;
+	margin-right: 1px;
+	margin-left: 1px;
+	line-height: 31px;
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	overflow: hidden;
+}
+
+a.link_button:focus
+{
+	background-position: left -62px;
+}
+
+a.link_button:focus span
+{
+	background-position: right -62px;
+}
+
+.msie6 a.link_button, .msie7 a.link_button
+{
+    zoom: 1 !important;
+	padding-top: 0;
+}
+
+a.link_button span
+{
+	margin: 0;
+	padding: 0;
+	display: block;
+	float: none;
+	background: url("~button_bgr.png") no-repeat right top;
+	padding: 0 20px 12px 0;
+	text-decoration: none;
+	color: #eee;
+	line-height: 32px;
+	text-align: center;
+	cursor: pointer;
+	text-shadow: 1px 1px 0 #000;
+	white-space: nowrap;
+}
+
+a.link_button:hover
+{
+	background-position: left -31px;
+}
+
+a.link_button:hover span
+{
+	background-position: right -31px;
+	color: #fff;
+}
+
+a.link_button:active
+{
+	background-position: left -62px;
+}
+
+a.link_button:active span
+{
+	background-position: right -62px;
+}
+
+a.red_button, a.red_button span
+{
+	background-image: url("~button_red_bgr.png");
+}
+
+a.link_button_disabled, a.link_button_disabled:hover, a.link_button_disabled:active, a.link_button_disabled:focus
+{
+	background-position: left -93px;
+	cursor: default;
+}
+
+a.link_button_disabled span, a.link_button_disabled:hover span, a.link_button_disabled:active span, a.link_button_disabled:focus span
+{
+	background-position: right -93px;
+	color: #999;
+	cursor: default;
+	text-shadow: none;
+}
