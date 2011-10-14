@@ -28,7 +28,7 @@ init([]) ->
 handle_call({login, Login, Pwd}, From, State) when is_list(Login) ->
     case comfy_business_service:authorize(Login, Pwd) of
 	true ->
-	    NewPid = comfy_business_service:start_user_session(Login, Pwd),
+	    {ok, NewPid} = comfy_business_service:start_user_session(Login, Pwd),
 	    {reply, {new_server, NewPid}, State};
 	false ->
 	    {reply, {error, wrong_login_or_password}, State}

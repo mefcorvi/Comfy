@@ -34,7 +34,7 @@ teardown(Pid) ->
 
 user_success_login(Pid) ->
     meck:expect(comfy_business_service, authorize, fun("user_name", "user_pwd") -> true end),
-    meck:expect(comfy_business_service, start_user_session, fun("user_name", "user_pwd") -> new_pid end),
+    meck:expect(comfy_business_service, start_user_session, fun("user_name", "user_pwd") -> {ok, new_pid} end),
     ?assertEqual({new_server, new_pid}, gen_server:call(Pid, {login, "user_name", "user_pwd"})).
 
 user_fail_login(Pid) ->
