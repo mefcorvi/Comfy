@@ -1,6 +1,7 @@
 -module(comfy_web_server).
 -export([start/1, stop/0]).
 -include("comfy_web_log.hrl").
+-include_lib("kernel/include/file.hrl").
 
 start(Port) ->
     ?Log("Starting web server at ~p port~n", [Port]),
@@ -22,6 +23,9 @@ handle_http(Req) ->
 handle(Req, "/") ->
     handle_file(Req, "/index.html");
 
+handle(Req, "/scripts.js") ->
+    handle_file(Req, "/scripts.js");
+
 handle(Req, Uri) ->
     handle_file(Req, Uri).
 
@@ -33,9 +37,31 @@ handle_file(Req, FileName) ->
 		  end,
     FilePath = filename:join([comfy_web_config:get(docroot) ++ FileName]),
     case file:read_file_info(FilePath) of
-	{ok, _} -> Req:file(FilePath, [{"Content-Type", ContentType}]);
-	_ -> Req:respond(404, [{"Content-Type", "text/html"}], "File not found")
+	{ok, FileInfo} ->
+	    ModifyTime = httpd_util:rfc1123_date(FileInfo#file_info.mtime),
+	    Etag = httpd_util:create_etag(FileInfo),
+	    case get_header(Req, if_none_match) of
+		Etag ->
+		    Req:respond(304);
+		_ ->
+		    Req:file(FilePath, [
+					{'Content-Type', ContentType},
+					{'Cache-Control', "public"},
+					{'Last-Modified', ModifyTime},
+					{'ETag', Etag}
+				       ])
+	    end;
+	_ ->
+	    Req:respond(404, [{"Content-Type", "text/html"}], "File not found")
     end.
+
+get_header(Req, if_none_match) ->
+    Headers = Req:get(headers),
+    misultin_utility:get_key_value('If-None-Match', Headers);
+
+get_header(Req, if_modified_since) ->
+    Headers = Req:get(headers),
+    misultin_utility:get_key_value('If-Modified-Since', Headers).
     
 %%--------------------------------------------------------------------
 %% @doc Запускает цикл обработки нового веб-сокета.

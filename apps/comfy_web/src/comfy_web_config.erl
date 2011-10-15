@@ -7,6 +7,9 @@
 get(docroot) ->
     ?RootDir("static/");
 
+get(scripts_root) ->
+    ?RootDir("static/scripts/");
+
 get(data_service_pid) ->
     {comfy_server, 'comfy@127.0.0.1'};
 
