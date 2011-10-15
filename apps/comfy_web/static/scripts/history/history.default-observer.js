@@ -1,4 +1,4 @@
-﻿Type.createNamespace('History');
+Type.createNamespace('History');
 
 History.DefaultObserver = function(itemName, relatedObject, page) {
     History.DefaultObserver.constructBase(this, [itemName, relatedObject, page]);

@@ -1,4 +1,4 @@
-﻿var CustomFiltersList = function() {
+var CustomFiltersList = function() {
     this._filters = {};
 };
 

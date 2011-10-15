@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.MultiView = function() {
     Phoenix.UI.MultiView.constructBase(this);

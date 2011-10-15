@@ -1,4 +1,4 @@
-﻿Type.createNamespace('History');
+Type.createNamespace('History');
 
 History.ObservableList = function(itemName, relatedObject, page) {
     History.ObservableList.constructBase(this, [itemName, relatedObject, page]);

@@ -1,4 +1,4 @@
-﻿Trait = {
+Trait = {
     Apply: function(target, source, options) {
         var cache = source.__$traitPropertiesCache;
         

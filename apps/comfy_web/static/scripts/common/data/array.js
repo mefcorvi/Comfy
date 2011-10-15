@@ -1,4 +1,4 @@
-﻿Array.__typeName='Array';
+Array.__typeName='Array';
 
 Array.prototype.add=function Array$add(input) {
     if(!input || !(input instanceof Array)) {

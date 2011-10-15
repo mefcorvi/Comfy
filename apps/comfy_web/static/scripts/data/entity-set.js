@@ -1,4 +1,4 @@
-﻿EntitySet = {
+EntitySet = {
     init: function() {
         if (this.get_keyProperty()) {
             Repository['add_' + this._entityType.toCamelCase() + 'Saved'](this.__repository_entitySaved, this);

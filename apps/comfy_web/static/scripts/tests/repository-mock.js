@@ -1,4 +1,4 @@
-﻿mockRepository = function() {
+mockRepository = function() {
     Repository.set_dtoProcessor(dtoProcessorMock);
     Repository.set_dataService(dataServiceMock);
     

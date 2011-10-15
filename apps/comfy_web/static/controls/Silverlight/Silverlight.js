@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Silverlight = function() {
     Phoenix.UI.Silverlight.constructBase(this);

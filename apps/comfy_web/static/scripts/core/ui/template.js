@@ -1,4 +1,4 @@
-﻿Template = function(options) {
+Template = function(options) {
     if(!options)
         throw new Error('Template options must be specified');
         

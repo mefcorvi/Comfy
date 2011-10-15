@@ -1,4 +1,4 @@
-﻿var DepthManager = {
+var DepthManager = {
     __lastZIndex: 10000,
 
     getNewZIndex: function() {

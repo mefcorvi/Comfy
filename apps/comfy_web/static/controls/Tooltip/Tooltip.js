@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Tooltip = function() {
     Phoenix.UI.Tooltip.constructBase(this);

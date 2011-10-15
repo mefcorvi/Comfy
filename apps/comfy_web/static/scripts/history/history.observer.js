@@ -1,4 +1,4 @@
-﻿Type.createNamespace('History');
+Type.createNamespace('History');
 
 History.Observer = {
     _types: [],

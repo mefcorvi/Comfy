@@ -1,4 +1,4 @@
-﻿DataSource = {
+DataSource = {
     init: function (entityType, childTypes) {
         if (this.__initialized)
             return;

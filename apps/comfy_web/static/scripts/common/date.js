@@ -1,4 +1,4 @@
-﻿
+
 Date.__typeName = 'Date';
 
 Date.get_now = function Date$get_now() {

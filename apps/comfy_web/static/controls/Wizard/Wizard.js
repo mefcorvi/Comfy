@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Wizard = function() {
     Phoenix.UI.Wizard.constructBase(this);

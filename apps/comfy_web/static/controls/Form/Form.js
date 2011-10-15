@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Form = function() {
     Phoenix.UI.Form.constructBase(this);

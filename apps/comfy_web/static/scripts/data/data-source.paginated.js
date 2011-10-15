@@ -1,4 +1,4 @@
-﻿PaginatedDataSource = {
+PaginatedDataSource = {
     set_page: function(value, onSuccess) {
         if(!this.__paginateType)
             throw new Error('Pagination type not selected');

@@ -1,4 +1,4 @@
-﻿/*
+/*
 
 jQuery Browser Plugin
 * Version 2.3

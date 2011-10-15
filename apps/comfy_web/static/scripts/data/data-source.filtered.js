@@ -1,4 +1,4 @@
-﻿FilteredDataSource = {
+FilteredDataSource = {
     set_filter: function (filter) {
         if (isString(filter)) {
             filter = new DataFilter(filter);

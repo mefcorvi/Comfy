@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.TextEditor = function() {
     Phoenix.UI.TextEditor.constructBase(this);

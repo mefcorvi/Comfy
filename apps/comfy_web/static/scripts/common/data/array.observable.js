@@ -1,4 +1,4 @@
-﻿Observable = {
+Observable = {
     add: function(input, args) {
         var items = (input instanceof Array) ? input : [input];        
                

@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Nimble.Core.LayoutEngines');
+Type.createNamespace('Nimble.Core.LayoutEngines');
 
 Nimble.Core.LayoutEngines.StackLayout = function (control) {
     Nimble.Core.LayoutEngines.StackLayout.constructBase(this, [control]);

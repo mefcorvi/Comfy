@@ -1,4 +1,4 @@
-﻿var isFunction = function(o) {
+var isFunction = function(o) {
     return typeof(o) === 'function';
 };
 

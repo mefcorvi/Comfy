@@ -1,4 +1,4 @@
-﻿Phoenix.UI.TextBox.Validation = {
+Phoenix.UI.TextBox.Validation = {
     validate: function() {
         this._isValid = true;        
         

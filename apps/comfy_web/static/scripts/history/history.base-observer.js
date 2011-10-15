@@ -1,4 +1,4 @@
-﻿Type.createNamespace('History');
+Type.createNamespace('History');
 
 History.BaseObserver = function(itemName, relatedObject, page) {
     if (!page) {

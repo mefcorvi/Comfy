@@ -1,4 +1,4 @@
-﻿if (!window.Auto)
+if (!window.Auto)
     Auto = {};
 
 Object.extend(Auto, {

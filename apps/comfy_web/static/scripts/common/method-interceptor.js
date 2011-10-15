@@ -1,4 +1,4 @@
-﻿/*
+/*
 * Usage:
 *     var methodInterceptor = new MethodInterceptor(<object>, function(originalFunc, arguments) {
 *        originalFunc();

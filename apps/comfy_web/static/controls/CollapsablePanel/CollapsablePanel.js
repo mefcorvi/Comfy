@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.CollapsablePanel = function() {
     Phoenix.UI.CollapsablePanel.constructBase(this);

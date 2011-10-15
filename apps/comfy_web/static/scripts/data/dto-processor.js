@@ -1,4 +1,4 @@
-﻿var DTOProcessor = function() {
+var DTOProcessor = function() {
 
 };
 

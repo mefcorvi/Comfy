@@ -1,4 +1,4 @@
-﻿OrderedDataSource = {
+OrderedDataSource = {
     set_orderBy: function(value) {        
         if (!value || !(typeof(value) === 'string') || value === '') {
             throw new Error('incorrect order property name');

@@ -1,4 +1,4 @@
-﻿/// <reference path="Inheritance.js" />
+/// <reference path="Inheritance.js" />
 
 var CultureInfo = function(name, numberFormat, dateFormat) {
     this.name = name;

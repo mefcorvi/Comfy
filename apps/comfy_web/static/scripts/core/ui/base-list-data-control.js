@@ -1,4 +1,4 @@
-﻿var BaseListDataControl = {
+var BaseListDataControl = {
     _get_freeControls: function() {
         if (!this._freeControls) {
             this._freeControls = [];

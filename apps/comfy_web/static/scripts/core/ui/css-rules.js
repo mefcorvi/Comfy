@@ -1,4 +1,4 @@
-﻿var CSSRules = function() {
+var CSSRules = function() {
     var styleElement = DOM.create("style");
     styleElement.type = "text/css";
 

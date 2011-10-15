@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Nimble.Core.LayoutEngines');
+Type.createNamespace('Nimble.Core.LayoutEngines');
 
 Nimble.Core.LayoutEngines.GridLayout = function (control) {
     Nimble.Core.LayoutEngines.GridLayout.constructBase(this, [ control ]);

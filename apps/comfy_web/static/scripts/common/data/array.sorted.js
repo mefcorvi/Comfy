@@ -1,4 +1,4 @@
-﻿SortedArray = {
+SortedArray = {
     add: function (data, args) {        
         var items = data instanceof Array ? data : [data];
 

@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.DatePicker = function () {
     Phoenix.UI.DatePicker.constructBase(this);

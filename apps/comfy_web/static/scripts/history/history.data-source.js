@@ -1,4 +1,4 @@
-﻿Type.createNamespace('History');
+Type.createNamespace('History');
 
 History.DataSource = function(itemName, relatedObject, page) {
     History.DataSource.constructBase(this, [itemName, relatedObject, page]);

@@ -1,4 +1,4 @@
-﻿var Entity = function() {
+var Entity = function() {
     this.__type = this.get_type().get_name() + ':#Phoenix.WebServices.Contracts.Data';
     this._guid = Guid.New();
 };

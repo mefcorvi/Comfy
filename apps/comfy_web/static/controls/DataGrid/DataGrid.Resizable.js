@@ -1,4 +1,4 @@
-﻿Phoenix.UI.DataGrid.Resizable = {
+Phoenix.UI.DataGrid.Resizable = {
     _border: { none: 0, left: 1, right: 2 },
 
     _resizableBorderSize: 5,

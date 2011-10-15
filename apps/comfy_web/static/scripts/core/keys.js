@@ -1,4 +1,4 @@
-﻿var Keys = {
+var Keys = {
     Esc: 27,
     PgUp: 33,
     PgDown: 34,

@@ -1,4 +1,4 @@
-﻿/// <reference path="Function.js" />
+/// <reference path="Function.js" />
 
 required = function(obj, params) {
   if (isNullOrUndefined(obj))

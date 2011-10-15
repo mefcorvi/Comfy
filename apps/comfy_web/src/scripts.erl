@@ -13,7 +13,6 @@ get_scripts_list() ->
      "external/jquery-ui-datePicker.min.js",
      "external/jscolor.js",
      "external/hashtable.js",
-     "external/silverlight.js",
      "services/json.js",
      "common/base64.js",
      "common/debug.js",
@@ -124,7 +123,7 @@ get_controls_list() ->
 
 combine_scripts() ->
     FileName = comfy_web_config:get(docroot) ++ "scripts.js",
-    io:format("Merging scripts into \"~p\"...~n", [FileName]),
+    io:format("Merging scripts into ~p...~n", [FileName]),
     {ok, Dest} = file:open(FileName, [write]),
     append_scripts(Dest, get_scripts_list()),
     append_controls(Dest, get_controls_list()),
@@ -162,6 +161,7 @@ append_file(Dest, FileName) when is_list(FileName) ->
 	{_, 0} -> ok;
 	_ -> io:format("Warning! File ~p contains BOM.~n", [FileName])
     end,
+    file:write(Dest, <<10,13>>),
     ok = file:write(Dest, Result).
 
 get_full_path(FileName) ->

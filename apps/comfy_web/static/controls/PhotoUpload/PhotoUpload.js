@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.PhotoUpload = function() {
     Phoenix.UI.PhotoUpload.constructBase(this);

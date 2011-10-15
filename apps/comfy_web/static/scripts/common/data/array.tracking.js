@@ -1,4 +1,4 @@
-﻿Tracking = {
+Tracking = {
     isTrackingDto: function(dto) {
         return dto.__type.startsWith('TrackingCollection_');
     },

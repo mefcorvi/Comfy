@@ -1,4 +1,4 @@
-﻿var StringBuilder = function StringBuilder$(s) {
+var StringBuilder = function StringBuilder$(s) {
 
     if ((s !== undefined) && (s !== null)) {
         this._parts = [ s ];

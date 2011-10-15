@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.DataGrid = function() {
     Phoenix.UI.DataGrid.constructBase(this);

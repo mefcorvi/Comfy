@@ -1,4 +1,4 @@
-﻿///
+///
 /// Warning! It seems that control is nowhere used
 ///
 

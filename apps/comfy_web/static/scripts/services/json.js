@@ -1,4 +1,4 @@
-﻿(function($) {
+(function($) {
     $.toJSON = function(o, deepLevel) {
         var type = typeof (o);
 

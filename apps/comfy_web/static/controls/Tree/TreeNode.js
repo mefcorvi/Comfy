@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.TreeNode = function() {
     Phoenix.UI.TreeNode.constructBase(this);

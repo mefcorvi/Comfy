@@ -1,4 +1,4 @@
-﻿var dtoProcessorMock = {
+var dtoProcessorMock = {
     toEntity: function(obj) {return obj;},
     copyFromDTO: function(entity, dto, attach) {
         if (this._copyFromDtoAction) {

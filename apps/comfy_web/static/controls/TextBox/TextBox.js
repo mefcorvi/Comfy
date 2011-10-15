@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.TextBox = function() {
     Phoenix.UI.TextBox.constructBase(this);

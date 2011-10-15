@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Nimble.Core.LayoutEngines');
+Type.createNamespace('Nimble.Core.LayoutEngines');
 
 Nimble.Core.LayoutEngines.LayoutFactory = {
 	_types: {},

@@ -1,4 +1,4 @@
-﻿RegExp.parse = function(s) {
+RegExp.parse = function(s) {
     if (s.startsWith('/')) {
         var endSlashIndex = s.lastIndexOf('/');
         if (endSlashIndex > 1) {

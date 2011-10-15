@@ -1,4 +1,4 @@
-﻿var logBuffer = {};
+var logBuffer = {};
 var layoutTime = 0;
 var layoutCount = 0;
 

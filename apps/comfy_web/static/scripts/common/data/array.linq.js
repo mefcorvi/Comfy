@@ -1,4 +1,4 @@
-﻿Array.prototype.forEach = function(action, thisObject, inverse) {
+Array.prototype.forEach = function(action, thisObject, inverse) {
     var func = !!thisObject ? action.bind(thisObject) : action;
     if(!inverse)    
         for (var i = 0; i < this.length; i++) {

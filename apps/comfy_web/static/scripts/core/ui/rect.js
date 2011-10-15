@@ -1,4 +1,4 @@
-﻿var Rect = function(s) {
+var Rect = function(s) {
     this.left = 0;
     this.top = 0;
     this.right = 0;

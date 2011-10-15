@@ -1,4 +1,4 @@
-﻿Phoenix.UI.DataGrid.Selectable = {
+Phoenix.UI.DataGrid.Selectable = {
     set_dataSource: function() {
         this._selectedItems.clear();
     },

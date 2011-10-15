@@ -1,4 +1,4 @@
-﻿var DimensionUnit = function(s, s2) {
+var DimensionUnit = function(s, s2) {
     this._autoSize = false;
     this._stretchLevel = 0;
     this._isStretched = false;

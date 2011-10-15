@@ -1,4 +1,4 @@
-﻿/// <reference path="Object.js" />
+/// <reference path="Object.js" />
 /// <reference path="Data/Array.js" />
 /// <reference path="Data/Array.Linq.js" />
 if (!window.Auto)

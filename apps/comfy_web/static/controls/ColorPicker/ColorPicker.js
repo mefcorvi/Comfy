@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.ColorPicker = function() {
     Phoenix.UI.ColorPicker.constructBase(this);

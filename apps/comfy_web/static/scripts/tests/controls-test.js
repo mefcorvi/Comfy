@@ -1,4 +1,4 @@
-﻿var ControlsTest = function() {
+var ControlsTest = function() {
 };
 
 ControlsTest.prototype = {

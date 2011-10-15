@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.TabPanel = function() {
     Phoenix.UI.TabPanel.constructBase(this);

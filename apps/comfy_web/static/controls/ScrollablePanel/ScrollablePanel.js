@@ -1,4 +1,4 @@
-﻿/**
+/**
 * TODO:
 * 1) Avoid of code duplicating
 */

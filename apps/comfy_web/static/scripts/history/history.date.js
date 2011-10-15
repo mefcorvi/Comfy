@@ -1,4 +1,4 @@
-﻿Type.createNamespace('History');
+Type.createNamespace('History');
 
 History.Date = function(itemName, relatedObject, page) {
     History.Date.constructBase(this, [itemName, relatedObject, page]);

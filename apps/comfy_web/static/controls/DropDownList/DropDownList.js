@@ -1,4 +1,4 @@
-﻿Type.createNamespace('Phoenix.UI');
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.DropDownList = function() {
     Phoenix.UI.DropDownList.constructBase(this);

@@ -1,4 +1,4 @@
-﻿Repository =
+Repository =
 {
     registerEntityType: function (entityType) {
         this.__cache[entityType] = {};

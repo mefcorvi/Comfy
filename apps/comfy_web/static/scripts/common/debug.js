@@ -1,4 +1,4 @@
-﻿var Debug = {
+var Debug = {
     getCallStack: function() {
         var callstack = [];
         

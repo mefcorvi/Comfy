@@ -1,4 +1,4 @@
-﻿Type.createNamespace('History');
+Type.createNamespace('History');
 
 History.Boolean = function(itemName, relatedObject, page) {
     History.Boolean.constructBase(this, [itemName, relatedObject, page]);

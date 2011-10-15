@@ -1,4 +1,4 @@
-﻿/*
+/*
 * Usage:
 *     var proxyInterceptor = new ProxyInterceptor(<object>, function(methodName, arguments, originalFunc) {
 *        sqlconsole.log(methodName);

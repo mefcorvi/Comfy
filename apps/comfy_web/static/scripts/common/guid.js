@@ -1,4 +1,4 @@
-﻿var Guid = {
+var Guid = {
     New: function() {
 		var res = [], hv;
 		var rgx = new RegExp("[2345]");

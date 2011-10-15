@@ -1,4 +1,4 @@
-﻿
+
 var Type = Function;
 Type.__typeName = 'Type';
 

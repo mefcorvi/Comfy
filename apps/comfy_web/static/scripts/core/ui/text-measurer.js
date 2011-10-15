@@ -1,4 +1,4 @@
-﻿TextMeasurer = {
+TextMeasurer = {
     init: function(onInit) {
         var browser = $.browser;
         if (/*true || */!Silverlight.isInstalled() || browser.mozilla || (browser.msie && browser.versionNumber >= 9)) {

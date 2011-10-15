@@ -1,4 +1,5 @@
-/*!
+
+/*!
  * jQuery JavaScript Library v1.4.1
  * http://jquery.com/
  *
@@ -6076,7 +6077,8 @@ jQuery.each([ "Height", "Width" ], function( i, name ) {
 // Expose jQuery to the global object
 window.jQuery = window.$ = jQuery;
 
-})(window);/**
+})(window);
+/**
  * Cookie plugin
  *
  * Copyright (c) 2006 Klaus Hartl (stilbuero.de)
@@ -6171,7 +6173,8 @@ jQuery.cookie = function(name, value, options) {
         }
         return cookieValue;
     }
-};/* Copyright (c) 2006 Brandon Aaron (http://brandonaaron.net)
+};
+/* Copyright (c) 2006 Brandon Aaron (http://brandonaaron.net)
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) 
  * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  *
@@ -6274,7 +6277,8 @@ $.fn.bgIframe = $.fn.bgiframe = function(s) {
 if (!$.browser.version)
 	$.browser.version = navigator.userAgent.toLowerCase().match(/.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/)[1];
 
-})(jQuery);﻿/*
+})(jQuery);
+/*
 
 jQuery Browser Plugin
 * Version 2.3
@@ -6356,7 +6360,8 @@ jQuery
     };
 
     $.browserTest(navigator.userAgent);
-})(jQuery);/*
+})(jQuery);
+/*
  * jQuery history plugin
  * 
  * The MIT License
@@ -6582,7 +6587,8 @@ jQuery
     $.extend(self, implementations[self.type]);
     $.history = self;
 })(jQuery);
-/*! Copyright (c) 2009 Brandon Aaron (http://brandonaaron.net)
+
+/*! Copyright (c) 2009 Brandon Aaron (http://brandonaaron.net)
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
  * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  * Thanks to: http://adomas.org/javascript-mouse-wheel/ for some pointers.
@@ -6641,7 +6647,8 @@ function handler(event) {
 	return $.event.handle.apply(this, args);
 }
 
-})(jQuery);/*
+})(jQuery);
+/*
     Modified version of dynDateTime. Please, don't override it with original plugin.
 */
 
@@ -8736,7 +8743,8 @@ DynCalendar._TT["TIME_PART"] = "(Shift-)Click or drag to change value";
 DynCalendar._TT["DEF_DATE_FORMAT"] = "%d";
 DynCalendar._TT["TT_DATE_FORMAT"] = "%d";
 DynCalendar._TT["WK"] = "wn";
-DynCalendar._TT["TIME"] = "Time:";/*!
+DynCalendar._TT["TIME"] = "Time:";
+/*!
  * jQuery UI 1.8.1
  *
  * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
@@ -8831,7 +8839,8 @@ c=this._daylightSavingAdjust(new Date(c,e+(b<0?b:f[0]*f[1]),1));b<0&&c.setDate(t
 "dayNamesShort"),dayNames:this._get(a,"dayNames"),monthNamesShort:this._get(a,"monthNamesShort"),monthNames:this._get(a,"monthNames")}},_formatDate:function(a,b,c,e){if(!b){a.currentDay=a.selectedDay;a.currentMonth=a.selectedMonth;a.currentYear=a.selectedYear}b=b?typeof b=="object"?b:this._daylightSavingAdjust(new Date(e,c,b)):this._daylightSavingAdjust(new Date(a.currentYear,a.currentMonth,a.currentDay));return this.formatDate(this._get(a,"dateFormat"),b,this._getFormatConfig(a))}});d.fn.datepicker=
 function(a){if(!d.datepicker.initialized){d(document).mousedown(d.datepicker._checkExternalClick).find("body").append(d.datepicker.dpDiv);d.datepicker.initialized=true}var b=Array.prototype.slice.call(arguments,1);if(typeof a=="string"&&(a=="isDisabled"||a=="getDate"||a=="widget"))return d.datepicker["_"+a+"Datepicker"].apply(d.datepicker,[this[0]].concat(b));if(a=="option"&&arguments.length==2&&typeof arguments[1]=="string")return d.datepicker["_"+a+"Datepicker"].apply(d.datepicker,[this[0]].concat(b));
 return this.each(function(){typeof a=="string"?d.datepicker["_"+a+"Datepicker"].apply(d.datepicker,[this].concat(b)):d.datepicker._attachDatepicker(this,a)})};d.datepicker=new J;d.datepicker.initialized=false;d.datepicker.uuid=(new Date).getTime();d.datepicker.version="1.8.1";window["DP_jQuery_"+y]=d})(jQuery);
-;/**
+;
+/**
  * jscolor, JavaScript Color Picker
  *
  * @version 1.3.1
@@ -9671,7 +9680,8 @@ var jscolor = {
 
 
 jscolor.install();
-﻿/**
+
+/**
  * Copyright 2009 Tim Down.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -10047,897 +10057,8 @@ var Hashtable = (function() {
 	}
 
 	return Hashtable;
-})();��/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /     S i l v e r l i g h t . j s       	 	 	 v e r s i o n   4 . 0 . 5 0 4 0 1 . 0  
- / /  
- / /     T h i s   f i l e   i s   p r o v i d e d   b y   M i c r o s o f t   a s   a   h e l p e r   f i l e   f o r   w e b s i t e s   t h a t  
- / /     i n c o r p o r a t e   S i l v e r l i g h t   O b j e c t s .   T h i s   f i l e   i s   p r o v i d e d   u n d e r   t h e   M i c r o s o f t  
- / /     P u b l i c   L i c e n s e   a v a i l a b l e   a t    
- / /     h t t p : / / c o d e . m s d n . m i c r o s o f t . c o m / s i l v e r l i g h t j s / P r o j e c t / L i c e n s e . a s p x .      
- / /     Y o u   m a y   n o t   u s e   o r   d i s t r i b u t e   t h i s   f i l e   o r   t h e   c o d e   i n   t h i s   f i l e   e x c e p t   a s    
- / /     e x p r e s s l y   p e r m i t t e d   u n d e r   t h a t   l i c e n s e .  
- / /    
- / /     C o p y r i g h t   ( c )   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
-  
- i f   ( ! w i n d o w . S i l v e r l i g h t )  
- {  
-         w i n d o w . S i l v e r l i g h t   =   {   } ;  
- }  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   _ s i l v e r l i g h t C o u n t :  
- / /  
- / /   C o u n t e r   o f   g l o b a l i z e d   e v e n t   h a n d l e r s  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . _ s i l v e r l i g h t C o u n t   =   0 ;  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   _ _ o n S i l v e r l i g h t I n s t a l l e d C a l l e d :  
- / /  
- / /   P r e v e n t s   o n S i l v e r l i g h t I n s t a l l e d   f r o m   b e i n g   c a l l e d   m u l t i p l e    
- / /   t i m e s  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . _ _ o n S i l v e r l i g h t I n s t a l l e d C a l l e d   =   f a l s e ;  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   f w l i n k R o o t :  
- / /  
- / /   P r e f i x   f o r   f w l i n k   U R L ' s  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . f w l i n k R o o t = ' h t t p : / / g o 2 . m i c r o s o f t . c o m / f w l i n k / ? L i n k I D = ' ;  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   _ _ i n s t a l l a t i o n E v e n t F i r e d :  
- / /  
- / /   E n s u r e s   t h a t   o n l y   o n e   I n s t a l l a t i o n   S t a t e   e v e n t   i s   f i r e d .  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . _ _ i n s t a l l a t i o n E v e n t F i r e d   =   f a l s e ;  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /      
- / /   o n G e t S i l v e r l i g h t :  
- / /  
- / /   C a l l e d   b y   S i l v e r l i g h t . G e t S i l v e r l i g h t   t o   n o t i f y   t h e   p a g e   t h a t   a   u s e r  
- / /   h a s   r e q u e s t e d   t h e   S i l v e r l i g h t   i n s t a l l e r  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . o n G e t S i l v e r l i g h t   =   n u l l ;  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   o n S i l v e r l i g h t I n s t a l l e d :  
- / /  
- / /   C a l l e d   b y   S i l v e r l i g h t . W a i t F o r I n s t a l l C o m p l e t i o n   w h e n   t h e   p a g e   d e t e c t s  
- / /   t h a t   S i l v e r l i g h t   h a s   b e e n   i n s t a l l e d .   T h e   e v e n t   h a n d l e r   i s   n o t   c a l l e d  
- / /   i n   u p g r a d e   s c e n a r i o s .  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . o n S i l v e r l i g h t I n s t a l l e d   =   f u n c t i o n   ( )   { w i n d o w . l o c a t i o n . r e l o a d ( f a l s e ) ; } ;  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   i s I n s t a l l e d :  
- / /  
- / /   C h e c k s   t o   s e e   i f   t h e   c o r r e c t   v e r s i o n   i s   i n s t a l l e d  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . i s I n s t a l l e d   =   f u n c t i o n ( v e r s i o n )  
- {  
-         i f   ( v e r s i o n   = =   u n d e f i n e d )  
-                 v e r s i o n   =   n u l l ;  
-                  
-         v a r   i s V e r s i o n S u p p o r t e d   =   f a l s e ;  
-         v a r   c o n t a i n e r   =   n u l l ;  
-  
-         t r y  
-         {  
-                 v a r   c o n t r o l   =   n u l l ;  
-                 v a r   t r y N S   =   f a l s e ;  
-  
-                 i f   ( w i n d o w . A c t i v e X O b j e c t )  
-                 {  
-                         t r y  
-                         {  
-                                 c o n t r o l   =   n e w   A c t i v e X O b j e c t ( ' A g C o n t r o l . A g C o n t r o l ' ) ;  
-                                 i f   ( v e r s i o n   = = =   n u l l )  
-                                 {  
-                                         i s V e r s i o n S u p p o r t e d   =   t r u e ;  
-                                 }  
-                                 e l s e   i f   ( c o n t r o l . I s V e r s i o n S u p p o r t e d ( v e r s i o n ) )  
-                                 {  
-                                         i s V e r s i o n S u p p o r t e d   =   t r u e ;  
-                                 }  
-                                 c o n t r o l   =   n u l l ;  
-                         }  
-                         c a t c h   ( e )  
-                         {  
-                                 t r y N S   =   t r u e ;  
-                         }  
-                 }  
-                 e l s e  
-                 {  
-                         t r y N S   =   t r u e ;  
-                 }  
-                 i f   ( t r y N S )  
-                 {  
-                         v a r   p l u g i n   =   n a v i g a t o r . p l u g i n s [ " S i l v e r l i g h t   P l u g - I n " ] ;  
-                         i f   ( p l u g i n )  
-                         {  
-                                 i f   ( v e r s i o n   = = =   n u l l )  
-                                 {  
-                                         i s V e r s i o n S u p p o r t e d   =   t r u e ;  
-                                 }  
-                                 e l s e  
-                                 {  
-                                         v a r   a c t u a l V e r   =   p l u g i n . d e s c r i p t i o n ;  
-                                         i f   ( a c t u a l V e r   = = =   " 1 . 0 . 3 0 2 2 6 . 2 " )  
-                                                 a c t u a l V e r   =   " 2 . 0 . 3 0 2 2 6 . 2 " ;  
-                                         v a r   a c t u a l V e r A r r a y   =   a c t u a l V e r . s p l i t ( " . " ) ;  
-                                         w h i l e   ( a c t u a l V e r A r r a y . l e n g t h   >   3 )  
-                                         {  
-                                                 a c t u a l V e r A r r a y . p o p ( ) ;  
-                                         }  
-                                         w h i l e   ( a c t u a l V e r A r r a y . l e n g t h   <   4 )  
-                                         {  
-                                                 a c t u a l V e r A r r a y . p u s h ( 0 ) ;  
-                                         }  
-                                         v a r   r e q V e r A r r a y   =   v e r s i o n . s p l i t ( " . " ) ;  
-                                         w h i l e   ( r e q V e r A r r a y . l e n g t h   >   4 )  
-                                         {  
-                                                 r e q V e r A r r a y . p o p ( ) ;  
-                                         }  
-  
-                                         v a r   r e q u i r e d V e r s i o n P a r t ;  
-                                         v a r   a c t u a l V e r s i o n P a r t ;  
-                                         v a r   i n d e x   =   0 ;  
-  
-  
-                                         d o  
-                                         {  
-                                                 r e q u i r e d V e r s i o n P a r t   =   p a r s e I n t ( r e q V e r A r r a y [ i n d e x ] ) ;  
-                                                 a c t u a l V e r s i o n P a r t   =   p a r s e I n t ( a c t u a l V e r A r r a y [ i n d e x ] ) ;  
-                                                 i n d e x + + ;  
-                                         }  
-                                         w h i l e   ( i n d e x   <   r e q V e r A r r a y . l e n g t h   & &   r e q u i r e d V e r s i o n P a r t   = = =   a c t u a l V e r s i o n P a r t ) ;  
-  
-                                         i f   ( r e q u i r e d V e r s i o n P a r t   < =   a c t u a l V e r s i o n P a r t   & &   ! i s N a N ( r e q u i r e d V e r s i o n P a r t ) )  
-                                         {  
-                                                 i s V e r s i o n S u p p o r t e d   =   t r u e ;  
-                                         }  
-                                 }  
-                         }  
-                 }  
-         }  
-         c a t c h   ( e )  
-         {  
-                 i s V e r s i o n S u p p o r t e d   =   f a l s e ;  
-         }  
-          
-         r e t u r n   i s V e r s i o n S u p p o r t e d ;  
- } ;  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   W a i t F o r I n s t a l l C o m p l e t i o n :  
- / /  
- / /   O c c a s i o n a l l y   c h e c k s   f o r   S i l v e r l i g h t   i n s t a l l a t i o n   s t a t u s .   I f   i t  
- / /   d e t e c t s   t h a t   S i l v e r l i g h t   h a s   b e e n   i n s t a l l e d   t h e n   i t   c a l l s  
- / /   S i l v e r l i g h t . o n S i l v e r l i g h t I n s t a l l e d ( ) ; .   T h i s   i s   o n l y   s u p p o r t e d  
- / /   i f   S i l v e r l i g h t   w a s   n o t   p r e v i o u s l y   i n s t a l l e d   o n   t h i s   c o m p u t e r .  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . W a i t F o r I n s t a l l C o m p l e t i o n   =   f u n c t i o n ( )  
- {  
-         i f   (   !   S i l v e r l i g h t . i s B r o w s e r R e s t a r t R e q u i r e d   & &   S i l v e r l i g h t . o n S i l v e r l i g h t I n s t a l l e d   )  
-         {  
-                 t r y  
-                 {  
-                         n a v i g a t o r . p l u g i n s . r e f r e s h ( ) ;  
-                 }  
-                 c a t c h ( e )  
-                 {  
-                 }  
-                 i f   ( S i l v e r l i g h t . i s I n s t a l l e d ( n u l l )   & &   ! S i l v e r l i g h t . _ _ o n S i l v e r l i g h t I n s t a l l e d C a l l e d )  
-                 {  
-                         S i l v e r l i g h t . o n S i l v e r l i g h t I n s t a l l e d ( ) ;  
-                         S i l v e r l i g h t . _ _ o n S i l v e r l i g h t I n s t a l l e d C a l l e d   =   t r u e ;  
-                 }  
-                 e l s e  
-                 {  
-                             s e t T i m e o u t ( S i l v e r l i g h t . W a i t F o r I n s t a l l C o m p l e t i o n ,   3 0 0 0 ) ;  
-                 }          
-         }  
- } ;  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   _ _ s t a r t u p :  
- / /  
- / /   P e r f o r m s   s t a r t u p   t a s k s .    
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . _ _ s t a r t u p   =   f u n c t i o n ( )  
- {  
-         n a v i g a t o r . p l u g i n s . r e f r e s h ( ) ;  
-         S i l v e r l i g h t . i s B r o w s e r R e s t a r t R e q u i r e d   =   S i l v e r l i g h t . i s I n s t a l l e d ( n u l l ) ;  
-         i f   ( ! S i l v e r l i g h t . i s B r o w s e r R e s t a r t R e q u i r e d )  
-         {  
-                 S i l v e r l i g h t . W a i t F o r I n s t a l l C o m p l e t i o n ( ) ;  
-                 i f   ( ! S i l v e r l i g h t . _ _ i n s t a l l a t i o n E v e n t F i r e d )  
-                 {  
-                         S i l v e r l i g h t . o n I n s t a l l R e q u i r e d ( ) ;  
-                         S i l v e r l i g h t . _ _ i n s t a l l a t i o n E v e n t F i r e d   =   t r u e ;  
-                 }  
-         }  
-         e l s e   i f   ( w i n d o w . n a v i g a t o r . m i m e T y p e s )  
-         {  
-                 v a r   m i m e S L 2   =       n a v i g a t o r . m i m e T y p e s [ " a p p l i c a t i o n / x - s i l v e r l i g h t - 2 " ] ;  
-                 v a r   m i m e S L 2 b 2   =   n a v i g a t o r . m i m e T y p e s [ " a p p l i c a t i o n / x - s i l v e r l i g h t - 2 - b 2 " ] ;  
-                 v a r   m i m e S L 2 b 1   =   n a v i g a t o r . m i m e T y p e s [ " a p p l i c a t i o n / x - s i l v e r l i g h t - 2 - b 1 " ] ;  
-                 v a r   m i m e H i g h e s t B e t a   =   m i m e S L 2 b 1 ;  
-                 i f   ( m i m e S L 2 b 2 )  
-                         m i m e H i g h e s t B e t a   =   m i m e S L 2 b 2 ;  
-                          
-                 i f   ( ! m i m e S L 2   & &   ( m i m e S L 2 b 1   | |   m i m e S L 2 b 2 ) )  
-                 {  
-                         i f   ( ! S i l v e r l i g h t . _ _ i n s t a l l a t i o n E v e n t F i r e d )  
-                         {  
-                                 S i l v e r l i g h t . o n U p g r a d e R e q u i r e d ( ) ;  
-                                 S i l v e r l i g h t . _ _ i n s t a l l a t i o n E v e n t F i r e d   =   t r u e ;  
-                         }  
-                 }  
-                 e l s e   i f   ( m i m e S L 2   & &   m i m e H i g h e s t B e t a )  
-                 {  
-                         i f   ( m i m e S L 2 . e n a b l e d P l u g i n   & &  
-                                 m i m e H i g h e s t B e t a . e n a b l e d P l u g i n )  
-                         {  
-                                 i f   ( m i m e S L 2 . e n a b l e d P l u g i n . d e s c r i p t i o n   ! =  
-                                         m i m e H i g h e s t B e t a . e n a b l e d P l u g i n . d e s c r i p t i o n )  
-                                 {  
-                                         i f   ( ! S i l v e r l i g h t . _ _ i n s t a l l a t i o n E v e n t F i r e d )  
-                                         {  
-                                                 S i l v e r l i g h t . o n R e s t a r t R e q u i r e d ( ) ;  
-                                                 S i l v e r l i g h t . _ _ i n s t a l l a t i o n E v e n t F i r e d   =   t r u e ;  
-                                         }  
-                                 }  
-                         }  
-                 }  
-         }  
-         i f   ( ! S i l v e r l i g h t . d i s a b l e A u t o S t a r t u p )  
-         {  
-                 i f   ( w i n d o w . r e m o v e E v e n t L i s t e n e r )  
-                 {  
-                         w i n d o w . r e m o v e E v e n t L i s t e n e r ( ' l o a d ' ,   S i l v e r l i g h t . _ _ s t a r t u p ,   f a l s e ) ;  
-                 }  
-                 e l s e  
-                 {  
-                         w i n d o w . d e t a c h E v e n t ( ' o n l o a d ' ,   S i l v e r l i g h t . _ _ s t a r t u p ) ;  
-                 }  
-         }  
- } ;  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   T h i s   b l o c k   w i r e s   u p   S i l v e r l i g h t . _ _ s t a r t u p   t o   b e   e x e c u t e d   o n c e   t h e   p a g e  
- / /   l o a d s .   T h i s   i s   t h e   d e s i r e d   b e h a v i o r   f o r   m o s t   s i t e s .   I f ,   h o w e v e r ,   a   s i t e  
- / /   p r e f e r s   t o   c o n t r o l   t h e   t i m i n g   o f   t h e   S i l v e r l i g h t . _ _ s t a r t u p   c a l l   t h e n   i t   s h o u l d  
- / /   p u t   t h e   f o l l o w i n g   b l o c k   o f   j a v a s c r i p t   i n t o   t h e   w e b p a g e   b e f o r e   t h i s   f i l e   i s  
- / /   i n c l u d e d :  
- / /  
- / /         < s c r i p t   t y p e = " t e x t / j a v a s c r i p t " >  
- / /                 i f   ( ! w i n d o w . S i l v e r l i g h t )  
- / /                 {  
- / /                         w i n d o w . S i l v e r l i g h t   =   { } ;  
- / /                 }  
- / /                 S i l v e r l i g h t . d i s a b l e A u t o S t a r t u p   =   t r u e ;  
- / /         < / s c r i p t >    
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
-  
- i f   ( ! S i l v e r l i g h t . d i s a b l e A u t o S t a r t u p )  
- {  
-         i f   ( w i n d o w . a d d E v e n t L i s t e n e r )  
-         {  
-                 w i n d o w . a d d E v e n t L i s t e n e r ( ' l o a d ' ,   S i l v e r l i g h t . _ _ s t a r t u p ,   f a l s e ) ;  
-         }  
-         e l s e  
-         {  
-                 w i n d o w . a t t a c h E v e n t ( ' o n l o a d ' ,   S i l v e r l i g h t . _ _ s t a r t u p ) ;  
-         }  
- }  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /   c r e a t e O b j e c t :  
- / /  
- / /   I n s e r t s   a   S i l v e r l i g h t   < o b j e c t >   t a g   o r   i n s t a l l a t i o n   e x p e r i e n c e   i n t o   t h e   H T M L  
- / /   D O M   b a s e d   o n   t h e   c u r r e n t   i n s t a l l e d   s t a t e   o f   S i l v e r l i g h t .    
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
-  
- S i l v e r l i g h t . c r e a t e O b j e c t   =   f u n c t i o n ( s o u r c e ,   p a r e n t E l e m e n t ,   i d ,   p r o p e r t i e s ,   e v e n t s ,   i n i t P a r a m s ,   u s e r C o n t e x t )  
- {  
-         v a r   s l P l u g i n H e l p e r   =   n e w   O b j e c t ( ) ;  
-         v a r   s l P r o p e r t i e s   =   p r o p e r t i e s ;  
-         v a r   s l E v e n t s   =   e v e n t s ;  
-          
-         s l P l u g i n H e l p e r . v e r s i o n   =   s l P r o p e r t i e s . v e r s i o n ;  
-         s l P r o p e r t i e s . s o u r c e   =   s o u r c e ;          
-         s l P l u g i n H e l p e r . a l t   =   s l P r o p e r t i e s . a l t ;  
-          
-         / / r e n a m e   p r o p e r t i e s   t o   t h e i r   t a g   p r o p e r t y   n a m e s .   F o r   b a c w a r d s   c o m p a t i b i l i t y  
-         / / w i t h   S i l v e r l i g h t . j s   v e r s i o n   1 . 0  
-         i f   (   i n i t P a r a m s   )  
-                 s l P r o p e r t i e s . i n i t P a r a m s   =   i n i t P a r a m s ;  
-         i f   (   s l P r o p e r t i e s . i s W i n d o w l e s s   & &   ! s l P r o p e r t i e s . w i n d o w l e s s )  
-                 s l P r o p e r t i e s . w i n d o w l e s s   =   s l P r o p e r t i e s . i s W i n d o w l e s s ;  
-         i f   (   s l P r o p e r t i e s . f r a m e r a t e   & &   ! s l P r o p e r t i e s . m a x F r a m e r a t e )  
-                 s l P r o p e r t i e s . m a x F r a m e r a t e   =   s l P r o p e r t i e s . f r a m e r a t e ;  
-         i f   (   i d   & &   ! s l P r o p e r t i e s . i d )  
-                 s l P r o p e r t i e s . i d   =   i d ;  
-          
-         / /   r e m o v e   e l e m e n t s   w h i c h   a r e   n o t   t o   b e   a d d e d   t o   t h e   i n s t a n t i a t i o n   t a g  
-         d e l e t e   s l P r o p e r t i e s . i g n o r e B r o w s e r V e r ;  
-         d e l e t e   s l P r o p e r t i e s . i n p l a c e I n s t a l l P r o m p t ;  
-         d e l e t e   s l P r o p e r t i e s . v e r s i o n ;  
-         d e l e t e   s l P r o p e r t i e s . i s W i n d o w l e s s ;  
-         d e l e t e   s l P r o p e r t i e s . f r a m e r a t e ;  
-         d e l e t e   s l P r o p e r t i e s . d a t a ;  
-         d e l e t e   s l P r o p e r t i e s . s r c ;  
-         d e l e t e   s l P r o p e r t i e s . a l t ;  
-  
-  
-         / /   d e t e c t   t h a t   t h e   c o r r e c t   v e r s i o n   o f   S i l v e r l i g h t   i s   i n s t a l l e d ,   e l s e   d i s p l a y   i n s t a l l  
-  
-         i f   ( S i l v e r l i g h t . i s I n s t a l l e d ( s l P l u g i n H e l p e r . v e r s i o n ) )  
-         {  
-                 / / m o v e   u n k n o w n   e v e n t s   t o   t h e   s l P r o p e r t i e s   a r r a y  
-                 f o r   ( v a r   n a m e   i n   s l E v e n t s )  
-                 {  
-                         i f   (   s l E v e n t s [ n a m e ] )  
-                         {  
-                                 i f   (   n a m e   = =   " o n L o a d "   & &   t y p e o f   s l E v e n t s [ n a m e ]   = =   " f u n c t i o n "   & &   s l E v e n t s [ n a m e ] . l e n g t h   ! =   1   )  
-                                 {  
-                                         v a r   o n L o a d H a n d l e r   =   s l E v e n t s [ n a m e ] ;  
-                                         s l E v e n t s [ n a m e ] = f u n c t i o n   ( s e n d e r ) {   r e t u r n   o n L o a d H a n d l e r ( d o c u m e n t . g e t E l e m e n t B y I d ( i d ) ,   u s e r C o n t e x t ,   s e n d e r ) } ;  
-                                 }  
-                                 v a r   h a n d l e r N a m e   =   S i l v e r l i g h t . _ _ g e t H a n d l e r N a m e ( s l E v e n t s [ n a m e ] ) ;  
-                                 i f   (   h a n d l e r N a m e   ! =   n u l l   )  
-                                 {  
-                                         s l P r o p e r t i e s [ n a m e ]   =   h a n d l e r N a m e ;  
-                                         s l E v e n t s [ n a m e ]   =   n u l l ;  
-                                 }  
-                                 e l s e  
-                                 {  
-                                         t h r o w   " t y p e o f   e v e n t s . " + n a m e + "   m u s t   b e   ' f u n c t i o n '   o r   ' s t r i n g ' " ;  
-                                 }  
-                         }  
-                 }  
-                 s l P l u g i n H T M L   =   S i l v e r l i g h t . b u i l d H T M L ( s l P r o p e r t i e s ) ;  
-         }  
-         / / T h e   c o n t r o l   c o u l d   n o t   b e   i n s t a n t i a t e d .   S h o w   t h e   i n s t a l l a t i o n   p r o m p t  
-         e l s e    
-         {  
-                 s l P l u g i n H T M L   =   S i l v e r l i g h t . b u i l d P r o m p t H T M L ( s l P l u g i n H e l p e r ) ;  
-         }  
-  
-         / /   i n s e r t   o r   r e t u r n   t h e   H T M L  
-         i f ( p a r e n t E l e m e n t )  
-         {  
-                 p a r e n t E l e m e n t . i n n e r H T M L   =   s l P l u g i n H T M L ;  
-         }  
-         e l s e  
-         {  
-                 r e t u r n   s l P l u g i n H T M L ;  
-         }  
-  
- } ;  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /     b u i l d H T M L :  
- / /  
- / /     c r e a t e   H T M L   t h a t   i n s t a n t i a t e s   t h e   c o n t r o l  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . b u i l d H T M L   =   f u n c t i o n (   s l P r o p e r t i e s )  
- {  
-         v a r   h t m l B u i l d e r   =   [ ] ;  
-  
-         h t m l B u i l d e r . p u s h ( ' < o b j e c t   t y p e = \ " a p p l i c a t i o n / x - s i l v e r l i g h t \ "   d a t a = " d a t a : a p p l i c a t i o n / x - s i l v e r l i g h t , " ' ) ;  
-         i f   (   s l P r o p e r t i e s . i d   ! =   n u l l   )  
-         {  
-                 h t m l B u i l d e r . p u s h ( '   i d = " '   +   S i l v e r l i g h t . H t m l A t t r i b u t e E n c o d e ( s l P r o p e r t i e s . i d )   +   ' " ' ) ;  
-         }  
-         i f   (   s l P r o p e r t i e s . w i d t h   ! =   n u l l   )  
-         {  
-                 h t m l B u i l d e r . p u s h ( '   w i d t h = " '   +   s l P r o p e r t i e s . w i d t h +   ' " ' ) ;  
-         }  
-         i f   (   s l P r o p e r t i e s . h e i g h t   ! =   n u l l   )  
-         {  
-                 h t m l B u i l d e r . p u s h ( '   h e i g h t = " '   +   s l P r o p e r t i e s . h e i g h t   +   ' " ' ) ;  
-         }  
-         h t m l B u i l d e r . p u s h ( '   > ' ) ;  
-          
-         d e l e t e   s l P r o p e r t i e s . i d ;  
-         d e l e t e   s l P r o p e r t i e s . w i d t h ;  
-         d e l e t e   s l P r o p e r t i e s . h e i g h t ;  
-          
-         f o r   ( v a r   n a m e   i n   s l P r o p e r t i e s )  
-         {  
-                 i f   ( s l P r o p e r t i e s [ n a m e ] )  
-                 {  
-                         h t m l B u i l d e r . p u s h ( ' < p a r a m   n a m e = " ' + S i l v e r l i g h t . H t m l A t t r i b u t e E n c o d e ( n a m e ) + ' "   v a l u e = " ' + S i l v e r l i g h t . H t m l A t t r i b u t e E n c o d e ( s l P r o p e r t i e s [ n a m e ] ) + ' "   / > ' ) ;  
-                 }  
-         }  
-         h t m l B u i l d e r . p u s h ( ' < \ / o b j e c t > ' ) ;  
-         r e t u r n   h t m l B u i l d e r . j o i n ( ' ' ) ;  
- } ;  
-  
-  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   c r e a t e O b j e c t E x :  
- / /  
- / /   t a k e s   a   s i n g l e   p a r a m e t e r   o f   a l l   c r e a t e O b j e c t    
- / /   p a r a m e t e r s   e n c l o s e d   i n   { }  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
-  
- S i l v e r l i g h t . c r e a t e O b j e c t E x   =   f u n c t i o n ( p a r a m s )  
- {  
-         v a r   p a r a m e t e r s   =   p a r a m s ;  
-         v a r   h t m l   =   S i l v e r l i g h t . c r e a t e O b j e c t ( p a r a m e t e r s . s o u r c e ,   p a r a m e t e r s . p a r e n t E l e m e n t ,   p a r a m e t e r s . i d ,   p a r a m e t e r s . p r o p e r t i e s ,   p a r a m e t e r s . e v e n t s ,   p a r a m e t e r s . i n i t P a r a m s ,   p a r a m e t e r s . c o n t e x t ) ;  
-         i f   ( p a r a m e t e r s . p a r e n t E l e m e n t   = =   n u l l )  
-         {  
-                 r e t u r n   h t m l ;  
-         }  
- } ;  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   b u i l d P r o m p t H T M L  
- / /  
- / /   B u i l d s   t h e   H T M L   t o   p r o m p t   t h e   u s e r   t o   d o w n l o a d   a n d   i n s t a l l   S i l v e r l i g h t  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . b u i l d P r o m p t H T M L   =   f u n c t i o n ( s l P l u g i n H e l p e r )  
- {  
-         v a r   s l P l u g i n H T M L   =   " " ;  
-         v a r   u r l R o o t   =   S i l v e r l i g h t . f w l i n k R o o t ;  
-         v a r   v e r s i o n   =   s l P l u g i n H e l p e r . v e r s i o n   ;  
-         i f   (   s l P l u g i n H e l p e r . a l t   )  
-         {  
-                 s l P l u g i n H T M L   =   s l P l u g i n H e l p e r . a l t ;  
-         }  
-         e l s e  
-         {  
-                 i f   ( !   v e r s i o n )  
-                 {  
-                         v e r s i o n = " " ;  
-                 }  
-                 s l P l u g i n H T M L   =   " < a   h r e f = ' j a v a s c r i p t : S i l v e r l i g h t . g e t S i l v e r l i g h t ( \ " { 1 } \ " ) ; '   s t y l e = ' t e x t - d e c o r a t i o n :   n o n e ; ' > < i m g   s r c = ' { 2 } '   a l t = ' G e t   M i c r o s o f t   S i l v e r l i g h t '   s t y l e = ' b o r d e r - s t y l e :   n o n e ' / > < / a > " ;  
-                 s l P l u g i n H T M L   =   s l P l u g i n H T M L . r e p l a c e ( ' { 1 } ' ,   v e r s i o n ) ;  
-                 s l P l u g i n H T M L   =   s l P l u g i n H T M L . r e p l a c e ( ' { 2 } ' ,   u r l R o o t   +   ' 1 0 8 1 8 1 ' ) ;  
-         }  
-          
-         r e t u r n   s l P l u g i n H T M L ;  
- } ;  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   g e t S i l v e r l i g h t :  
- / /  
- / /   N a v i g a t e s   t h e   b r o w s e r   t o   t h e   a p p r o p r i a t e   S i l v e r l i g h t   i n s t a l l e r  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . g e t S i l v e r l i g h t   =   f u n c t i o n ( v e r s i o n )  
- {  
-         i f   ( S i l v e r l i g h t . o n G e t S i l v e r l i g h t   )  
-         {  
-                 S i l v e r l i g h t . o n G e t S i l v e r l i g h t ( ) ;  
-         }  
-          
-         v a r   s h o r t V e r   =   " " ;  
-         v a r   r e q V e r A r r a y   =   S t r i n g ( v e r s i o n ) . s p l i t ( " . " ) ;  
-         i f   ( r e q V e r A r r a y . l e n g t h   >   1 )  
-         {  
-                 v a r   m a j o r N u m   =   p a r s e I n t ( r e q V e r A r r a y [ 0 ]   ) ;  
-                 i f   (   i s N a N ( m a j o r N u m )   | |   m a j o r N u m   <   2   )  
-                 {  
-                         s h o r t V e r   =   " 1 . 0 " ;  
-                 }  
-                 e l s e  
-                 {  
-                         s h o r t V e r   =   r e q V e r A r r a y [ 0 ] + ' . ' + r e q V e r A r r a y [ 1 ] ;  
-                 }  
-         }  
-          
-         v a r   v e r A r g   =   " " ;  
-          
-         i f   ( s h o r t V e r . m a t c h ( / ^ \ d + \ 0 5 6 \ d + $ / )   )  
-         {  
-                 v e r A r g   =   " & v = " + s h o r t V e r ;  
-         }  
-          
-         S i l v e r l i g h t . f o l l o w F W L i n k ( " 1 4 9 1 5 6 "   +   v e r A r g ) ;  
- } ;  
-  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   f o l l o w F W L i n k :  
- / /  
- / /   N a v i g a t e s   t o   a   u r l   b a s e d   o n   f w l i n k i d  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . f o l l o w F W L i n k   =   f u n c t i o n ( l i n k i d )  
- {  
-         t o p . l o c a t i o n = S i l v e r l i g h t . f w l i n k R o o t + S t r i n g ( l i n k i d ) ;  
- } ;  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   H t m l A t t r i b u t e E n c o d e :  
- / /  
- / /   E n c o d e s   s p e c i a l   c h a r a c t e r s   i n   i n p u t   s t r i n g s   a s   c h a r c o d e s  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . H t m l A t t r i b u t e E n c o d e   =   f u n c t i o n (   s t r I n p u t   )  
- {  
-             v a r   c ;  
-             v a r   r e t V a l   =   ' ' ;  
-  
-         i f ( s t r I n p u t   = =   n u l l )  
-             {  
-                     r e t u r n   n u l l ;  
-         }  
-              
-             f o r ( v a r   c n t   =   0 ;   c n t   <   s t r I n p u t . l e n g t h ;   c n t + + )  
-             {  
-                         c   =   s t r I n p u t . c h a r C o d e A t ( c n t ) ;  
-  
-                         i f   ( (   (   c   >   9 6   )   & &   (   c   <   1 2 3   )   )   | |  
-                                     (   (   c   >   6 4   )   & &   (   c   <   9 1   )   )   | |  
-                                     (   (   c   >   4 3   )   & &   (   c   <   5 8   )   & &   ( c ! = 4 7 ) )   | |  
-                                     (   c   = =   9 5   ) )  
-                         {  
-                                     r e t V a l   =   r e t V a l   +   S t r i n g . f r o m C h a r C o d e ( c ) ;  
-                         }  
-                         e l s e  
-                         {  
-                                     r e t V a l   =   r e t V a l   +   ' & # '   +   c   +   ' ; ' ;  
-                         }  
-             }  
-              
-             r e t u r n   r e t V a l ;  
- } ;  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /     d e f a u l t _ e r r o r _ h a n d l e r :  
- / /  
- / /     D e f a u l t   e r r o r   h a n d l i n g   f u n c t i o n    
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
-  
- S i l v e r l i g h t . d e f a u l t _ e r r o r _ h a n d l e r   =   f u n c t i o n   ( s e n d e r ,   a r g s )  
- {  
-         v a r   i E r r o r C o d e ;  
-         v a r   e r r o r T y p e   =   a r g s . E r r o r T y p e ;  
-  
-         i E r r o r C o d e   =   a r g s . E r r o r C o d e ;  
-  
-         v a r   e r r M s g   =   " \ n S i l v e r l i g h t   e r r o r   m e s s a g e           \ n "   ;  
-  
-         e r r M s g   + =   " E r r o r C o d e :   " +   i E r r o r C o d e   +   " \ n " ;  
-  
-  
-         e r r M s g   + =   " E r r o r T y p e :   "   +   e r r o r T y p e   +   "               \ n " ;  
-         e r r M s g   + =   " M e s s a g e :   "   +   a r g s . E r r o r M e s s a g e   +   "           \ n " ;  
-  
-         i f   ( e r r o r T y p e   = =   " P a r s e r E r r o r " )  
-         {  
-                 e r r M s g   + =   " X a m l F i l e :   "   +   a r g s . x a m l F i l e   +   "           \ n " ;  
-                 e r r M s g   + =   " L i n e :   "   +   a r g s . l i n e N u m b e r   +   "           \ n " ;  
-                 e r r M s g   + =   " P o s i t i o n :   "   +   a r g s . c h a r P o s i t i o n   +   "           \ n " ;  
-         }  
-         e l s e   i f   ( e r r o r T y p e   = =   " R u n t i m e E r r o r " )  
-         {  
-                 i f   ( a r g s . l i n e N u m b e r   ! =   0 )  
-                 {  
-                         e r r M s g   + =   " L i n e :   "   +   a r g s . l i n e N u m b e r   +   "           \ n " ;  
-                         e r r M s g   + =   " P o s i t i o n :   "   +     a r g s . c h a r P o s i t i o n   +   "           \ n " ;  
-                 }  
-                 e r r M s g   + =   " M e t h o d N a m e :   "   +   a r g s . m e t h o d N a m e   +   "           \ n " ;  
-         }  
-         a l e r t   ( e r r M s g ) ;  
- } ;  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   _ _ c l e a n u p :  
- / /  
- / /   R e l e a s e s   e v e n t   h a n d l e r   r e s o u r c e s   w h e n   t h e   p a g e   i s   u n l o a d e d  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . _ _ c l e a n u p   =   f u n c t i o n   ( )  
- {  
-         f o r   ( v a r   i   =   S i l v e r l i g h t . _ s i l v e r l i g h t C o u n t   -   1 ;   i   > =   0 ;   i - - )   {  
-                 w i n d o w [ ' _ _ s l E v e n t '   +   i ]   =   n u l l ;  
-         }  
-         S i l v e r l i g h t . _ s i l v e r l i g h t C o u n t   =   0 ;  
-         i f   ( w i n d o w . r e m o v e E v e n t L i s t e n e r )   {    
-               w i n d o w . r e m o v e E v e n t L i s t e n e r ( ' u n l o a d ' ,   S i l v e r l i g h t . _ _ c l e a n u p   ,   f a l s e ) ;  
-         }  
-         e l s e   {    
-                 w i n d o w . d e t a c h E v e n t ( ' o n u n l o a d ' ,   S i l v e r l i g h t . _ _ c l e a n u p   ) ;  
-         }  
- } ;  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   _ _ g e t H a n d l e r N a m e :  
- / /  
- / /   G e n e r a t e s   n a m e d   e v e n t   h a n d l e r s   f o r   d e l e g a t e s .  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . _ _ g e t H a n d l e r N a m e   =   f u n c t i o n   ( h a n d l e r )  
- {  
-         v a r   h a n d l e r N a m e   =   " " ;  
-         i f   (   t y p e o f   h a n d l e r   = =   " s t r i n g " )  
-         {  
-                 h a n d l e r N a m e   =   h a n d l e r ;  
-         }  
-         e l s e   i f   (   t y p e o f   h a n d l e r   = =   " f u n c t i o n "   )  
-         {  
-                 i f   ( S i l v e r l i g h t . _ s i l v e r l i g h t C o u n t   = =   0 )  
-                 {  
-                         i f   ( w i n d o w . a d d E v e n t L i s t e n e r )    
-                         {  
-                                 w i n d o w . a d d E v e n t L i s t e n e r ( ' u n l o a d ' ,   S i l v e r l i g h t . _ _ c l e a n u p   ,   f a l s e ) ;  
-                         }  
-                         e l s e    
-                         {  
-                                 w i n d o w . a t t a c h E v e n t ( ' o n u n l o a d ' ,   S i l v e r l i g h t . _ _ c l e a n u p   ) ;  
-                         }  
-                 }  
-                 v a r   c o u n t   =   S i l v e r l i g h t . _ s i l v e r l i g h t C o u n t + + ;  
-                 h a n d l e r N a m e   =   " _ _ s l E v e n t " + c o u n t ;  
-                  
-                 w i n d o w [ h a n d l e r N a m e ] = h a n d l e r ;  
-         }  
-         e l s e  
-         {  
-                 h a n d l e r N a m e   =   n u l l ;  
-         }  
-         r e t u r n   h a n d l e r N a m e ;  
- } ;  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /      
- / /   o n R e q u i r e d V e r s i o n A v a i l a b l e :  
- / /  
- / /   C a l l e d   b y   v e r s i o n     v e r i f i c a t i o n   c o n t r o l   t o   n o t i f y   t h e   p a g e   t h a t  
- / /   a n   a p p r o p r i a t e   b u i l d   o f   S i l v e r l i g h t   i s   a v a i l a b l e .   T h e   p a g e    
- / /   s h o u l d   r e s p o n d   b y   i n j e c t i n g   t h e   a p p r o p r i a t e   S i l v e r l i g h t   c o n t r o l  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . o n R e q u i r e d V e r s i o n A v a i l a b l e   =   f u n c t i o n ( )    
- {  
-  
- } ;  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /      
- / /   o n R e s t a r t R e q u i r e d :  
- / /  
- / /   C a l l e d   b y   v e r s i o n   v e r i f i c a t i o n   c o n t r o l   t o   n o t i f y   t h e   p a g e   t h a t  
- / /   a n   a p p r o p r i a t e   b u i l d   o f   S i l v e r l i g h t   i s   i n s t a l l e d   b u t   n o t   l o a d e d .    
- / /   T h e   p a g e   s h o u l d   r e s p o n d   b y   i n j e c t i n g   a   c l e a r   a n d   v i s i b l e    
- / /   " T h a n k s   f o r   i n s t a l l i n g .   P l e a s e   r e s t a r t   y o u r   b r o w s e r   a n d   r e t u r n  
- / /   t o   m y s i t e . c o m "   o r   e q u i v a l e n t   i n t o   t h e   b r o w s e r   D O M  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . o n R e s t a r t R e q u i r e d   =   f u n c t i o n ( )    
- {  
-  
- } ;  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /      
- / /   o n U p g r a d e R e q u i r e d :  
- / /  
- / /   C a l l e d   b y   v e r s i o n   v e r i f i c a t i o n   c o n t r o l   t o   n o t i f y   t h e   p a g e   t h a t  
- / /   S i l v e r l i g h t   m u s t   b e   u p g r a d e d .   T h e   p a g e   s h o u l d   r e s p o n d   b y    
- / /   i n j e c t i n g   a   c l e a r ,   v i s i b l e ,   a n d   a c t i o n a b l e   u p g r a d e   m e s s a g e   i n t o  
- / /   t h e   D O M .   T h e   m e s s a g e   m u s t   i n f o r m   t h e   u s e r   t h a t   t h e y   n e e d   t o    
- / /   u p g r a d e   S i l v e r l i g h t   t o   u s e   t h e   p a g e .   T h e y   a r e   a l r e a d y   s o m e w h a t  
- / /   f a m i l i a r   w i t h   t h e   S i l v e r l i g h t   p r o d u c t   w h e n   t h e y   e n c o u n t e r   t h i s .  
- / /   S i l v e r l i g h t   s h o u l d   b e   m e n t i o n e d   s o   t h e   u s e r   e x p e c t s   t o   s e e   t h a t  
- / /   s t r i n g   i n   t h e   i n s t a l l e r   U I .   H o w e v e r ,   t h e   S i l v e r l i g h t - p o w e r e d  
- / /   a p p l i c a t i o n   s h o u l d   b e   t h e   f o c u s   o f   t h e   s o l i c i t a t i o n .   T h e   u s e r  
- / /   w a n t s   t h e   a p p .   S i l v e r l i g h t   i s   a   m e a n s   t o   t h e   a p p .  
- / /    
- / /   T h e   u p g r a d e   s o l i c i t a t i o n   w i l l   h a v e   a   b u t t o n   t h a t   d i r e c t s    
- / /   t h e   u s e r   t o   t h e   S i l v e r l i g h t   i n s t a l l e r .   U p o n   c l i c k   t h e   b u t t o n  
- / /   s h o u l d   b o t h   k i c k   o f f   a   d o w n l o a d   o f   t h e   i n s t a l l e r   U R L   a n d   r e p l a c e  
- / /   t h e   U p g r a d e   t e x t   w i t h   " T h a n k s   f o r   d o w n l o a d i n g .   W h e n   t h e   u p g a r d e  
- / /   i s   c o m p l e t e   p l e a s e   r e s t a r t   y o u r   b r o w s e r   a n d   r e t u r n   t o    
- / /   m y s i t e . c o m "   o r   e q u i v a l e n t .  
- / /  
- / /   N o t e :   F o r   a   m o r e   i n t e r e s t i n g   u p g r a d e   U X   w e   c a n   u s e   S i l v e r l i g h t  
- / /   1 . 0 - s t y l e   X A M L   f o r   t h i s   u p g r a d e   e x p e r i e n c e .   C o n t a c t   P i o t r P   f o r  
- / /   d e t a i l s .  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . o n U p g r a d e R e q u i r e d   =   f u n c t i o n ( )    
- {  
-  
- } ;  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /      
- / /   o n I n s t a l l R e q u i r e d :  
- / /  
- / /   C a l l e d   b y   S i l v e r l i g h t . c h e c k I n s t a l l S t a t u s   t o   n o t i f y   t h e   p a g e  
- / /   t h a t   S i l v e r l i g h t   h a s   n o t   b e e n   i n s t a l l e d   b y   t h i s   u s e r .  
- / /   T h e   p a g e   s h o u l d   r e s p o n d   b y    
- / /   i n j e c t i n g   a   c l e a r ,   v i s i b l e ,   a n d   a c t i o n a b l e   u p g r a d e   m e s s a g e   i n t o  
- / /   t h e   D O M .   T h e   m e s s a g e   m u s t   i n f o r m   t h e   u s e r   t h a t   t h e y   n e e d   t o    
- / /   d o w n l o a d   a n d   i n s t a l l   c o m p o n e n t s   n e e d e d   t o   u s e   t h e   p a g e .    
- / /   S i l v e r l i g h t   s h o u l d   b e   m e n t i o n e d   s o   t h e   u s e r   e x p e c t s   t o   s e e   t h a t  
- / /   s t r i n g   i n   t h e   i n s t a l l e r   U I .   H o w e v e r ,   t h e   S i l v e r l i g h t - p o w e r e d  
- / /   a p p l i c a t i o n   s h o u l d   b e   t h e   f o c u s   o f   t h e   s o l i c i t a t i o n .   T h e   u s e r  
- / /   w a n t s   t h e   a p p .   S i l v e r l i g h t   i s   a   m e a n s   t o   t h e   a p p .  
- / /    
- / /   T h e   i n s t a l l a t i o n   s o l i c i t a t i o n   w i l l   h a v e   a   b u t t o n   t h a t   d i r e c t s    
- / /   t h e   u s e r   t o   t h e   S i l v e r l i g h t   i n s t a l l e r .   U p o n   c l i c k   t h e   b u t t o n  
- / /   s h o u l d   b o t h   k i c k   o f f   a   d o w n l o a d   o f   t h e   i n s t a l l e r   U R L   a n d   r e p l a c e  
- / /   t h e   U p g r a d e   t e x t   w i t h   " T h a n k s   f o r   d o w n l o a d i n g .   W h e n   i n s t a l l a t i o n  
- / /   i s   c o m p l e t e   y o u   m a y   n e e d   t o   r e f r e s h   t h e   p a g e   t o   v i e w   t h i s    
- / /   c o n t e n t "   o r   e q u i v a l e n t .  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . o n I n s t a l l R e q u i r e d   =   f u n c t i o n ( )    
- {  
-  
- } ;  
-  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /      
- / /   I s V e r s i o n A v a i l a b l e O n E r r o r :  
- / /  
- / /   T h i s   f u n c t i o n   s h o u l d   b e   c a l l e d   a t   t h e   b e g i n n i n g   o f   a   w e b   p a g e ' s  
- / /   S i l v e r l i g h t   e r r o r   h a n d l e r .   I t   w i l l   d e t e r m i n e   i f   t h e   r e q u i r e d    
- / /   v e r s i o n   o f   S i l v e r l i g h t   i s   i n s t a l l e d   a n d   a v a i l a b l e   i n   t h e    
- / /   c u r r e n t   p r o c e s s .  
- / /  
- / /   D u r i n g   i t s   e x e c u t i o n   t h e   f u n c t i o n   w i l l   t r i g g e r   o n e   o f   t h e    
- / /   S i l v e r l i g h t   i n s t a l l a t i o n   s t a t e   e v e n t s ,   i f   a p p r o p r i a t e .  
- / /  
- / /   S e n d e r   a n d   A r g s   s h o u l d   b e   p a s s e d   t h r o u g h   f r o m     t h e   c a l l i n g  
- / /   o n E r r o r   h a n d l e r ' s   p a r a m e t e r s .    
- / /  
- / /   T h e   a s s o c i a t e d   S i v l e r l i g h t   < o b j e c t >   t a g   m u s t   h a v e  
- / /   m i n R u n t i m e V e r s i o n   s e t   a n d   s h o u l d   h a v e   a u t o U p g r a d e   s e t   t o   f a l s e .  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . I s V e r s i o n A v a i l a b l e O n E r r o r   =   f u n c t i o n ( s e n d e r ,   a r g s )  
- {  
-         v a r   r e t V a l   =   f a l s e ;  
-         t r y  
-         {  
-                 i f   ( a r g s . E r r o r C o d e   = =   8 0 0 1   & &   ! S i l v e r l i g h t . _ _ i n s t a l l a t i o n E v e n t F i r e d )  
-                 {  
-                         S i l v e r l i g h t . o n U p g r a d e R e q u i r e d ( ) ;  
-                         S i l v e r l i g h t . _ _ i n s t a l l a t i o n E v e n t F i r e d   =   t r u e ;  
-                 }  
-                 e l s e   i f   ( a r g s . E r r o r C o d e   = =   8 0 0 2   & &   ! S i l v e r l i g h t . _ _ i n s t a l l a t i o n E v e n t F i r e d )  
-                 {  
-                         S i l v e r l i g h t . o n R e s t a r t R e q u i r e d ( ) ;  
-                         S i l v e r l i g h t . _ _ i n s t a l l a t i o n E v e n t F i r e d   =   t r u e ;  
-                 }  
-                 / /   t h i s   h a n d l e s   u p g r a d e s   f r o m   1 . 0 .   T h a t   c o n t r o l   d i d   n o t  
-                 / /   u n d e r s t a n d   t h e   m i n R u n t i m e V e r i s o n   p a r a m e t e r .   I t   a l s o  
-                 / /   d i d   n o t   k n o w   h o w   t o   p a r s e   X A P   f i l e s ,   s o   w o u l d   t h r o w  
-                 / /   P a r s e   E r r o r   ( 5 0 1 4 ) .   A   B e t a   2   c o n t r o l   m a y   t h r o w   2 1 0 6  
-                 e l s e   i f   ( a r g s . E r r o r C o d e   = =   5 0 1 4   | |   a r g s . E r r o r C o d e   = =   2 1 0 6 )  
-                 {  
-                         i f   ( S i l v e r l i g h t . _ _ v e r i f y S i l v e r l i g h t 2 U p g r a d e S u c c e s s ( a r g s . g e t H o s t ( ) ) )  
-                         {  
-                                 r e t V a l   =   t r u e ;  
-                         }  
-                 }  
-                 e l s e  
-                 {  
-                         r e t V a l   =   t r u e ;  
-                 }  
-         }  
-         c a t c h   ( e )  
-         {  
-         }  
-         r e t u r n   r e t V a l ;  
- } ;  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /      
- / /   I s V e r s i o n A v a i l a b l e O n L o a d :  
- / /  
- / /   T h i s   f u n c t i o n   s h o u l d   b e   c a l l e d   a t   t h e   b e g i n n i n g   o f   a   w e b   p a g e ' s  
- / /   S i l v e r l i g h t   o n L o a d   h a n d l e r .   I t   w i l l   d e t e r m i n e   i f   t h e   r e q u i r e d    
- / /   v e r s i o n   o f   S i l v e r l i g h t   i s   i n s t a l l e d   a n d   a v a i l a b l e   i n   t h e    
- / /   c u r r e n t   p r o c e s s .  
- / /  
- / /   D u r i n g   i t s   e x e c u t i o n   t h e   f u n c t i o n   w i l l   t r i g g e r   o n e   o f   t h e    
- / /   S i l v e r l i g h t   i n s t a l l a t i o n   s t a t e   e v e n t s ,   i f   a p p r o p r i a t e .  
- / /  
- / /   S e n d e r   s h o u l d   b e   p a s s e d   t h r o u g h   f r o m     t h e   c a l l i n g  
- / /   o n E r r o r   h a n d l e r ' s   p a r a m e t e r s .    
- / /  
- / /   T h e   a s s o c i a t e d   S i v l e r l i g h t   < o b j e c t >   t a g   m u s t   h a v e  
- / /   m i n R u n t i m e V e r s i o n   s e t   a n d   s h o u l d   h a v e   a u t o U p g r a d e   s e t   t o   f a l s e .  
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . I s V e r s i o n A v a i l a b l e O n L o a d   =   f u n c t i o n ( s e n d e r )  
- {  
-         v a r   r e t V a l   =   f a l s e ;  
-         t r y  
-         {  
-                 i f   ( S i l v e r l i g h t . _ _ v e r i f y S i l v e r l i g h t 2 U p g r a d e S u c c e s s ( s e n d e r . g e t H o s t ( ) ) )  
-                 {  
-                         r e t V a l   =   t r u e ;  
-                 }  
-         }  
-         c a t c h   ( e )  
-         {  
-         }  
-         r e t u r n   r e t V a l ;  
- } ;  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- / /  
- / /   _ _ v e r i f y S i l v e r l i g h t 2 U p g r a d e S u c c e s s :  
- / /  
- / /   T h i s   i n t e r n a l   f u n c t i o n   h e l p s   i d e n t i f y   i n s t a l l a t i o n   s t a t e   b y  
- / /   t a k i n g   a d v a n t a g e   o f   b e h a v i o r a l   d i f f e r e n c e s   b e t w e e n   t h e  
- / /   1 . 0   a n d   2 . 0   r e l e a s e s   o f   S i l v e r l i g h t .    
- / /  
- / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
- S i l v e r l i g h t . _ _ v e r i f y S i l v e r l i g h t 2 U p g r a d e S u c c e s s   =   f u n c t i o n ( h o s t )  
- {  
-         v a r   r e t V a l   =   f a l s e ;  
-         v a r   v e r s i o n   =   " 4 . 0 . 5 0 4 0 1 " ;  
-         v a r   i n s t a l l a t i o n E v e n t   =   n u l l ;  
-  
-         t r y  
-         {  
-                 i f   ( h o s t . I s V e r s i o n S u p p o r t e d ( v e r s i o n   +   " . 9 9 " ) )  
-                 {  
-                         i n s t a l l a t i o n E v e n t   =   S i l v e r l i g h t . o n R e q u i r e d V e r s i o n A v a i l a b l e ;  
-                         r e t V a l   =   t r u e ;  
-                 }  
-                 e l s e   i f   ( h o s t . I s V e r s i o n S u p p o r t e d ( v e r s i o n   +   " . 0 " ) )  
-                 {  
-                         i n s t a l l a t i o n E v e n t   =   S i l v e r l i g h t . o n R e s t a r t R e q u i r e d ;  
-                 }  
-                 e l s e  
-                 {  
-                         i n s t a l l a t i o n E v e n t   =   S i l v e r l i g h t . o n U p g r a d e R e q u i r e d ;  
-                 }  
-  
-                 i f   ( i n s t a l l a t i o n E v e n t   & &   ! S i l v e r l i g h t . _ _ i n s t a l l a t i o n E v e n t F i r e d )  
-                 {  
-                         i n s t a l l a t i o n E v e n t ( ) ;  
-                         S i l v e r l i g h t . _ _ i n s t a l l a t i o n E v e n t F i r e d   =   t r u e ;  
-                 }  
-         }  
-         c a t c h   ( e )  
-         {  
-         }  
-         r e t u r n   r e t V a l ;  
- } ; ﻿(function($) {
+})();
+(function($) {
     $.toJSON = function(o, deepLevel) {
         var type = typeof (o);
 
@@ -11077,7 +10198,8 @@ var Hashtable = (function() {
         '"': '\\"',
         '\\': '\\\\'
     };
-})(jQuery);﻿var Base64 = {
+})(jQuery);
+var Base64 = {
 	// private property
 	_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
 
@@ -11209,7 +10331,8 @@ var Hashtable = (function() {
 
 		return string;
 	}
-}﻿var Debug = {
+}
+var Debug = {
     getCallStack: function() {
         var callstack = [];
         
@@ -11339,7 +10462,8 @@ if (!console.error) {
 
 Error.prototype.toString = function() {
     return this.name + '\r\n' + this.message + '\r\n' + (this.description || '');
-}﻿var isFunction = function(o) {
+}
+var isFunction = function(o) {
     return typeof(o) === 'function';
 };
 
@@ -11404,7 +10528,8 @@ Function.prototype.when = function(condition) {
         window.clearInterval(intervalId);
         func();
     }, delay);
-};﻿/// <reference path="Function.js" />
+};
+/// <reference path="Function.js" />
 
 required = function(obj, params) {
   if (isNullOrUndefined(obj))
@@ -11556,7 +10681,8 @@ Object.getPropertyValue = function(obj, propName) {
 //        return this.toString() === right.toString();
 //        
 //    return this.hash() === right.hash();
-//};﻿var Guid = {
+//};
+var Guid = {
     New: function() {
 		var res = [], hv;
 		var rgx = new RegExp("[2345]");
@@ -11574,7 +10700,8 @@ Object.getPropertyValue = function(obj, propName) {
 		
 		return res.join('');
     }
-};﻿/*
+};
+/*
 * Usage:
 *     var methodInterceptor = new MethodInterceptor(<object>, function(originalFunc, arguments) {
 *        originalFunc();
@@ -11623,7 +10750,8 @@ MethodInterceptor.prototype = {
 
         this._oldFunc = {};
     }
-};﻿/*
+};
+/*
 * Usage:
 *     var proxyInterceptor = new ProxyInterceptor(<object>, function(methodName, arguments, originalFunc) {
 *        sqlconsole.log(methodName);
@@ -11670,7 +10798,8 @@ ProxyInterceptor.prototype = {
 
         this._oldFunc = {};
     }
-};﻿Array.__typeName='Array';
+};
+Array.__typeName='Array';
 
 Array.prototype.add=function Array$add(input) {
     if(!input || !(input instanceof Array)) {
@@ -11989,7 +11118,8 @@ Array.prototype.merge = function Array$merge(source, comparer, args) {
     }, this);
         
     this.add(toAdd, args);
-};﻿Array.prototype.forEach = function(action, thisObject, inverse) {
+};
+Array.prototype.forEach = function(action, thisObject, inverse) {
     var func = !!thisObject ? action.bind(thisObject) : action;
     if(!inverse)    
         for (var i = 0; i < this.length; i++) {
@@ -12177,7 +11307,8 @@ Array.prototype.sum = function Array$sum(summator, thisObject) {
     });
 
     return result;
-};﻿if (!window.Auto)
+};
+if (!window.Auto)
     Auto = {};
 
 Object.extend(Auto, {
@@ -12267,7 +11398,8 @@ Object.extend(Auto, {
         
         target.dispose.__eventDisposing = true;
     }
-});﻿/// <reference path="Object.js" />
+});
+/// <reference path="Object.js" />
 /// <reference path="Data/Array.js" />
 /// <reference path="Data/Array.Linq.js" />
 if (!window.Auto)
@@ -12461,7 +11593,8 @@ Auto.Property.CreateLink = function(obj1, obj2, property1, property2) {
     obj2['add_' + property2 + 'Changed'](linkInfo._obj2Handler, linkInfo);
 
     return linkInfo;
-};﻿Trait = {
+};
+Trait = {
     Apply: function(target, source, options) {
         var cache = source.__$traitPropertiesCache;
         
@@ -12545,7 +11678,8 @@ Auto.Property.CreateLink = function(obj1, obj2, property1, property2) {
         else        
             object[funcName].__traits.add(newFunc);
     }
-};﻿Observable = {
+};
+Observable = {
     add: function(input, args) {
         var items = (input instanceof Array) ? input : [input];        
                
@@ -12745,7 +11879,8 @@ Array.prototype.makeObservable = function() {
     this.__observable = true;
     
     return this;
-};﻿SortedArray = {
+};
+SortedArray = {
     add: function (data, args) {        
         var items = data instanceof Array ? data : [data];
 
@@ -12901,7 +12036,8 @@ Array.prototype.makeSorted = function(comparer) {
     this.sort();
     
     return this;
-};﻿Tracking = {
+};
+Tracking = {
     isTrackingDto: function(dto) {
         return dto.__type.startsWith('TrackingCollection_');
     },
@@ -12957,7 +12093,8 @@ Array.prototype.makeTracking = function(entityType) {
     this.__tracking = true;
     
     return this;
-};﻿
+};
+
 var Type = Function;
 Type.__typeName = 'Type';
 
@@ -13208,7 +12345,8 @@ Type.getType = function Type$getType(typeName) {
         Type.__typeCache[typeName] = type;
     }
     return type;
-}﻿var StringBuilder = function StringBuilder$(s) {
+}
+var StringBuilder = function StringBuilder$(s) {
 
     if ((s !== undefined) && (s !== null)) {
         this._parts = [ s ];
@@ -13243,7 +12381,8 @@ StringBuilder.prototype = {
     }
 };
 
-StringBuilder.createClass('StringBuilder');﻿RegExp.parse = function(s) {
+StringBuilder.createClass('StringBuilder');
+RegExp.parse = function(s) {
     if (s.startsWith('/')) {
         var endSlashIndex = s.lastIndexOf('/');
         if (endSlashIndex > 1) {
@@ -13268,7 +12407,8 @@ RegExp.escape = function(text) {
     }
     
     return text.replace(arguments.callee.sRE, '\\$1');
-}﻿
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // String Extensions
 
@@ -13623,7 +12763,8 @@ String.leftPad = function (val, size, ch) {
     }
     
     return result;
-};﻿///////////////////////////////////////////////////////////////////////////////
+};
+///////////////////////////////////////////////////////////////////////////////
 // Boolean Extensions
 
 Boolean.parse = function(str) {
@@ -13637,7 +12778,8 @@ Boolean.parse = function(str) {
         return false;
     
     throw new Error('Cannot parse bool. Valid values are "true", "false"');
-};﻿
+};
+
 Date.__typeName = 'Date';
 
 Date.get_now = function Date$get_now() {
@@ -13869,7 +13011,8 @@ Date.prototype.getGMTOffset = function() {
 
 Date.prototype.isValid = function Date$isValid() {
     return !isNaN(this.getTime());
-};﻿/// <reference path="Inheritance.js" />
+};
+/// <reference path="Inheritance.js" />
 
 var CultureInfo = function(name, numberFormat, dateFormat) {
     this.name = name;
@@ -13934,7 +13077,8 @@ CultureInfo.Neutral = new CultureInfo('en-US',
         shortMonthNames: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','']
     });
     
-CultureInfo.Current = CultureInfo.Neutral;﻿$get = function(id) {
+CultureInfo.Current = CultureInfo.Neutral;
+$get = function(id) {
     return document.getElementById(id);
 };
 
@@ -14246,7 +13390,8 @@ var DOM = {
     isTextNode: function(node) {
         return node.nodeType == 3 || (node.childNodes.length == 1 && node.childNodes[0].nodeType == 3);
     }
-};﻿var QueueProcessor = function(callback) {
+};
+var QueueProcessor = function(callback) {
     if (callback) {
         this.add_processed(callback, this);
     }
@@ -14319,7 +13464,8 @@ Auto.Events(QueueProcessor.prototype, [
     'processed'
 ]);
 
-QueueProcessor.createClass('QueueProcessor');﻿var DTOProcessor = function() {
+QueueProcessor.createClass('QueueProcessor');
+var DTOProcessor = function() {
 
 };
 
@@ -14485,7 +13631,8 @@ Object.extend(DTOProcessor.prototype, {
             target.synchronize(sourceDto, null, args);
         }
     }
-}); ﻿Repository =
+}); 
+Repository =
 {
     registerEntityType: function (entityType) {
         this.__cache[entityType] = {};
@@ -15031,7 +14178,8 @@ Auto.Events(Repository, [
 ]);
 
 Repository.set_dtoProcessor(new DTOProcessor());
-Repository.set_dataService(Services.DataService);﻿var Entity = function() {
+Repository.set_dataService(Services.DataService);
+var Entity = function() {
     this.__type = this.get_type().get_name() + ':#Phoenix.WebServices.Contracts.Data';
     this._guid = Guid.New();
 };
@@ -15109,7 +14257,8 @@ Auto.Properties(Entity.prototype, [
 	{ name: 'guid' }
 ]);
 
-Entity.createClass('Entity');﻿EntitySet = {
+Entity.createClass('Entity');
+EntitySet = {
     init: function() {
         if (this.get_keyProperty()) {
             Repository['add_' + this._entityType.toCamelCase() + 'Saved'](this.__repository_entitySaved, this);
@@ -15218,7 +14367,8 @@ Array.prototype.makeEntitySet = function(owner, entityType, keyProperty, keyValu
         this.set_keyValue(keyValue);
         
     return this;
-};﻿var CustomFiltersList = function() {
+};
+var CustomFiltersList = function() {
     this._filters = {};
 };
 
@@ -15358,7 +14508,8 @@ Auto.Events(DataFilter.prototype, [
     'filterChanged'
 ]);
 
-DataFilter.createClass('DataFilter');﻿DataSource = {
+DataFilter.createClass('DataFilter');
+DataSource = {
     init: function (entityType, childTypes) {
         if (this.__initialized)
             return;
@@ -15628,7 +14779,8 @@ Array.prototype.makeDataSource = function(entityTypeName, callback, childTypes) 
 
 Auto.Properties(DataSource, [
     { name: 'count', autoEvent: true }
-]);﻿FilteredDataSource = {
+]);
+FilteredDataSource = {
     set_filter: function (filter) {
         if (isString(filter)) {
             filter = new DataFilter(filter);
@@ -15731,7 +14883,8 @@ DataSource.filterBy = function(filter, onSuccess) {
     this.__isFiltered = true;
     
     return this;
-};﻿PaginatedDataSource = {
+};
+PaginatedDataSource = {
     set_page: function(value, onSuccess) {
         if(!this.__paginateType)
             throw new Error('Pagination type not selected');
@@ -15866,7 +15019,8 @@ DataSource.paginate = function(pageSize, onSuccess) {
     }
     
     return this;
-};﻿OrderedDataSource = {
+};
+OrderedDataSource = {
     set_orderBy: function(value) {        
         if (!value || !(typeof(value) === 'string') || value === '') {
             throw new Error('incorrect order property name');
@@ -16147,7 +15301,8 @@ DataSource.orderBy = function(orderBy) {
     this.sort();
         
     return this;
-};﻿Type.createNamespace('History');
+};
+Type.createNamespace('History');
 
 History.Observer = {
     _types: [],
@@ -16175,7 +15330,8 @@ History.Observer = {
         return new (this._getObserverForValue(value, itemType))(itemName, relatedObject, page);
     }
 };
-﻿Type.createNamespace('History');
+
+Type.createNamespace('History');
 
 History.BaseObserver = function(itemName, relatedObject, page) {
     if (!page) {
@@ -16221,7 +15377,8 @@ History.BaseObserver.prototype = {
     }
 };
 
-History.BaseObserver.createClass('History.BaseObserver');﻿Type.createNamespace('History');
+History.BaseObserver.createClass('History.BaseObserver');
+Type.createNamespace('History');
 
 History.DefaultObserver = function(itemName, relatedObject, page) {
     History.DefaultObserver.constructBase(this, [itemName, relatedObject, page]);
@@ -16234,7 +15391,8 @@ History.DefaultObserver.canObserve = function(obj, type) {
 History.DefaultObserver.prototype = {
 };
 
-History.DefaultObserver.createClass('History.DefaultObserver', History.BaseObserver);﻿Type.createNamespace('History');
+History.DefaultObserver.createClass('History.DefaultObserver', History.BaseObserver);
+Type.createNamespace('History');
 
 History.DataSource = function(itemName, relatedObject, page) {
     History.DataSource.constructBase(this, [itemName, relatedObject, page]);
@@ -16448,7 +15606,8 @@ History.DataSource.prototype = {
 };
 
 History.Observer.registerObserver(History.DataSource);
-History.DataSource.createClass('History.DataSource', History.BaseObserver);﻿Type.createNamespace('History');
+History.DataSource.createClass('History.DataSource', History.BaseObserver);
+Type.createNamespace('History');
 
 History.ObservableList = function(itemName, relatedObject, page) {
     History.ObservableList.constructBase(this, [itemName, relatedObject, page]);
@@ -16554,7 +15713,8 @@ History.ObservableList.prototype = {
 };
 
 History.Observer.registerObserver(History.ObservableList);
-History.ObservableList.createClass('History.ObservableList', History.BaseObserver);﻿Type.createNamespace('History');
+History.ObservableList.createClass('History.ObservableList', History.BaseObserver);
+Type.createNamespace('History');
 
 History.Boolean = function(itemName, relatedObject, page) {
     History.Boolean.constructBase(this, [itemName, relatedObject, page]);
@@ -16615,7 +15775,8 @@ History.Boolean.prototype = {
 };
 
 History.Observer.registerObserver(History.Boolean);
-History.Boolean.createClass('History.Boolean', History.BaseObserver);﻿Type.createNamespace('History');
+History.Boolean.createClass('History.Boolean', History.BaseObserver);
+Type.createNamespace('History');
 
 History.Date = function(itemName, relatedObject, page) {
     History.Date.constructBase(this, [itemName, relatedObject, page]);
@@ -16678,7 +15839,8 @@ History.Date.prototype = {
 };
 
 History.Observer.registerObserver(History.Date);
-History.Date.createClass('History.Date', History.BaseObserver);﻿var Keys = {
+History.Date.createClass('History.Date', History.BaseObserver);
+var Keys = {
     Esc: 27,
     PgUp: 33,
     PgDown: 34,
@@ -16688,7 +15850,8 @@ History.Date.createClass('History.Date', History.BaseObserver);﻿var Keys = {
     Up: 38,
     Right: 39,
     Down: 40
-}﻿TextMeasurer = {
+}
+TextMeasurer = {
     init: function(onInit) {
         var browser = $.browser;
         if (/*true || */!Silverlight.isInstalled() || browser.mozilla || (browser.msie && browser.versionNumber >= 9)) {
@@ -16747,7 +15910,8 @@ History.Date.createClass('History.Date', History.BaseObserver);﻿var Keys = {
 
         TextMeasurer.__onInit();
     }
-};﻿var CSSRules = function() {
+};
+var CSSRules = function() {
     var styleElement = DOM.create("style");
     styleElement.type = "text/css";
 
@@ -16781,7 +15945,8 @@ History.Date.createClass('History.Date', History.BaseObserver);﻿var Keys = {
         init: init,
         dispose: dispose
     }
-} ();﻿var DimensionUnit = function(s, s2) {
+} ();
+var DimensionUnit = function(s, s2) {
     this._autoSize = false;
     this._stretchLevel = 0;
     this._isStretched = false;
@@ -16917,7 +16082,8 @@ Object.extend(DimensionUnit.prototype, {
             
         return result;
     }
-});﻿var Rect = function(s) {
+});
+var Rect = function(s) {
     this.left = 0;
     this.top = 0;
     this.right = 0;
@@ -16968,7 +16134,8 @@ Object.extend(Rect.prototype, {
     toString: function() {
         return "{0}px {1}px {2}px {3}px".format(this.top, this.right, this.bottom, this.left);
     }
-});PageUri = {
+});
+PageUri = {
     parseUri: function(pageUri) {
         var uriParts = pageUri.split('|');
         var uri = uriParts[0];
@@ -17040,7 +16207,8 @@ Object.extend(Rect.prototype, {
     getParamsPart: function(pageUri) {
         return PageUri.parseUri(pageUri).params;
     }
-};﻿var ApplicationContext = function() {
+};
+var ApplicationContext = function() {
     this._items = {};
 };
 
@@ -17067,7 +16235,8 @@ ApplicationContext.prototype = {
     }
 };
 
-ApplicationContext.createClass('ApplicationContext');// public static Application
+ApplicationContext.createClass('ApplicationContext');
+// public static Application
 Application =
 {
     _configuration: null,
@@ -17592,7 +16761,8 @@ Auto.Events(Application, [
     'onUpdating',
     'onUpdated',
     'onSiteMapInitialized'
-]);Configuration = function() { };
+]);
+Configuration = function() { };
 
 Configuration.prototype = {
     _configuration: null,
@@ -17660,7 +16830,8 @@ Configuration.prototype = {
     }
 };
 
-Configuration.createClass('Configuration');﻿Type.createNamespace('Nimble.Core.LayoutEngines');
+Configuration.createClass('Configuration');
+Type.createNamespace('Nimble.Core.LayoutEngines');
 
 Nimble.Core.LayoutEngines.LayoutFactory = {
 	_types: {},
@@ -17680,7 +16851,8 @@ Nimble.Core.LayoutEngines.LayoutFactory = {
 		
 		Nimble.Core.LayoutEngines.LayoutFactory._types[type] = layoutType;
 	}
-};﻿var DepthManager = {
+};
+var DepthManager = {
     __lastZIndex: 10000,
 
     getNewZIndex: function() {
@@ -17688,7 +16860,8 @@ Nimble.Core.LayoutEngines.LayoutFactory = {
 
         return DepthManager.__lastZIndex;
     }
-};﻿var Color = {
+};
+var Color = {
     GetForeground: function (backgroundColor) {
         var 
             re=/^\#(\w{2})(\w{2})(\w{2})$/,
@@ -17712,7 +16885,8 @@ Nimble.Core.LayoutEngines.LayoutFactory = {
         var rint = Math.round(0xffffff * (Math.random() * 0.7 + 0.3));
         return ('#0'+rint.toString(16)).replace(/^#0([0-9a-f]{6})$/i,'#$1');
     }
-};﻿var logBuffer = {};
+};
+var logBuffer = {};
 var layoutTime = 0;
 var layoutCount = 0;
 
@@ -18181,7 +17355,8 @@ Nimble.Core.LayoutEngines.BaseLayout.prototype = {
     }
 };
 
-Nimble.Core.LayoutEngines.BaseLayout.createClass('Nimble.Core.LayoutEngines.BaseLayout');﻿Type.createNamespace('Nimble.Core.LayoutEngines');
+Nimble.Core.LayoutEngines.BaseLayout.createClass('Nimble.Core.LayoutEngines.BaseLayout');
+Type.createNamespace('Nimble.Core.LayoutEngines');
 
 Nimble.Core.LayoutEngines.StackLayout = function (control) {
     Nimble.Core.LayoutEngines.StackLayout.constructBase(this, [control]);
@@ -18551,7 +17726,8 @@ Nimble.Core.LayoutEngines.StackLayout.prototype = {
 };
 
 Nimble.Core.LayoutEngines.StackLayout.createClass('Nimble.Core.LayoutEngines.StackLayout', Nimble.Core.LayoutEngines.BaseLayout);
-Nimble.Core.LayoutEngines.LayoutFactory.register('stack', Nimble.Core.LayoutEngines.StackLayout);﻿Type.createNamespace('Nimble.Core.LayoutEngines');
+Nimble.Core.LayoutEngines.LayoutFactory.register('stack', Nimble.Core.LayoutEngines.StackLayout);
+Type.createNamespace('Nimble.Core.LayoutEngines');
 
 Nimble.Core.LayoutEngines.GridLayout = function (control) {
     Nimble.Core.LayoutEngines.GridLayout.constructBase(this, [ control ]);
@@ -18986,7 +18162,8 @@ Nimble.Core.LayoutEngines.GridLayout.prototype = {
 };
 
 Nimble.Core.LayoutEngines.GridLayout.createClass('Nimble.Core.LayoutEngines.GridLayout', Nimble.Core.LayoutEngines.BaseLayout);
-Nimble.Core.LayoutEngines.LayoutFactory.register('grid', Nimble.Core.LayoutEngines.GridLayout);﻿Type.createNamespace('Nimble.Core.LayoutEngines');
+Nimble.Core.LayoutEngines.LayoutFactory.register('grid', Nimble.Core.LayoutEngines.GridLayout);
+Type.createNamespace('Nimble.Core.LayoutEngines');
 
 Nimble.Core.LayoutEngines.WrapLayout = function (control) {
     Nimble.Core.LayoutEngines.WrapLayout.constructBase(this, [ control ]);
@@ -19182,7 +18359,8 @@ Nimble.Core.LayoutEngines.WrapLayout.prototype = {
 };
 
 Nimble.Core.LayoutEngines.WrapLayout.createClass('Nimble.Core.LayoutEngines.WrapLayout', Nimble.Core.LayoutEngines.StackLayout);
-Nimble.Core.LayoutEngines.LayoutFactory.register('wrap', Nimble.Core.LayoutEngines.WrapLayout);if (typeof(Controls) == 'undefined') {
+Nimble.Core.LayoutEngines.LayoutFactory.register('wrap', Nimble.Core.LayoutEngines.WrapLayout);
+if (typeof(Controls) == 'undefined') {
     Controls = [];
     Controls.count = 0;
 }
@@ -20831,7 +20009,8 @@ Auto.Properties(Control.prototype, [
     { name: 'disabledCssClass' }
 ]);
 
-Control.createClass('Control');var ControlsCollection = {
+Control.createClass('Control');
+var ControlsCollection = {
     _owner: null,
     _controlsInFlow: null,
     _itemOptions: null,
@@ -21039,7 +20218,8 @@ Array.prototype.makeControlsCollection = function(owner) {
     this.eventsEnabled = true;
     
     return this;
-};ControlsFactory = {
+};
+ControlsFactory = {
 	_types: {},
 	
 	create: function(type) {
@@ -21057,7 +20237,8 @@ Array.prototype.makeControlsCollection = function(owner) {
 		
 		ControlsFactory._types[type] = controlType;
 	}
-};﻿Template = function(options) {
+};
+Template = function(options) {
     if(!options)
         throw new Error('Template options must be specified');
         
@@ -21086,7 +20267,8 @@ Template.prototype = {
     }
 };
 
-Template.createClass('Template');﻿var BaseListDataControl = {
+Template.createClass('Template');
+var BaseListDataControl = {
     _get_freeControls: function() {
         if (!this._freeControls) {
             this._freeControls = [];
@@ -21328,7 +20510,8 @@ Template.createClass('Template');﻿var BaseListDataControl = {
         
         this._checkEmptiness();
     }
-};Type.createNamespace('Phoenix.UI');
+};
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Panel = function() {
     Phoenix.UI.Panel.constructBase(this);
@@ -21422,7 +20605,8 @@ Phoenix.UI.Panel.prototype = {
 };
 
 Phoenix.UI.Panel.createClass('Phoenix.UI.Panel', Control);
-ControlsFactory.registerControl('panel', Phoenix.UI.Panel);Type.createNamespace('Phoenix.UI');
+ControlsFactory.registerControl('panel', Phoenix.UI.Panel);
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Repeater = function() {
     Phoenix.UI.Repeater.constructBase(this);
@@ -21507,7 +20691,8 @@ Auto.Properties(Phoenix.UI.Repeater.prototype, [
 
 Phoenix.UI.Repeater.createClass('Phoenix.UI.Repeater', Phoenix.UI.Panel);
 ControlsFactory.registerControl('repeater', Phoenix.UI.Repeater);
-Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Button = function() {
     Phoenix.UI.Button.constructBase(this);
@@ -21600,7 +20785,8 @@ Auto.Properties(Phoenix.UI.Button.prototype, [
 ]);
 
 Phoenix.UI.Button.createClass('Phoenix.UI.Button', Control);
-ControlsFactory.registerControl('button', Phoenix.UI.Button);﻿Type.createNamespace('Phoenix.UI');
+ControlsFactory.registerControl('button', Phoenix.UI.Button);
+Type.createNamespace('Phoenix.UI');
 
 var CheckBoxStates = {
     empty: 0,
@@ -21750,7 +20936,8 @@ Auto.Properties(Phoenix.UI.Checkbox.prototype, [
 
 Phoenix.UI.Checkbox.createClass('Phoenix.UI.Checkbox', Control);
 ControlsFactory.registerControl('checkbox', Phoenix.UI.Checkbox);
-﻿///
+
+///
 /// Warning! It seems that control is nowhere used
 ///
 
@@ -21898,7 +21085,8 @@ Auto.Properties(Phoenix.UI.CheckList.prototype, [
 ]);
 
 Phoenix.UI.CheckList.createClass('Phoenix.UI.CheckList', Phoenix.UI.Panel);
-ControlsFactory.registerControl('checkList', Phoenix.UI.CheckList);﻿Type.createNamespace('Phoenix.UI');
+ControlsFactory.registerControl('checkList', Phoenix.UI.CheckList);
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.CollapsablePanel = function() {
     Phoenix.UI.CollapsablePanel.constructBase(this);
@@ -22295,7 +21483,8 @@ Auto.Properties(Phoenix.UI.CollapsablePanel.prototype, [
 
 Phoenix.UI.CollapsablePanel.createClass('Phoenix.UI.CollapsablePanel', Phoenix.UI.Panel);
 ControlsFactory.registerControl('collapsablePanel', Phoenix.UI.CollapsablePanel);
-﻿Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Container = function() {
     Phoenix.UI.Container.constructBase(this);
@@ -22331,7 +21520,8 @@ Auto.Properties(Phoenix.UI.Container.prototype, [
 
 Phoenix.UI.Container.createClass('Phoenix.UI.Container', Control);
 ControlsFactory.registerControl('container', Phoenix.UI.Container);
-﻿Phoenix.UI.DataGrid.Editable = {
+
+Phoenix.UI.DataGrid.Editable = {
     _buildRow: function(properties, id, cssClass, allowBinding, cellControlGetter, rowProperties, createdRow) {        
         var cell = this._createEmptyCell();
         cell.id = 'editCell';
@@ -22490,7 +21680,8 @@ ControlsFactory.registerControl('container', Phoenix.UI.Container);
 
 Phoenix.UI.DataGrid.prototype.makeEditable = function() {
     Trait.Apply(this, Phoenix.UI.DataGrid.Editable);
-};﻿Phoenix.UI.DataGrid.Resizable = {
+};
+Phoenix.UI.DataGrid.Resizable = {
     _border: { none: 0, left: 1, right: 2 },
 
     _resizableBorderSize: 5,
@@ -22651,7 +21842,8 @@ Phoenix.UI.DataGrid.prototype.makeResizable = function (options) {
     }
 
     this.__resizable = true;
-};﻿Phoenix.UI.DataGrid.Selectable = {
+};
+Phoenix.UI.DataGrid.Selectable = {
     set_dataSource: function() {
         this._selectedItems.clear();
     },
@@ -22803,7 +21995,8 @@ Phoenix.UI.DataGrid.prototype.makeSelectable = function(options) {
     
     this.set_selectedItems([].makeObservable());
     this._selectionMode = options.selectionMode || 'multiple';
-};﻿Type.createNamespace('Phoenix.UI');
+};
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.DataGrid = function() {
     Phoenix.UI.DataGrid.constructBase(this);
@@ -23446,7 +22639,8 @@ Auto.Properties(Phoenix.UI.DataGrid.prototype, [
 
 Phoenix.UI.DataGrid.createClass('Phoenix.UI.DataGrid', Phoenix.UI.Repeater);
 ControlsFactory.registerControl('dataGrid', Phoenix.UI.DataGrid);
-﻿Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.DatePicker = function () {
     Phoenix.UI.DatePicker.constructBase(this);
@@ -23559,7 +22753,8 @@ ControlsFactory.registerControl('datePicker', Phoenix.UI.DatePicker);
 
 Auto.Properties(Phoenix.UI.DatePicker.prototype, [
     { name: 'date', autoEvent: true }
-]);﻿Type.createNamespace('Phoenix.UI');
+]);
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.DropDownList = function() {
     Phoenix.UI.DropDownList.constructBase(this);
@@ -24334,7 +23529,8 @@ Auto.Events(Phoenix.UI.DropDownList.prototype, [
 
 Phoenix.UI.DropDownList.createClass('Phoenix.UI.DropDownList', Control);
 ControlsFactory.registerControl('dropDownList', Phoenix.UI.DropDownList);
-﻿Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.FileUpload = function() {
     Phoenix.UI.FileUpload.constructBase(this);
@@ -24494,7 +23690,8 @@ Auto.Events(Phoenix.UI.Button.prototype, [
 
 Phoenix.UI.FileUpload.createClass('Phoenix.UI.FileUpload', Phoenix.UI.Button);
 ControlsFactory.registerControl('fileUpload', Phoenix.UI.FileUpload);
-﻿Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.PhotoUpload = function() {
     Phoenix.UI.PhotoUpload.constructBase(this);
@@ -24609,7 +23806,8 @@ Auto.Events(Phoenix.UI.Panel.prototype, [
 
 Phoenix.UI.PhotoUpload.createClass('Phoenix.UI.PhotoUpload', Phoenix.UI.Panel);
 ControlsFactory.registerControl('photoUpload', Phoenix.UI.PhotoUpload);
-Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Image = function() {
     Phoenix.UI.Image.constructBase(this);
@@ -24703,7 +23901,8 @@ Phoenix.UI.Image.prototype = {
 
 Phoenix.UI.Image.createClass('Phoenix.UI.Image', Control);
 ControlsFactory.registerControl('image', Phoenix.UI.Image);
-﻿Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Label = function() {
     Phoenix.UI.Label.constructBase(this);
@@ -24816,7 +24015,8 @@ ControlsFactory.registerControl('label', Phoenix.UI.Label);
 Auto.Properties(Phoenix.UI.Label.prototype, [
     { name: 'text' },
     { name: 'format'}
-]);Type.createNamespace('Phoenix.UI');
+]);
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Link = function() {
     Phoenix.UI.Link.constructBase(this);
@@ -24911,7 +24111,8 @@ Auto.Events(Phoenix.UI.Link.prototype, [
 
 Phoenix.UI.Link.createClass('Phoenix.UI.Link', Control);
 ControlsFactory.registerControl('link', Phoenix.UI.Link);
-Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.ListView = function() {
     Phoenix.UI.ListView.constructBase(this);
@@ -25046,7 +24247,8 @@ Auto.Events(Phoenix.UI.ListView.prototype, [
 
 Phoenix.UI.ListView.createClass('Phoenix.UI.ListView', Phoenix.UI.Panel);
 ControlsFactory.registerControl('listView', Phoenix.UI.ListView);
-Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Literal = function() {
     Phoenix.UI.Literal.constructBase(this);
@@ -25123,7 +24325,8 @@ Auto.Properties(Phoenix.UI.Literal.prototype, [
 
 Phoenix.UI.Literal.createClass('Phoenix.UI.Literal', Control);
 ControlsFactory.registerControl('literal', Phoenix.UI.Literal);
-/**
+
+/**
  * Page class
  
  * @inherits Control
@@ -25371,7 +24574,8 @@ Auto.Properties(Page.prototype, [
     { name: 'params' }
 ]);
 
-Page.createClass('Page', Phoenix.UI.Panel);﻿Type.createNamespace('Phoenix.UI');
+Page.createClass('Page', Phoenix.UI.Panel);
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Frame = function() {
     Phoenix.UI.Frame.constructBase(this);
@@ -25447,7 +24651,8 @@ ControlsFactory.registerControl('frame', Phoenix.UI.Frame);
 
 Auto.Properties(Phoenix.UI.Frame.prototype, [
     { name: 'uri' }
-]);﻿Type.createNamespace('Phoenix.UI');
+]);
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Form = function() {
     Phoenix.UI.Form.constructBase(this);
@@ -25523,7 +24728,8 @@ Phoenix.UI.Form.prototype = {
 };
 
 Phoenix.UI.Form.createClass('Phoenix.UI.Form', Phoenix.UI.Panel);
-ControlsFactory.registerControl('form', Phoenix.UI.Form);﻿Type.createNamespace('Phoenix.UI');
+ControlsFactory.registerControl('form', Phoenix.UI.Form);
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Pager = function() {
     Phoenix.UI.Pager.constructBase(this);
@@ -25744,7 +24950,8 @@ Auto.Properties(Phoenix.UI.Pager.prototype, [
 
 Phoenix.UI.Pager.createClass('Phoenix.UI.Pager', Phoenix.UI.Panel);
 ControlsFactory.registerControl('pager', Phoenix.UI.Pager);
-﻿Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Popup = function() {
     Phoenix.UI.Popup.constructBase(this);
@@ -26179,7 +25386,8 @@ Auto.Events(Phoenix.UI.Popup.prototype, [
 
 Phoenix.UI.Popup.createClass('Phoenix.UI.Popup', Control);
 ControlsFactory.registerControl('popup', Phoenix.UI.Popup);
-﻿/**
+
+/**
 * TODO:
 * 1) Avoid of code duplicating
 */
@@ -26744,7 +25952,8 @@ Auto.Properties(Phoenix.UI.ScrollablePanel.prototype, [
 
 Phoenix.UI.ScrollablePanel.createClass('Phoenix.UI.ScrollablePanel', Control);
 ControlsFactory.registerControl('scrollablePanel', Phoenix.UI.ScrollablePanel);
-﻿Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Silverlight = function() {
     Phoenix.UI.Silverlight.constructBase(this);
@@ -26834,7 +26043,8 @@ Auto.Events(Phoenix.UI.Silverlight.prototype, [
 
 Phoenix.UI.Silverlight.createClass('Phoenix.UI.Silverlight', Control);
 ControlsFactory.registerControl('silverlight', Phoenix.UI.Silverlight);
-﻿Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Slider = function() {
     Phoenix.UI.Slider.constructBase(this);
@@ -27051,7 +26261,8 @@ Auto.Properties(Phoenix.UI.Slider.prototype, [
 
 Phoenix.UI.Slider.createClass('Phoenix.UI.Slider', Control);
 ControlsFactory.registerControl('slider', Phoenix.UI.Slider);
-﻿Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Table = function() {
     Phoenix.UI.Table.constructBase(this);
@@ -27146,7 +26357,8 @@ Auto.Properties(Phoenix.UI.Table.prototype, [
 
 Phoenix.UI.Table.createClass('Phoenix.UI.Table', Control);
 ControlsFactory.registerControl('table', Phoenix.UI.Table);
-﻿Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.TabPanel = function() {
     Phoenix.UI.TabPanel.constructBase(this);
@@ -27363,7 +26575,8 @@ Auto.Properties(Phoenix.UI.Tab.prototype, [
 Phoenix.UI.TabPanel.createClass('Phoenix.UI.TabPanel', Control);
 Phoenix.UI.Tab.createClass('Phoenix.UI.Tab', Control);
 ControlsFactory.registerControl('tabPanel', Phoenix.UI.TabPanel);
-ControlsFactory.registerControl('_tab', Phoenix.UI.Tab);﻿Phoenix.UI.TextBox.Validation = {
+ControlsFactory.registerControl('_tab', Phoenix.UI.Tab);
+Phoenix.UI.TextBox.Validation = {
     validate: function() {
         this._isValid = true;        
         
@@ -27475,7 +26688,8 @@ Phoenix.UI.TextBox.prototype.initValidation = function(validationOptions) {
     this._isValid = null;
     
     this.set_validationOptions(validationOptions);    
-};﻿Type.createNamespace('Phoenix.UI');
+};
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.TextBox = function() {
     Phoenix.UI.TextBox.constructBase(this);
@@ -27710,7 +26924,8 @@ Auto.Events(Phoenix.UI.TextBox.prototype, [ 'keyPressed', 'enterPressed' ]);
 
 Phoenix.UI.TextBox.createClass('Phoenix.UI.TextBox', Control);
 ControlsFactory.registerControl('textBox', Phoenix.UI.TextBox);
-ControlsFactory.registerControl('textbox', Phoenix.UI.TextBox);﻿Type.createNamespace('Phoenix.UI');
+ControlsFactory.registerControl('textbox', Phoenix.UI.TextBox);
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.TextEditor = function() {
     Phoenix.UI.TextEditor.constructBase(this);
@@ -27781,7 +26996,8 @@ Auto.Properties(Phoenix.UI.TextEditor.prototype, [
 //Auto.Events(Phoenix.UI.TextEditor.prototype, [ 'keyPressed', 'enterPressed' ]);
 
 Phoenix.UI.TextEditor.createClass('Phoenix.UI.TextEditor', Control);
-ControlsFactory.registerControl('textEditor', Phoenix.UI.TextEditor);﻿Type.createNamespace('Phoenix.UI');
+ControlsFactory.registerControl('textEditor', Phoenix.UI.TextEditor);
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Tree = function(options) {
     Phoenix.UI.Tree.constructBase(this);
@@ -27963,7 +27179,8 @@ Phoenix.UI.Tree.createClass('Phoenix.UI.Tree', Control);
 Trait.Apply(Phoenix.UI.Tree.prototype, BaseListDataControl);
 
 ControlsFactory.registerControl('tree', Phoenix.UI.Tree);
-﻿Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.TreeNode = function() {
     Phoenix.UI.TreeNode.constructBase(this);
@@ -28061,7 +27278,8 @@ Auto.Properties(Phoenix.UI.TreeNode.prototype, [
 
 Phoenix.UI.TreeNode.createClass('Phoenix.UI.TreeNode', Control);
 ControlsFactory.registerControl('treeNode', Phoenix.UI.TreeNode);
-﻿Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Tooltip = function() {
     Phoenix.UI.Tooltip.constructBase(this);
@@ -28147,7 +27365,8 @@ Phoenix.UI.Tooltip.prototype = {
 };
 
 Phoenix.UI.Tooltip.createClass('Phoenix.UI.Tooltip', Control);
-ControlsFactory.registerControl('tooltip', Phoenix.UI.Tooltip);﻿Type.createNamespace('Phoenix.UI');
+ControlsFactory.registerControl('tooltip', Phoenix.UI.Tooltip);
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Wizard = function() {
     Phoenix.UI.Wizard.constructBase(this);
@@ -28403,7 +27622,8 @@ Auto.Events(Phoenix.UI.Wizard.prototype, [
 
 Phoenix.UI.Wizard.createClass('Phoenix.UI.Wizard', Phoenix.UI.Panel);
 ControlsFactory.registerControl('wizard', Phoenix.UI.Wizard);
-﻿Type.createNamespace('Phoenix.UI');
+
+Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.ColorPicker = function() {
     Phoenix.UI.ColorPicker.constructBase(this);

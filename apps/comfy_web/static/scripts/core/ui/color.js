@@ -1,4 +1,4 @@
-﻿var Color = {
+var Color = {
     GetForeground: function (backgroundColor) {
         var 
             re=/^\#(\w{2})(\w{2})(\w{2})$/,

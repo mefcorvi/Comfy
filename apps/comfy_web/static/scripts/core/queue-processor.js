@@ -1,4 +1,4 @@
-﻿var QueueProcessor = function(callback) {
+var QueueProcessor = function(callback) {
     if (callback) {
         this.add_processed(callback, this);
     }

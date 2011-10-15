@@ -1,4 +1,4 @@
-﻿Phoenix.UI.DataGrid.Editable = {
+Phoenix.UI.DataGrid.Editable = {
     _buildRow: function(properties, id, cssClass, allowBinding, cellControlGetter, rowProperties, createdRow) {        
         var cell = this._createEmptyCell();
         cell.id = 'editCell';
