@@ -1,4 +1,4 @@
-﻿({
+({
     title: "Test page",
     layout: "stack",
     orientation: 'horizontal',

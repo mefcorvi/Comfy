@@ -1,4 +1,4 @@
-﻿({
+({
     title: "Project",
     layout: "stack",
     orientation: 'vertical',

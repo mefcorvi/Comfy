@@ -1,4 +1,4 @@
-﻿({ // start of page markup
+({ // start of page markup
     title: "Departments",
     layout: 'stack',
     orientation: 'vertical',

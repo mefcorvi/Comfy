@@ -1,12 +1,57 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
   <head>
-    <link rel="stylesheet" type="text/css" href="/default.css" />
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+    <link href="/favicon.ico" rel="shortcut icon" type="image/ico" />
+    <title>Comfy Task Manager</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
   </head>
   <body>
-    <script type="text/javascript" language="javascript" src="/jquery.js"></script>
+    <div id="loading" class="normalLoading">
+        <img src="theme/Master/loading.gif" width="128" height="15" alt="Loading..." />
+    </div>
+    <div id="appContainer"></div>
     <script type="text/javascript" language="javascript" src="/scripts.js"></script>
-    <script type="text/javascript" language="javascript" src="/main.js"></script>
-    <input type="text" id="command" />
-    <div id="status"></div>
+    <script type="text/javascript" language="javascript">
+        var $loading = $("#loading");     
+        
+        Application.set_configuration({
+            rootUrl: '/',
+            pagesServiceUrl: "/pages",
+            masterPage: "Masters/Default",
+            domElement: $get("appContainer"),
+            startPageUri: "default",
+            error403Uri: 'errors/error403',
+            error404Uri: 'errors/error404',
+            isDebug: true,
+            globalErrorHandling: $.browser.firefox
+        });
+        
+        Application.add_onUpdating(function() {                       
+            $loading.show().stop(true).fadeTo("fast", 1);                
+        });
+        
+        Application.add_onUpdated(function() {
+            $loading.stop(true).fadeTo("fast", 0, function() { $loading.hide(); });
+        });
+        
+        Application.add_onPageLoad(function() {
+            document.title = "Comfy Task Manager > " + Application.get_currentPage().get_title();
+        });
+        
+        Application.add_onPageUnload(function() { });
+        
+        Application.add_onError(function(sender, error) {
+            if (typeof(error) == 'object') {
+                Application.showError(error.name, error.message);
+            }
+            
+            if (typeof(error) == 'string') {
+                Application.showError('Error', error);
+            }
+        });
+        
+        Application.init();
+    </script>
   </body>
 </html>

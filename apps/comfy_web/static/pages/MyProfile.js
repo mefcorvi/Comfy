@@ -1,4 +1,4 @@
-﻿({
+({
     title: "My Profile",
     orientation: 'vertical',
     cssClass: 'my_profile_page',

@@ -1,4 +1,4 @@
-﻿({
+({
     title: "Operators",
     layout: 'stack',
     orientation: 'vertical',

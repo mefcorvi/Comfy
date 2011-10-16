@@ -27,10 +27,10 @@ textarea
     margin: 0;
     padding: 2px;
     border: 1px solid #bbb;
-    font-size: 12px;
+    font-size: 10pt;
     outline: 0;
     background: #fff;
-    font-family: "Trebuchet MS";
+    font-family: "Trebuchet MS", sans-serif;
 }
 
 input.watermark,
@@ -45,8 +45,8 @@ html, body
     width: 100%;
     background: #c9c9c9 url("~/Master/background_top.png") repeat-x top left;
     overflow: hidden;
-    font-size: 12px;
-    font-family: "Trebuchet MS";
+    font-size: 10pt;
+    font-family: "Trebuchet MS", sans-serif;
     color: #fff;
 }
 

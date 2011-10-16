@@ -1,4 +1,4 @@
-﻿({
+({
     title: "Knowledge base",
     cssClass: 'knowledgeEdit_page',
     

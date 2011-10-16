@@ -1,4 +1,4 @@
-﻿({
+({
     title: "Team Templates",
     orientation: 'vertical',
     data: [

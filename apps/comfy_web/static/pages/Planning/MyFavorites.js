@@ -1,4 +1,4 @@
-﻿({
+({
     title: "My Favorites",
     controls: [
         {

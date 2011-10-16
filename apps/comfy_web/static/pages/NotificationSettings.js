@@ -1,4 +1,4 @@
-﻿({
+({
     title: "User notification settings",
     layout: "stack",
     orientation: 'vertical',

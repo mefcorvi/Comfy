@@ -1,4 +1,4 @@
-﻿({
+({
     type: 'page',
     cssClass: 'feedbacks_page',
     controls: [

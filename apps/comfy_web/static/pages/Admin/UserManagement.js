@@ -1,4 +1,4 @@
-﻿({
+({
     title: 'User Management',
     layout: 'stack',
     orientation: 'horizontal',

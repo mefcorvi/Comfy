@@ -1,4 +1,4 @@
-﻿({
+({
     title: "404",
     cssClass: 'error_403_page',
     

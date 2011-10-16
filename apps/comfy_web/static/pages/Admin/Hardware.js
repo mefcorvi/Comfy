@@ -1,4 +1,4 @@
-﻿({
+({
     title: "Hardware",
     layout: 'stack',
     orientation: 'vertical',

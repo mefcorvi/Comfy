@@ -1,4 +1,4 @@
-﻿({
+({
     title: "Geography",
     layout: 'stack',
     orientation: 'vertical',

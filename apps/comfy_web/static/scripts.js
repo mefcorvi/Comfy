@@ -13632,553 +13632,6 @@ Object.extend(DTOProcessor.prototype, {
         }
     }
 }); 
-Repository =
-{
-    registerEntityType: function (entityType) {
-        this.__cache[entityType] = {};
-
-        this['Load' + entityType] = (function (p) {
-            return function (id, onSuccess, context) {
-                this.Load(p, id, onSuccess, context);
-            };
-        })(entityType);
-
-        this['Filter' + entityType] = (function (p) {
-            return function (filter, onSuccess, context) {
-                this.Filter(p, filter, onSuccess, context);
-            };
-        })(entityType);
-
-        Auto.Events(Repository, [
-            entityType.toCamelCase() + 'Saved',
-            entityType.toCamelCase() + 'Loaded',
-            entityType.toCamelCase() + 'Deleted'
-        ]);
-    },
-
-    __cache: {},
-
-    _addToCache: function(entity) {
-        var entityTypeName = entity.get_type().get_name();
-        var id = entity.get_id();
-
-        Repository.__cache[entityTypeName][id] = entity;
-    },
-
-    Abort: function(rid) {
-        if (Repository._dataService.abort(rid)) {
-            Repository.raise_processed();
-        }
-    },
-
-    Load: function (entityTypeName, id, onSuccess, context) {
-        Repository.raise_processing();
-
-        this._dataService.invoke(entityTypeName, 'Load',
-            function (dto) {
-                if (dto) {
-                    var entity = this._dtoProcessor.toEntity(dto, true);
-                    this._raiseEntityEvent(entityTypeName, [entity], 'Loaded', context);
-                }
-
-                if (onSuccess)
-                    onSuccess(entity);
-
-                Repository.raise_processed();
-            } .bind(this),
-            function (error) {
-                Repository.raise_processed();
-                Repository.raise_error(error);
-            } .bind(this), { id: id });
-    },
-
-    _reloadQueue: new QueueProcessor(function (sender, args) {
-        var data = {};
-        var ids = [];
-        var entityTypeName = args.queueId;
-
-        for (var i = 0; i < args.data.length; i++) {
-            var entityId = args.data[i].entity.get_id() * 1;
-            data[entityId] = args.data[i];
-            ids.add(entityId);
-        }
-
-        if (ids.length == 0) {
-            return;
-        }
-
-        Repository._dataService.invoke(entityTypeName, 'Filter', function (dto) {
-            var result = [];
-
-            for (var i = 0; i < dto.length; i++) {
-                var entity = data[dto[i]._id * 1].entity;
-                var callback = data[dto[i]._id * 1].callback;
-
-                this._dtoProcessor.copyFromDTO(entity, dto[i], true);
-
-                if (callback)
-                    callback(entity);
-            }
-
-            Repository.raise_processed();
-        } .bind(Repository), function (error) {
-            Repository.raise_processed();
-            Repository.raise_error(error);
-        }, {
-            filter: "Id IN (" + ids.join(',') + ")",
-            searchQuery: null,
-            orderBy: null,
-            page: null,
-            pageSize: null
-        });
-    }),
-
-    Reload: function (entity, onSuccess) {
-        var entityTypeName = entity.rootType;
-        var id = entity.get_id();
-
-        this._reloadQueue.add(entityTypeName, { entity: entity, callback: onSuccess });
-    },
-
-    _deepLoadQueue: new QueueProcessor(function (sender, args) {
-        var data = {};
-        var ids = [];
-        var entityTypeName = args.queueId;
-
-        for (var i = 0; i < args.data.length; i++) {
-            var entityId = args.data[i].entity.get_id() * 1;
-
-            if (isNaN(entityId)) {
-                throw new Error('Wrong identifier of entity');
-            }
-
-            if (!data[entityId]) {
-                data[entityId] = [];
-                ids.add(entityId);
-            }
-
-            data[entityId].add(args.data[i]);
-        }
-
-        if (ids.length == 0) {
-            return;
-        }
-
-        Repository.raise_processing();
-
-        Repository._dataService.invoke(entityTypeName, 'BatchDeepLoad', function (dto) {
-            for (var i = 0; i < dto.length; i++) {
-                var dtoId = dto[i]._id * 1;
-                var entity = data[dtoId][0].entity;
-
-                this._dtoProcessor.copyFromDTO(entity, dto[i], true);
-
-                for (var j = 0; j < data[dtoId].length; j++) {
-                    var callback = data[dtoId][j].callback;
-
-                    if (callback)
-                        callback(entity);
-                }
-            }
-
-            Repository.raise_processed();
-        } .bind(Repository), function (error) {
-            Repository.raise_processed();
-            Repository.raise_error(error);
-        }, {
-            ids: ids
-        });
-    }),
-
-    DeepLoad: function (entity, onSuccess) {
-        var entityTypeName = entity.rootType;
-        var id = entity.get_id() * 1;
-
-        if (isNaN(id)) {
-            throw new Error('Wrong identifier of entity');
-        }
-
-        this._deepLoadQueue.add(entityTypeName, { entity: entity, callback: onSuccess });
-    },
-
-    Save: function (data, onSuccess, context, entityTypeName, deepLevel) {
-        var batchSave = data instanceof Array;
-
-        if (batchSave && data.length === 0)
-            throw new Error('Trying to save empty collection');
-
-        Repository.raise_processing();
-
-        var entityTypeName = isNullOrUndefined(entityTypeName) ? (batchSave ? data[0].get_type().get_name() : data.get_type().get_name()) : entityTypeName; // TODO: there is may be problem when batch contains entities of different types
-
-        this._dataService.invoke(entityTypeName, batchSave ? 'BatchSave' : 'Save',
-            function (dto) {
-                var result = [];
-
-                var processFunc = function (entity, dto) {
-                    this._dtoProcessor.copyFromDTO(entity, dto, true);
-                    Repository._addToCache(entity);
-
-                    result.add(entity);
-                } .bind(this);
-
-                if (batchSave) {
-                    for (var i = 0; i < dto.length; i++)
-                        processFunc(data[i], dto[i]);
-                } else
-                    processFunc(data, dto);
-
-                this._raiseEntityEvent(entityTypeName, result, 'Saved', context);
-
-                if (onSuccess)
-                    onSuccess(data, context);
-
-                Repository.raise_processed();
-            } .bind(this),
-            function (error) {
-                Repository.raise_processed();
-                Repository.raise_error(error);
-            } .bind(this), batchSave ? { entities: data} : { entity: data }, isDefined(deepLevel) ? deepLevel : 1);
-    },
-
-    __raiseDeletedEvent: function (entity, context) {
-        if (isFunction(entity.onDeleting)) {
-            entity.onDeleting();
-        }
-
-        //++110310_Aykaev, raise deleted event for dependent sets
-        if (entity.__dependentSets && entity.__dependentSets.length > 0) {
-            for (var i = 0; i < entity.__dependentSets.length; i++) {
-                var setName = entity.__dependentSets[i];
-                var dependentEntities = entity['get_' + setName]();
-
-                for (var j = dependentEntities.length - 1; j >= 0; j--) {
-                    this.__raiseDeletedEvent(dependentEntities[j], context);
-                }
-            }
-        }
-        //--110310_Aykaev
-
-        entity.dispose();
-        var entityTypeName = entity.get_type().get_name();
-        Repository._removeFromCache(entityTypeName, entity._id);
-
-        this._raiseEntityEvent(entityTypeName, [entity], 'Deleted', context);
-    },
-
-    Delete: function (entity, onSuccess, context) {
-        Repository.raise_processing();
-
-        this._dataService.invoke(entity.get_type().get_name(), 'Delete',
-            function () {
-                this.__raiseDeletedEvent(entity, context);
-
-                if (onSuccess)
-                    onSuccess();
-
-                Repository.raise_processed();
-            } .bind(this),
-            function (error) {
-                Repository.raise_processed();
-                Repository.raise_error(error);
-            } .bind(this), { entity: entity }, 0);
-    },
-
-    DeleteById: function (entityType, id, onSuccess, context) {
-        Repository.raise_processing();
-
-        this._dataService.invoke(entityType, 'DeleteById',
-            function () {                
-                if (onSuccess)
-                    onSuccess();
-
-                Repository.raise_processed();
-            } .bind(this),
-            function (error) {
-                Repository.raise_processed();
-                Repository.raise_error(error);
-            } .bind(this), { id: id }, 0);
-    },
-
-    Filter: function (entityTypeName, args, onSuccess, context) {        
-        Repository.raise_processing();
-
-        return this._dataService.invoke(entityTypeName, 'Filter',
-            function (dto) {
-                var result = [];
-
-                for (var i = 0; i < dto.length; i++) {
-                    var entity = this._dtoProcessor.toEntity(dto[i]);
-                    result.add(entity);
-                }
-
-                this._raiseEntityEvent(entityTypeName, result, 'Loaded', context);
-
-                if (onSuccess)
-                    onSuccess(result, context);
-
-                Repository.raise_processed();
-            } .bind(this),
-            function (error) {
-                Repository.raise_processed();
-                Repository.raise_error(error);
-            } .bind(this),
-                typeof args === 'string' ?
-                {
-                    filter: args,
-                    searchQuery: null,
-                    orderBy: null,
-                    page: null,
-                    pageSize: null
-                } :
-                args
-            );
-    },
-
-    Count: function (entityTypeName, args, onSuccess) {
-        Repository.raise_processing();
-
-        this._dataService.invoke(entityTypeName, 'Count',
-            function (result) {
-                if (onSuccess)
-                    onSuccess(result);
-
-                Repository.raise_processed();
-            } .bind(this),
-            function (error) {
-                Repository.raise_processed();
-                Repository.raise_error(error);
-            } .bind(this), args);
-    },
-
-    GetCached: function (entityTypeName, id) {
-        return this.__cache[entityTypeName][id];
-    },
-
-    _removeFromCache: function(entityTypeName, id) {
-        delete this.__cache[entityTypeName][id];
-    },
-
-    FilterCached: function (entityTypeName, filter) {
-        var result = [];
-
-        var storage = this.__cache[entityTypeName];
-
-        for (var prop in storage) {
-            if (typeof storage[prop] === 'function')
-                continue;
-
-            if (filter(storage[prop]))
-                result.add(storage[prop]);
-        }
-
-        return result;
-    },
-
-    _getQueue: new QueueProcessor(function (sender, args) {
-        var queue = args.data;
-        var entityTypeName = args.queueId;
-
-        var notFounded = [];
-
-        for (var i = 0; i < queue.length; i++) {
-            notFounded.add(queue[i].notFounded);
-        }
-
-        if (notFounded.length === 0) {
-            return;
-        }
-
-        Repository.Filter(entityTypeName, "Id In (" + notFounded.distinct().join(',') + ")", function (result) {
-            for (var i = 0; i < queue.length; i++) {
-                var callbackResult = [];
-
-                for (var j = 0; j < result.length; j++) {
-                    if (queue[i].notFounded.contains(result[j]._id)) {
-                        callbackResult.add(result[j]);
-                    }
-                }
-
-                if (queue[i].founded) {
-                    callbackResult.add(queue[i].founded);
-                }
-
-                if (queue[i].callback) {
-                    queue[i].callback(queue[i].singleMode
-                                        ?
-                                        (callbackResult.length > 0 ?
-                                          callbackResult[0] : undefined)
-                                        :
-                                        callbackResult);
-                }
-            }
-        });
-    }),
-
-    __Get: function (entityTypeName, id, callback, throwException) {
-        if (isNullOrUndefined(id)) {
-            throw new Error('Id is null or undefined');
-        }
-
-        var singleMode = !(id instanceof Array);
-
-        if (singleMode) {
-            id = [id];
-        }
-
-        var notFounded = [];
-        var founded = [];
-
-        for (var i = 0; i < id.length; i++) {
-            var itemId = id[i]*1;
-            var found = this.__cache[entityTypeName][itemId];
-
-            if (found) {
-                founded.add(found);
-            } else {
-                notFounded.add(itemId);
-            }
-        }
-
-        if (notFounded.length == 0) {
-            callback(singleMode ? founded[0] : founded);
-            return;
-        }
-
-        var callbackWrapper = callback;
-        
-        if(throwException) {
-            callbackWrapper = function(result) 
-            {  
-                if(result != null) {
-                    callback(result);
-                } else {
-                    throw new Error('Cannot find \'' + entityTypeName + '\' with id: \'' + id + '\'');
-                }
-            };
-        }
-
-        this._getQueue.add(entityTypeName, {
-            singleMode: singleMode,
-            notFounded: notFounded.distinct(),
-            founded: founded,
-            callback: callbackWrapper
-        });
-    },
-
-    Get: function(entityTypeName, id, callback) {
-        this.__Get(entityTypeName, id, callback, true);
-    },
-
-    GetOrDefault: function(entityTypeName, id, callback) {
-        this.__Get(entityTypeName, id, callback, false);
-    },
-
-    Clear: function () {
-        for (var prop in this.__cache) {
-            if (typeof this.__cache[prop] === 'function')
-                continue;
-
-            for (var p in this.__cache[prop]) {
-                if (typeof this.__cache[prop][p] === 'function')
-                    continue;
-
-                delete this.__cache[prop][p];
-            }
-        }
-    },
-
-    Validate: function (data, onSuccess, onError, deepLevel) {
-        Repository.raise_processing();
-
-        var isBatch = data instanceof Array;
-
-        if (isBatch) {
-            throw new Error("Batch validation isn't supported.");
-        }
-
-        var entityTypeName = data.get_type().get_name();
-
-        this._dataService.invoke(entityTypeName, "Validate",
-            function (result) {
-                if (result && result.length > 0 && onError) {
-                    var processedResult = [];
-
-                    for (var i = 0; i < result.length; i++) {
-                        processedResult.add(result[i].__type ? this._dtoProcessor.toEntity(result[i]) : result[i]);
-                    }
-
-                    onError(processedResult);
-                }
-
-                if ((!result || !result.length) && onSuccess)
-                    onSuccess();
-
-                Repository.raise_processed();
-            } .bind(this),
-            function (error) {
-                Repository.raise_processed();
-                Repository.raise_error(error);
-
-                if (onError)
-                    onError(error);
-            } .bind(this), { data: data }, isDefined(deepLevel) ? deepLevel : 1);
-    },
-
-    ValidateAndSave: function (data, onSuccess, onError, context) {
-        Repository.Validate(data, function () {
-            Repository.Save(data, onSuccess, context);
-        }, function (error) {
-            if (onError) {
-                onError(error)
-            }
-        });
-    },
-
-    Method: function (entityTypeName, methodName, params, onSuccess) {
-        Repository.raise_processing();
-
-        this._dataService.invoke(entityTypeName, methodName,
-            function (result) {
-                if (result && result.__type) {
-                    result = this._dtoProcessor.toEntity(result);
-                    this._raiseEntityEvent(entityTypeName, [result], 'Loaded');
-                }
-                else if (result instanceof Array && result.length > 0 && result.first().__type) {
-                    result = result.select(function (item) { return this._dtoProcessor.toEntity(item); }, this);
-                    this._raiseEntityEvent(entityTypeName, result, 'Loaded');
-                }
-
-                if (onSuccess)
-                    onSuccess(result);
-
-                Repository.raise_processed();
-            } .bind(this),
-            function (error) {
-                Repository.raise_processed();
-                Repository.raise_error(error);
-            } .bind(this), params);
-    },
-
-    _raiseEntityEvent: function (entityTypeName, entities, eventName, context) {
-        if (entities.length > 0)
-            this['raise_' + entityTypeName.toCamelCase() + eventName]({ entities: entities }, context);
-    }
-};
-
-Auto.Properties(Repository, [
-    'dtoProcessor',
-    'dataService'
-]);
-
-Auto.Events(Repository, [
-    'processing',
-    'processed',
-    'error'
-]);
-
-Repository.set_dtoProcessor(new DTOProcessor());
-Repository.set_dataService(Services.DataService);
 var Entity = function() {
     this.__type = this.get_type().get_name() + ':#Phoenix.WebServices.Contracts.Data';
     this._guid = Guid.New();
@@ -15840,6 +15293,49 @@ History.Date.prototype = {
 
 History.Observer.registerObserver(History.Date);
 History.Date.createClass('History.Date', History.BaseObserver);
+Type.createNamespace('Services');
+
+// TODO: Make sure that cache will be cleared
+Services.PagesService = {
+    _cache: {},
+    
+    getPage: function(pageUri, callback, error) {
+	var serviceFullUrl = Application.resolveUrl(Application.get_configuration().get_pagesServiceUrl());
+	
+        if (this._cache[pageUri]){
+            callback(eval(this._cache[pageUri]));
+            return null;
+        }
+        
+        return jQuery.ajax({
+            type: 'GET',
+            url: serviceFullUrl + "?rnd=" + Math.random(),
+            data: { pageUri: pageUri },
+            success: function(data) {
+                this._cache[pageUri] = '(' + data + ')';
+                callback(eval(this._cache[pageUri]));
+            }.bind(this),
+            error: error,
+            dataType: 'text',
+            cache: true
+        });
+    },
+
+    getPagesList: function(callback, error) {
+	var serviceFullUrl = Application.resolveUrl(Application.get_configuration().get_pagesServiceUrl());
+        
+        return jQuery.ajax({
+            type: 'GET',
+            url: serviceFullUrl + "/getLists" + "?rnd=" + Math.random(),
+            success: function(data) {
+                callback(eval(data));
+            }.bind(this),
+            error: error,
+            dataType: 'text',
+            cache: true
+        });        
+    }
+};
 var Keys = {
     Esc: 27,
     PgUp: 33,
@@ -16238,505 +15734,505 @@ ApplicationContext.prototype = {
 ApplicationContext.createClass('ApplicationContext');
 // public static Application
 Application =
-{
-    _configuration: null,
-    _context: new ApplicationContext(),
-    _masterPage: null,
+    {
+	_configuration: null,
+	_context: new ApplicationContext(),
+	_masterPage: null,
 
-    _currentPage: null,
+	_currentPage: null,
 
-    _onError: null,
+	_onError: null,
 
-    _resizeTimeout: null,
+	_resizeTimeout: null,
 
-    __updatesCount: 0,
+	__updatesCount: 0,
 
-    _resources: {},
+	_resources: {},
 
-    get_resource: function(resourceName) {
-        var resourceInfo = resourceName.split(':');
+	get_resource: function(resourceName) {
+            var resourceInfo = resourceName.split(':');
 
-        if (resourceInfo.length != 2) {
-            throw new Error('The "resource" args should have a "<source>:<resourceName>" format');
-        }
-        
-        if (resourceInfo[0] == 'page') {
-            return Application.get_currentPage().get_resource(resourceInfo[1]);
-        }
-    },
-
-    set_resource: function(resourceName, value) {
-        
-    },
-
-    // ======== Properties ========
-    /**
-    * Returns configuration of the application
-    * @return Configuration
-    */
-    get_configuration: function () {
-        return Application._configuration;
-    },
-
-    get_context: function () {
-        return Application._context;
-    },
-
-    get_currentUser: function () {
-        return Application._context.get('currentUser');
-    },
-
-    isDebugMode: function() {
-        return Application.get_configuration().get_isDebug();
-    },
-
-    /**
-    * Returns information about system and environment
-    */
-    get_systemInfo: function () {
-        var info = "UserAgent: " + navigator.userAgent;
-        info += "\r\nPage: " + Application.get_currentPage().get_uri();
-
-        return info;
-    },
-
-    /**
-    * Set configuration of the application
-    */
-    set_configuration: function (value) {
-        if (!Application._configuration) {
-            Application._configuration = new Configuration();
-        }
-
-        Application._configuration.init(value);
-    },
-
-    get_siteMap: function () {
-        return Application._siteMap.clone();
-    },
-
-    getPagesForMenu: function (items) {
-        var siteMap = [].makeObservable();
-        var items = items || Application._siteMap;
-
-        for (var i = 0; i < items.length; i++) {
-            var menuItem = items[i];
-
-            if (menuItem.showInMenu) {
-                siteMap.add({
-                    href: menuItem.href,
-                    title: menuItem.title,
-                    childs: Application.getPagesForMenu(menuItem.childs)
-                });
+            if (resourceInfo.length != 2) {
+		throw new Error('The "resource" args should have a "<source>:<resourceName>" format');
             }
-        }
+            
+            if (resourceInfo[0] == 'page') {
+		return Application.get_currentPage().get_resource(resourceInfo[1]);
+            }
+	},
 
-        return siteMap;
-    },
+	set_resource: function(resourceName, value) {
+            
+	},
 
-    getPageInfoByUrl: function (href) {
-        var items = Application._siteMap.clone();
+	// ======== Properties ========
+	/**
+	 * Returns configuration of the application
+	 * @return Configuration
+	 */
+	get_configuration: function () {
+            return Application._configuration;
+	},
 
-        while (items.length > 0) {
-            var menuItem = items.pop();
+	get_context: function () {
+            return Application._context;
+	},
 
-            if (menuItem.childs) {
-                items.add(menuItem.childs);
+	get_currentUser: function () {
+            return Application._context.get('currentUser');
+	},
+
+	isDebugMode: function() {
+            return Application.get_configuration().get_isDebug();
+	},
+
+	/**
+	 * Returns information about system and environment
+	 */
+	get_systemInfo: function () {
+            var info = "UserAgent: " + navigator.userAgent;
+            info += "\r\nPage: " + Application.get_currentPage().get_uri();
+
+            return info;
+	},
+
+	/**
+	 * Set configuration of the application
+	 */
+	set_configuration: function (value) {
+            if (!Application._configuration) {
+		Application._configuration = new Configuration();
             }
 
-            if (menuItem.showInMenu && menuItem.href == href) {
-                return menuItem;
-            }
-        }
+            Application._configuration.init(value);
+	},
 
-        return null;
-    },
+	get_siteMap: function () {
+            return Application._siteMap.clone();
+	},
 
-    /**
-    * Returns master page
-    */
-    get_masterPage: function () {
-        return Application._masterPage;
-    },
+	getPagesForMenu: function (items) {
+            var siteMap = [].makeObservable();
+            var items = items || Application._siteMap;
 
-    /**
-    * Returns current page
-    */
-    get_currentPage: function () {
-        return Application._currentPage;
-    },
+            for (var i = 0; i < items.length; i++) {
+		var menuItem = items[i];
 
-    get_error403Uri: function () {
-        return Application.get_configuration().get_error403Uri();
-    },
-
-    get_error404Uri: function () {
-        return Application.get_configuration().get_error404Uri();
-    },
-
-    load404: function() {
-        Application.loadPage(Application.get_error404Uri());
-    },
-
-    // ============ Methods ============
-    loadPage: function (pageUri) {
-        $.history.load(pageUri);
-    },
-
-    pageIsAvailable: function (pageUri) {
-        var tempUri = "page:" + pageUri;
-
-        var stack = this._siteMap.clone();
-
-        while (stack.length > 0) {
-            var item = stack.pop();
-
-            if (item.href === tempUri) {
-                return true;
+		if (menuItem.showInMenu) {
+                    siteMap.add({
+			href: menuItem.href,
+			title: menuItem.title,
+			childs: Application.getPagesForMenu(menuItem.childs)
+                    });
+		}
             }
 
-            if (item.childs && item.childs.length > 0) {
-                stack.add(item.childs);
+            return siteMap;
+	},
+
+	getPageInfoByUrl: function (href) {
+            var items = Application._siteMap.clone();
+
+            while (items.length > 0) {
+		var menuItem = items.pop();
+
+		if (menuItem.childs) {
+                    items.add(menuItem.childs);
+		}
+
+		if (menuItem.showInMenu && menuItem.href == href) {
+                    return menuItem;
+		}
             }
-        }
 
-        return false;
-    },
+            return null;
+	},
 
-    reloadPage: function () {
-        Application._loadPage(Application._currentPage.get_fullUri(), true);
-    },
+	/**
+	 * Returns master page
+	 */
+	get_masterPage: function () {
+            return Application._masterPage;
+	},
 
-    _unloadCurrentPage: function() {
-        if (Application._currentPage) {
-            Application._clearUpdatingEvent();
-            var container = Application._masterPage['page_container'],
+	/**
+	 * Returns current page
+	 */
+	get_currentPage: function () {
+            return Application._currentPage;
+	},
+
+	get_error403Uri: function () {
+            return Application.get_configuration().get_error403Uri();
+	},
+
+	get_error404Uri: function () {
+            return Application.get_configuration().get_error404Uri();
+	},
+
+	load404: function() {
+            Application.loadPage(Application.get_error404Uri());
+	},
+
+	// ============ Methods ============
+	loadPage: function (pageUri) {
+            $.history.load(pageUri);
+	},
+
+	pageIsAvailable: function (pageUri) {
+            var tempUri = "page:" + pageUri;
+
+            var stack = this._siteMap.clone();
+
+            while (stack.length > 0) {
+		var item = stack.pop();
+
+		if (item.href === tempUri) {
+                    return true;
+		}
+
+		if (item.childs && item.childs.length > 0) {
+                    stack.add(item.childs);
+		}
+            }
+
+            return false;
+	},
+
+	reloadPage: function () {
+            Application._loadPage(Application._currentPage.get_fullUri(), true);
+	},
+
+	_unloadCurrentPage: function() {
+            if (Application._currentPage) {
+		Application._clearUpdatingEvent();
+		var container = Application._masterPage['page_container'],
                 containerStyle = container.domElement.style,
                 curPage = Application._currentPage;
 
-            containerStyle.position = "absolute";
-            containerStyle.left = "-5000px";
-            containerStyle.top = "-5000px";
-            containerStyle.display = "none";
+		containerStyle.position = "absolute";
+		containerStyle.left = "-5000px";
+		containerStyle.top = "-5000px";
+		containerStyle.display = "none";
+
+		Application._addUpdatingEvent();
+		curPage.free();
+
+		if (container.controls.contains(curPage))
+                    container.controls.remove(curPage);
+
+		Application.raise_onPageUnload();
+		Application._removeUpdatingEvent();
+            }
+	},
+
+	_loadNewPage: function(pageUri) {
+            Application._loadingPageUri = pageUri;
+            var newPage = new Page();
+            Application._currentPage = newPage;
+
+            newPage.add_fullUriChanged(function(sender, args) {
+		$.history.load(args.newValue);
+            });
+            newPage.add_initComplete(Application._onPageLoaded);
 
             Application._addUpdatingEvent();
-            curPage.free();
+            Application.raise_onPageLoading();
+            newPage.initFromUri(pageUri);
+	},
 
-            if (container.controls.contains(curPage))
-                container.controls.remove(curPage);
+	/**
+	 * Function which will be invoked when page is loaded from server and initialized
+	 */
+	_onPageLoaded: function() {
+            Application._loadingPageUri = null;
 
-            Application.raise_onPageUnload();
+            var container = Application._masterPage['page_container'];
+            var containerStyle = container.domElement.style;
+            container.controls.add(Application._currentPage);
+            Application.raise_onPageLoad();
             Application._removeUpdatingEvent();
-        }
-    },
 
-    _loadNewPage: function(pageUri) {
-        Application._loadingPageUri = pageUri;
-        var newPage = new Page();
-        Application._currentPage = newPage;
+            window.setTimeout(function () {
+		containerStyle.position = "";
+		containerStyle.left = "";
+		containerStyle.top = "";
+		containerStyle.display = "";
+            }, 0);
+	},
 
-        newPage.add_fullUriChanged(function(sender, args) {
-            $.history.load(args.newValue);
-        });
-        newPage.add_initComplete(Application._onPageLoaded);
+	/**
+	 * Load page by uri
+	 */
+	_loadPage: function (pageUri, forceReload) {
+            var args = { pageUri: pageUri, cancel: false };
+            Application.raise_onPagePreLoading(args);
 
-        Application._addUpdatingEvent();
-        Application.raise_onPageLoading();
-        newPage.initFromUri(pageUri);
-    },
+            // support for cancelation
+            if (args.cancel) {
+		return;
+            }        
 
-    /**
-    * Function which will be invoked when page is loaded from server and initialized
-    */
-    _onPageLoaded: function() {
-        Application._loadingPageUri = null;
+            // pageUri can be changed in page pre loading
+            pageUri = args.pageUri || Application.get_configuration().get_startPageUri();
 
-        var container = Application._masterPage['page_container'];
-        var containerStyle = container.domElement.style;
-        container.controls.add(Application._currentPage);
-        Application.raise_onPageLoad();
-        Application._removeUpdatingEvent();
+            var curUri = Application._currentPage ? Application._currentPage.get_fullUri() : null;
 
-        window.setTimeout(function () {
-            containerStyle.position = "";
-            containerStyle.left = "";
-            containerStyle.top = "";
-            containerStyle.display = "";
-        }, 0);
-    },
+            // if uri is the same
+            if (!forceReload) {
+		if (Application._loadingPageUri == pageUri || curUri == pageUri) {
+                    return;
+		}
 
-    /**
-    * Load page by uri
-    */
-    _loadPage: function (pageUri, forceReload) {
-        var args = { pageUri: pageUri, cancel: false };
-        Application.raise_onPagePreLoading(args);
-
-        // support for cancelation
-        if (args.cancel) {
-            return;
-        }        
-
-        // pageUri can be changed in page pre loading
-        pageUri = args.pageUri || Application.get_configuration().get_startPageUri();
-
-        var curUri = Application._currentPage ? Application._currentPage.get_fullUri() : null;
-
-        // if uri is the same
-        if (!forceReload) {
-            if (Application._loadingPageUri == pageUri || curUri == pageUri) {
-                return;
+		// if a base parts of uri are equal
+		if (Application._currentPage && Application._currentPage.isSameUri(pageUri)) {
+                    Application._currentPage.set_fullUri(pageUri);
+                    return;
+		}
             }
 
-            // if a base parts of uri are equal
-            if (Application._currentPage && Application._currentPage.isSameUri(pageUri)) {
-                Application._currentPage.set_fullUri(pageUri);
-                return;
+            Application._unloadCurrentPage();
+            Application._loadNewPage(pageUri);
+	},
+
+	_addUpdatingEvent: function () {
+            Application.__updatesCount++;
+
+            if (Application.__updatesCount == 1) {
+		if (!Application.get_silentMode()) {
+                    Application.raise_onUpdating();
+		}
             }
-        }
+	},
 
-        Application._unloadCurrentPage();
-        Application._loadNewPage(pageUri);
-    },
-
-    _addUpdatingEvent: function () {
-        Application.__updatesCount++;
-
-        if (Application.__updatesCount == 1) {
-            if (!Application.get_silentMode()) {
-                Application.raise_onUpdating();
-            }
-        }
-    },
-
-    _removeUpdatingEvent: function () {
-        if (Application.__updatesCount == 0) {
-            return;
-        }
-
-        Application.__updatesCount--;
-
-        if (Application.__updatesCount == 0) {
-            if (!Application.get_silentMode()) {
-                Application.raise_onUpdated();
-            }
-        }
-    },
-
-    _clearUpdatingEvent: function () {
-        if (Application.__updatesCount == 0) {
-            return;
-        }
-
-        Application.__updatesCount = 0;
-        Application.raise_onUpdated();
-    },
-
-    _initPages: function () {
-        Application._masterPage = new Page();
-        //Application._currentPage = new Page();
-
-        Application._masterPage.add_initComplete(function () {
-            var domElement = Application.get_configuration().get_domElement();
-            Application._masterPage.instantiateInDom(domElement);
-            Application._masterPage.update();
-            Application._initHistoryHanders();
-
-            Application.raise_onInitialized();
-            Application._removeUpdatingEvent();
-        });
-
-        Application._addUpdatingEvent();
-        Application._masterPage.initFromUri(Application.get_configuration().get_masterPage());
-    },
-
-    /**
-    * Initializes the application
-    */
-    init: function (onSuccess) {
-        // get available pages
-        Services.PagesService.getPagesList(function (pages) {
-            Application._siteMap = pages;
-            Application.raise_onSiteMapInitialized();
-
-            Application._initPages();
-            Application._initHandlers();
-            Application._initCss();
-
-        }.bind(this), function () {
-            Application.throwError("Access is denied");
-        }.bind(this));
-
-        if (Application.get_configuration().get_globalErrorHandling()) {
-            window.onerror = function(errorMsg, url, lineNumber) {
-                Application.throwError("Error at line " + lineNumber + ": " + errorMsg);
-            };
-        }
-    },
-
-    _initCss: function () {
-        CSSRules.init();
-        CSSRules.add("div, a, span, li, ul, ol", "overflow: hidden; border: 0 solid #000; word-wrap: break-word;");
-        //CSSRules.add("div, a, span, li, ul, ol", "overflow: hidden; border-color: #000; border-style: solid;");
-    },
-
-    _disposeCss: function() {
-        CSSRules.dispose();
-    },
-
-    _initHandlers: function () {
-        $(window).bind("resize", function () {
-            if (Application._resizeTimeout) {
-                clearTimeout(Application._resizeTimeout);
-                Application._resizeTimeout = null;
+	_removeUpdatingEvent: function () {
+            if (Application.__updatesCount == 0) {
+		return;
             }
 
-            Application._resizeTimeout = setTimeout(function () {
-                Application._clientBoundingRect = null;
-                Application._masterPage.update();
-            }, 50);
-        });
+            Application.__updatesCount--;
 
-        $(document).bind('keydown', function (event) {
-            Application.raise_onKeyDown({ keyCode: event.keyCode });
-        });
-    },
+            if (Application.__updatesCount == 0) {
+		if (!Application.get_silentMode()) {
+                    Application.raise_onUpdated();
+		}
+            }
+	},
 
-    _initHistoryHanders: function () {
-        $(document).ready(function () {
-            function pageload(hash) {
-                Application._loadPage(hash);
+	_clearUpdatingEvent: function () {
+            if (Application.__updatesCount == 0) {
+		return;
             }
 
-            $.history.init(pageload, {
-                unescape: true
+            Application.__updatesCount = 0;
+            Application.raise_onUpdated();
+	},
+
+	_initPages: function () {
+            Application._masterPage = new Page();
+            //Application._currentPage = new Page();
+
+            Application._masterPage.add_initComplete(function () {
+		var domElement = Application.get_configuration().get_domElement();
+		Application._masterPage.instantiateInDom(domElement);
+		Application._masterPage.update();
+		Application._initHistoryHanders();
+
+		Application.raise_onInitialized();
+		Application._removeUpdatingEvent();
             });
-        });
-    },
 
-    /**
-    * Throw an error
-    */
-    throwError: function (error) {
-        Application.raise_onError(error);
-        Application._clearUpdatingEvent();
-    },
+            Application._addUpdatingEvent();
+            Application._masterPage.initFromUri(Application.get_configuration().get_masterPage());
+	},
 
-    _urlFilters: {},
+	/**
+	 * Initializes the application
+	 */
+	init: function (onSuccess) {
+            // get available pages
+            Services.PagesService.getPagesList(function (pages) {
+		Application._siteMap = pages;
+		Application.raise_onSiteMapInitialized();
 
-    registerUrlFilter: function (protocol, filter) {
-        Application._urlFilters[protocol] = filter;
-    },
+		Application._initPages();
+		Application._initHandlers();
+		Application._initCss();
 
-    /**
-    * Converts url from it virtual representation to absolute
-    */
-    resolveUrl: function (virtualUrl) {
-        virtualUrl = virtualUrl || '';
+            }.bind(this), function () {
+		Application.throwError("Access is denied");
+            }.bind(this));
 
-        var rurl = /^(\w+:)?(?:\/\/)?(.*)/;
-
-        var parts = rurl.exec(virtualUrl);
-
-        if (parts && parts[1]) {
-            var protocol = parts[1];
-
-            if (Application._urlFilters[protocol]) {
-                virtualUrl = Application._urlFilters[protocol](virtualUrl, parts[2]);
+            if (Application.get_configuration().get_globalErrorHandling()) {
+		window.onerror = function(errorMsg, url, lineNumber) {
+                    Application.throwError("Error at line " + lineNumber + ": " + errorMsg);
+		};
             }
-        }
+	},
 
-        return virtualUrl.replace('~/', Application.get_configuration().get_rootUrl());
-    },
+	_initCss: function () {
+            CSSRules.init();
+            CSSRules.add("div, a, span, li, ul, ol", "overflow: hidden; border: 0 solid #000; word-wrap: break-word;");
+            //CSSRules.add("div, a, span, li, ul, ol", "overflow: hidden; border-color: #000; border-style: solid;");
+	},
 
-    showConfirm: function (title, text, callback) {
-        var confirmPopup = Application._masterPage['confirmPopup'];
+	_disposeCss: function() {
+            CSSRules.dispose();
+	},
 
-        if (!isFunction(callback)) {
-            throw new Error('You cannot show confirm without callback function!');
-        }
+	_initHandlers: function () {
+            $(window).bind("resize", function () {
+		if (Application._resizeTimeout) {
+                    clearTimeout(Application._resizeTimeout);
+                    Application._resizeTimeout = null;
+		}
 
-        if (confirmPopup) {
-            var onCommand = function (sender, args) {
-                confirmPopup.remove_onCommand(onCommand);
-                callback(args.button == 'Yes');
-                confirmPopup.close();
-            };
+		Application._resizeTimeout = setTimeout(function () {
+                    Application._clientBoundingRect = null;
+                    Application._masterPage.update();
+		}, 50);
+            });
 
-            confirmPopup.add_onCommand(onCommand);
+            $(document).bind('keydown', function (event) {
+		Application.raise_onKeyDown({ keyCode: event.keyCode });
+            });
+	},
 
-            confirmPopup.set_title(title);
-            confirmPopup.container['popupText'].set_text(text);
-            confirmPopup.open();
-        }
-    },
+	_initHistoryHanders: function () {
+            $(document).ready(function () {
+		function pageload(hash) {
+                    Application._loadPage(hash);
+		}
 
-    showError: function (title, text, callback) {
-        var errorPopup = null;
+		$.history.init(pageload, {
+                    unescape: true
+		});
+            });
+	},
 
-        if (Application._masterPage && Application._masterPage.controls) {
-            errorPopup = Application._masterPage['errorPopup'];
-        }
+	/**
+	 * Throw an error
+	 */
+	throwError: function (error) {
+            Application.raise_onError(error);
+            Application._clearUpdatingEvent();
+	},
 
-        if (errorPopup) {
-            var onCommand = function (sender, args) {
-                errorPopup.remove_onCommand(onCommand);
+	_urlFilters: {},
 
-                if (callback) {
-                    callback();
-                }
+	registerUrlFilter: function (protocol, filter) {
+            Application._urlFilters[protocol] = filter;
+	},
 
-                errorPopup.close();
-            };
+	/**
+	 * Converts url from it virtual representation to absolute
+	 */
+	resolveUrl: function (virtualUrl) {
+            virtualUrl = virtualUrl || '';
 
-            errorPopup.add_onCommand(onCommand);
+            var rurl = /^(\w+:)?(?:\/\/)?(.*)/;
 
-            errorPopup.set_title(title);
-            errorPopup.container['popupText'].set_text(text);
-            errorPopup.open();
-        } else {
-            alert(text);
-        }
-    },
+            var parts = rurl.exec(virtualUrl);
 
-    _clientBoundingRect: null,
+            if (parts && parts[1]) {
+		var protocol = parts[1];
 
-    _get_boundingRect: function () {
-        $appDom = $(this.get_configuration().get_domElement());
-        $appDom.children('*').hide(); // we must hide the content of dom element to properly handle the size
+		if (Application._urlFilters[protocol]) {
+                    virtualUrl = Application._urlFilters[protocol](virtualUrl, parts[2]);
+		}
+            }
 
-        Application._clientBoundingRect = {
-            width: $appDom.width(),
-            height: $appDom.height()
-        }
+            return virtualUrl.replace('~/', Application.get_configuration().get_rootUrl());
+	},
 
-        $appDom.children('*').show();
+	showConfirm: function (title, text, callback) {
+            var confirmPopup = Application._masterPage['confirmPopup'];
 
-        return Application._clientBoundingRect;
-    },
+            if (!isFunction(callback)) {
+		throw new Error('You cannot show confirm without callback function!');
+            }
 
-    /**
-    * Returns the width of the application
-    */
-    get_clientWidth: function () {
-        if (!Application._clientBoundingRect) {
-            Application._clientBoundingRect = Application._get_boundingRect();
-        }
+            if (confirmPopup) {
+		var onCommand = function (sender, args) {
+                    confirmPopup.remove_onCommand(onCommand);
+                    callback(args.button == 'Yes');
+                    confirmPopup.close();
+		};
 
-        return Application._clientBoundingRect.width;
-    },
+		confirmPopup.add_onCommand(onCommand);
 
-    /**
-    * Returns the height of the application
-    */
-    get_clientHeight: function () {
-        if (!Application._clientBoundingRect) {
-            Application._clientBoundingRect = Application._get_boundingRect();
-        }
+		confirmPopup.set_title(title);
+		confirmPopup.container['popupText'].set_text(text);
+		confirmPopup.open();
+            }
+	},
 
-        return Application._clientBoundingRect.height;
-    }
-};
+	showError: function (title, text, callback) {
+            var errorPopup = null;
+
+            if (Application._masterPage && Application._masterPage.controls) {
+		errorPopup = Application._masterPage['errorPopup'];
+            }
+
+            if (errorPopup) {
+		var onCommand = function (sender, args) {
+                    errorPopup.remove_onCommand(onCommand);
+
+                    if (callback) {
+			callback();
+                    }
+
+                    errorPopup.close();
+		};
+
+		errorPopup.add_onCommand(onCommand);
+
+		errorPopup.set_title(title);
+		errorPopup.container['popupText'].set_text(text);
+		errorPopup.open();
+            } else {
+		alert(text);
+            }
+	},
+
+	_clientBoundingRect: null,
+
+	_get_boundingRect: function () {
+            $appDom = $(this.get_configuration().get_domElement());
+            $appDom.children('*').hide(); // we must hide the content of dom element to properly handle the size
+
+            Application._clientBoundingRect = {
+		width: $appDom.width(),
+		height: $appDom.height()
+            }
+
+            $appDom.children('*').show();
+
+            return Application._clientBoundingRect;
+	},
+
+	/**
+	 * Returns the width of the application
+	 */
+	get_clientWidth: function () {
+            if (!Application._clientBoundingRect) {
+		Application._clientBoundingRect = Application._get_boundingRect();
+            }
+
+            return Application._clientBoundingRect.width;
+	},
+
+	/**
+	 * Returns the height of the application
+	 */
+	get_clientHeight: function () {
+            if (!Application._clientBoundingRect) {
+		Application._clientBoundingRect = Application._get_boundingRect();
+            }
+
+            return Application._clientBoundingRect.height;
+	}
+    };
 
 Application.registerUrlFilter("javascript:", function(fullUrl, part) {
     return fullUrl;
@@ -21521,481 +21017,6 @@ Auto.Properties(Phoenix.UI.Container.prototype, [
 Phoenix.UI.Container.createClass('Phoenix.UI.Container', Control);
 ControlsFactory.registerControl('container', Phoenix.UI.Container);
 
-Phoenix.UI.DataGrid.Editable = {
-    _buildRow: function(properties, id, cssClass, allowBinding, cellControlGetter, rowProperties, createdRow) {        
-        var cell = this._createEmptyCell();
-        cell.id = 'editCell';
-        cell.cssClass += ' editCell'
-        cell.width = '25px';
-        
-        
-        if(createdRow.id !== 'header' && createdRow.id !== 'newItemRow')
-            cell.domHandlers = {
-                mouseover: function(sender, args) {
-                    if(this.__editRow && sender.parent !== this.__editRow)                                
-                        return;
-                        
-                    sender.addCssClass('hover');
-                }.bind(this),
-                
-                mouseout: function(sender, args) {
-                    if(this.__editRow && sender.parent !== this.__editRow)
-                        return;
-                
-                    sender.removeCssClass('hover');
-                    sender.removeCssClass('pressed');
-                }.bind(this),
-                
-                mousedown: function(sender, args) {
-                    if(this.__editRow && sender.parent !== this.__editRow)
-                        return;
-                
-                    sender.addCssClass('pressed');
-                }.bind(this),
-                
-                mouseup: function(sender, args) {
-                    if(this.__editRow && sender.parent !== this.__editRow)
-                        return;
-                
-                    sender.removeCssClass('pressed');
-                }.bind(this),
-
-                click: function(sender, args) {
-                    args.stopPropagation();
-                
-                    if((this.__editRow && sender.parent !== this.__editRow) ||
-                        this._newItemRow)
-                        this.__clearActiveStates();                    
-                    
-                    if(!this.__editRow)
-                        this.__toEditMode(sender.parent);
-                    else
-                        this.__endEdit(true);
-                        
-                }.bind(this)
-            };
-
-        createdRow.controls.add(cell);
-    },
-    
-    __toEditMode: function(row) {
-        this.__editRow = row;
-    
-        var ds = row.get_dataSource();
-        
-        for(var prop in this.options.columnProperties) {
-            if(this.options.columnProperties[prop].readOnly || this.options.columnProperties[prop].custom)
-                continue;
-                
-            var cell = row[prop + 'Cell'];
-            
-            cell.controls.first().hide();
-            
-            var editControl = this.__createEditFrom(this.options.columnProperties[prop]);
-            cell.controls.add(editControl, {prevControl: null});
-            
-            editControl.set_dataSource(ds['get_' + prop]());
-        }
-        
-        var editCell = row.editCell;
-        
-        editCell.addCssClass('editMode');
-        
-        this.get_window().attachDomHandler('click', this.__onWindowClick_Bound);
-    },
-    
-    __endEdit: function(applyChanges) { 
-        var ds = this.__editRow.get_dataSource();
-
-        if(applyChanges) {
-            var hasErrors = false;
-        
-            for(var prop in this.options.columnProperties) {
-                if(this.options.columnProperties[prop].readOnly || this.options.columnProperties[prop].custom)
-                    continue;
-
-                var cell = this.__editRow[prop + 'Cell'];
-                var editControl = cell.controls.first();
-
-                if(editControl.validate) {
-                    editControl.validate();
-                    
-                    if(!editControl.get_isValid())
-                        hasErrors = true;
-                }
-            }
-            
-            if(hasErrors)
-                return;
-            
-            for(var prop in this.options.columnProperties) {
-                if(this.options.columnProperties[prop].readOnly || this.options.columnProperties[prop].custom)
-                    continue;
-                
-                var cell = this.__editRow[prop + 'Cell'];
-                var editControl = cell.controls.first();
-                
-                ds['set_' + prop](editControl.get_dataSource());
-            }
-        }
-        
-        for(var prop in this.options.columnProperties) {
-            if(this.options.columnProperties[prop].readOnly  || this.options.columnProperties[prop].custom)
-                continue;
-                
-            var cell = this.__editRow[prop + 'Cell'];
-            var editControl = cell.controls.first();
-        
-            editControl.free();  
-            cell.controls.remove(editControl);  
-                    
-            cell.controls.last().show();
-        }
-        
-        this.__editRow.editCell.removeCssClass('editMode');
-        this.__editRow = null;
-    },
-    
-    __createEditFrom: function(columnProperty) {
-        if(columnProperty.editTemplate)
-            return new Template(columnProperty.editTemplate).instantiate();
-
-        var editControl =  ControlsFactory.create('textBox');
-
-        var options = {
-            width: columnProperty.width || '100%',
-            validation: columnProperty.validation
-        };
-
-        editControl.initFromOptions(options);
-
-        return editControl;
-    },
-    
-    _dataSource_itemRemoved: function(sender, args) {
-        if(this.__editRow && args.items.contains(this.__editRow.get_dataSource()))
-            this.__editRow = null;
-    }
-};
-
-Phoenix.UI.DataGrid.prototype.makeEditable = function() {
-    Trait.Apply(this, Phoenix.UI.DataGrid.Editable);
-};
-Phoenix.UI.DataGrid.Resizable = {
-    _border: { none: 0, left: 1, right: 2 },
-
-    _resizableBorderSize: 5,
-
-    _resizableColumnsSizes: {
-        indexes: []
-    },
-
-    _buildRow: function (properties, id, cssClass, allowBinding, cellControlGetter, rowProperties, createdRow) {
-        if (createdRow.id !== 'header')
-            return;
-
-        var that = this;
-
-        var forPropFunc = function (propName) {
-            var cellName = propName + 'Cell';
-            var cell = createdRow.controls.single(function (c) { return c.id === cellName });
-
-            cell.__hoveredBorder = that._border.none;
-
-            cell.domHandlers = {
-                mousemove: function (sender, args) {
-                    if (this._isResizing) {
-                        sender.addCssClass('resizable');
-                        return;
-                    }
-
-                    var border = this._getHoveredBorder(sender, args);
-
-                    if (border === sender.__hoveredBorder)
-                        return;
-
-                    if (border !== this._border.none) {
-                        sender.addCssClass('resizable');
-                    } else {
-                        sender.removeCssClass('resizable');
-                    }
-
-                    sender.__hoveredBorder = border;
-                } .bind(that),
-
-                mousedown: function (sender, args) {
-                    if (this._isResizing)
-                        return;
-
-                    if (sender.__hoveredBorder === this._border.none)
-                        return;
-
-                    this._beginResize(propName, sender.__hoveredBorder, args);
-                } .bind(that)
-            };
-
-            that._resizableColumnsSizes['add_' + propName + 'WidthChanged'](function (sender, args) {
-                var headerControl = this.header[propName + 'Cell'];
-
-                this.get_template().controls.single(function (control) {
-                    return control.id === propName + 'Cell';
-                }).width = args.newValue.pixels;
-
-                headerControl.set_width(args.newValue);
-                this.header.update(headerControl);
-
-                this.forEachRow(function (row, index) {
-                    var control = row[propName + 'Cell'];
-
-                    control.set_width(args.newValue);
-                    row.update(control);
-                }, this);
-            }, that);
-        };
-
-        for (var prop in properties) {
-            forPropFunc(prop);
-        }
-    },
-
-    _getHoveredBorder: function (item, hoverArgs) {
-        var itemWidth = item.get_clientWidth();
-
-        if (0 <= hoverArgs.offsetX && hoverArgs.offsetX <= this._resizableBorderSize)
-            return this._border.left;
-
-        var delta = itemWidth - hoverArgs.offsetX;
-
-        if (0 <= delta && delta <= this._resizableBorderSize)
-            return this._border.right;
-
-        return this._border.none;
-    },
-
-    _beginResize: function (columnName, border, args) {
-        this._isResizing = true;
-        this._resizeArgs = args;
-
-        var columnIndex = this._resizableColumnsSizes.indexes.indexOf(columnName);
-        var columnToResize = border === this._border.left ?
-                this._getLeftVisibleColumnFrom(columnIndex - 1) :
-                columnName;
-
-        var onMouseMove = function (sender, args) {
-            args.preventDefault();
-            args.stopPropagation();
-
-            if (columnToResize) {
-                var delta = args.screenX - this._resizeArgs.screenX;
-
-                var currentSize = this._resizableColumnsSizes['get_' + columnToResize + 'Width']();
-
-                if (currentSize === undefined) {
-                    currentSize = this.header[columnToResize + 'Cell'].get_width();
-                }
-
-                if (currentSize.pixels < -delta)
-                    return;
-
-                var newValue = currentSize.add(new DimensionUnit(delta));
-                this._resizableColumnsSizes['set_' + columnToResize + 'Width'](newValue);
-
-                this._resizeArgs = args;
-            }
-        } .bind(this);
-
-        var onEndResize = function (sender, args) {
-            this._isResizing = false;
-
-            this.header.detachDomHandler('mousemove', onMouseMove);
-            this.header.detachDomHandler('mouseup', onEndResize);
-            //this.header.detachDomHandler('mouseout', onEndResize);
-
-            if (columnToResize)
-                this.raise_columnResized({ columnName: columnToResize, width: this._resizableColumnsSizes['get_' + columnToResize + 'Width']() });
-        } .bind(this);
-
-        this.header.attachDomHandler('mousemove', onMouseMove);
-        this.header.attachDomHandler('mouseup', onEndResize);
-        //this.header.attachDomHandler('mouseout', onEndResize);
-    },
-
-    _getLeftVisibleColumnFrom: function (index) {
-        while (index >= 0 && this._hiddenColumns.contains(this._resizableColumnsSizes.indexes[index]))
-            index--;
-
-        return index >= 0 ? this._resizableColumnsSizes.indexes[index] : null;
-    }
-};
-
-Auto.Event(Phoenix.UI.DataGrid.Resizable, 'columnResized');
-
-Phoenix.UI.DataGrid.prototype.makeResizable = function (options) {
-    if (this.__resizable)
-        return;
-
-    Trait.Apply(this, Phoenix.UI.DataGrid.Resizable);
-
-    for (var prop in options.columnProperties) {
-        Auto.Property(this._resizableColumnsSizes, { name: prop + 'Width', autoEvent: true });
-        this._resizableColumnsSizes.indexes.add(prop);
-    }
-
-    this.__resizable = true;
-};
-Phoenix.UI.DataGrid.Selectable = {
-    set_dataSource: function() {
-        this._selectedItems.clear();
-    },
-    
-    _dataSource_itemAdded: function(sender, args) {
-        this._checkHeaderSelection();
-        this.updateSelection(args.items, []);
-    },
-
-    _dataSource_itemRemoved: function(sender, args) {
-        var toRemove = this._selectedItems.where(function(item) { return args.items.contains(item); } );
-        
-        //this._selectedItems.remove(toRemove);
-        
-        this._checkHeaderSelection();
-        this.updateSelection([], args.items);
-    },
-    
-    _buildRow: function(properties, id, cssClass, allowBinding, cellControlGetter, rowProperties, createdRow) {
-        var cell = this._createEmptyCell({ cellType: id });
-        cell.id = 'selectionCell';
-        cell.width = '26px';
-        
-        if(createdRow.id !== 'newItemRow' && (createdRow.id !== 'header' || this._selectionMode !== 'single')) {
-            var checkBox = {
-                id: 'checkBox',
-                type: 'checkbox',
-                width: '13px',
-                height: '14px',
-                halign: 'center',
-                valign: 'middle',
-                bindings: {},
-                onChanged: this._itemSelectionChanged.bind(this)
-            };
-            
-            cell.controls.add(checkBox);
-        }
-        createdRow.controls.insert(0, cell);
-    },
-    
-    _itemSelectionChanged: function(sender) {
-        var row = sender.parent.parent;
-        var selectionState = sender.get_state();        
-
-        if(row.id === 'header') {
-            this.changeAllSelection(selectionState);            
-            return;
-        }
-
-        if (this._selectionMode == 'single') {
-            this._selectedItems.clear();
-        }
-        
-        if(selectionState) {
-            this._selectedItems.add(row.get_dataSource());
-        } else if (this._selectionMode == 'multiple') {
-            this._selectedItems.remove(row.get_dataSource());
-        }
-        
-        this._checkHeaderSelection();
-    },
-    
-    updateSelection: function(added, removed) {
-        var items = this._selectedItems;
-
-        this.forEachRow(function(row) {
-            if(!row.selectionCell)
-                return;
-
-            var checkBox = row.selectionCell.checkBox;
-            var ds = row.get_dataSource();
-
-            if (items.contains(ds)) {
-                checkBox.set_state(CheckBoxStates.checked);
-            } else {
-                checkBox.set_state(CheckBoxStates.empty);
-            }
-        });
-    },
-
-    changeAllSelection: function(state) {
-        var items = [];
-
-        this.forEachRow(function(row) {
-            if(!row.selectionCell)
-                return;
-        
-            var checkBox = row.selectionCell.checkBox;
-            
-            if(checkBox.get_state() !== state)
-                items.add(row.get_dataSource());
-            
-            checkBox.set_state(state);
-        });
-        
-        if(state)
-            this._selectedItems.add(items);
-        else
-            this._selectedItems.remove(items);
-    },
-
-    _selectedChanged: function(sender, args) {
-        this.updateSelection();
-    },
-
-    // TODO: I think we should detach handlers on disposing too
-    set_selectedItems: function(value) {
-        if (this._selectedItems === value) {
-            return;
-        }
-
-        this._detachSelectionHandlers();
-        this._selectedItems = value;
-        this._attachSelectionHandlers();
-    },
-
-    _detachSelectionHandlers: function() {
-        if (this._selectedItems && this._selectedItems.__observable) {
-            this._selectedItems.remove_changed(this._selectedChanged, this);
-        }
-    },
-
-    _attachSelectionHandlers: function() {
-        if (this._selectedItems) {
-            this._selectedItems.add_changed(this._selectedChanged, this);
-        }
-    },
-    
-    _checkHeaderSelection: function() {
-        if (this._selectionMode === 'multiple') {
-            if (this._selectedItems.length == 0) {
-                this._header.selectionCell.checkBox.set_state(CheckBoxStates.empty);
-            } else if (this._selectedItems.length !== this._dataSource.length) {
-                this._header.selectionCell.checkBox.set_state(CheckBoxStates.gray);
-            }
-            else {
-                this._header.selectionCell.checkBox.set_state(CheckBoxStates.checked);
-            }
-        }
-    }
-};
-
-Auto.Properties(Phoenix.UI.DataGrid.Selectable, [
-    'selectedItems'
-]);
-
-Phoenix.UI.DataGrid.prototype.makeSelectable = function(options) {
-    Trait.Apply(this, Phoenix.UI.DataGrid.Selectable);
-    
-    this.set_selectedItems([].makeObservable());
-    this._selectionMode = options.selectionMode || 'multiple';
-};
 Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.DataGrid = function() {
@@ -22640,6 +21661,481 @@ Auto.Properties(Phoenix.UI.DataGrid.prototype, [
 Phoenix.UI.DataGrid.createClass('Phoenix.UI.DataGrid', Phoenix.UI.Repeater);
 ControlsFactory.registerControl('dataGrid', Phoenix.UI.DataGrid);
 
+Phoenix.UI.DataGrid.Editable = {
+    _buildRow: function(properties, id, cssClass, allowBinding, cellControlGetter, rowProperties, createdRow) {        
+        var cell = this._createEmptyCell();
+        cell.id = 'editCell';
+        cell.cssClass += ' editCell'
+        cell.width = '25px';
+        
+        
+        if(createdRow.id !== 'header' && createdRow.id !== 'newItemRow')
+            cell.domHandlers = {
+                mouseover: function(sender, args) {
+                    if(this.__editRow && sender.parent !== this.__editRow)                                
+                        return;
+                        
+                    sender.addCssClass('hover');
+                }.bind(this),
+                
+                mouseout: function(sender, args) {
+                    if(this.__editRow && sender.parent !== this.__editRow)
+                        return;
+                
+                    sender.removeCssClass('hover');
+                    sender.removeCssClass('pressed');
+                }.bind(this),
+                
+                mousedown: function(sender, args) {
+                    if(this.__editRow && sender.parent !== this.__editRow)
+                        return;
+                
+                    sender.addCssClass('pressed');
+                }.bind(this),
+                
+                mouseup: function(sender, args) {
+                    if(this.__editRow && sender.parent !== this.__editRow)
+                        return;
+                
+                    sender.removeCssClass('pressed');
+                }.bind(this),
+
+                click: function(sender, args) {
+                    args.stopPropagation();
+                
+                    if((this.__editRow && sender.parent !== this.__editRow) ||
+                        this._newItemRow)
+                        this.__clearActiveStates();                    
+                    
+                    if(!this.__editRow)
+                        this.__toEditMode(sender.parent);
+                    else
+                        this.__endEdit(true);
+                        
+                }.bind(this)
+            };
+
+        createdRow.controls.add(cell);
+    },
+    
+    __toEditMode: function(row) {
+        this.__editRow = row;
+    
+        var ds = row.get_dataSource();
+        
+        for(var prop in this.options.columnProperties) {
+            if(this.options.columnProperties[prop].readOnly || this.options.columnProperties[prop].custom)
+                continue;
+                
+            var cell = row[prop + 'Cell'];
+            
+            cell.controls.first().hide();
+            
+            var editControl = this.__createEditFrom(this.options.columnProperties[prop]);
+            cell.controls.add(editControl, {prevControl: null});
+            
+            editControl.set_dataSource(ds['get_' + prop]());
+        }
+        
+        var editCell = row.editCell;
+        
+        editCell.addCssClass('editMode');
+        
+        this.get_window().attachDomHandler('click', this.__onWindowClick_Bound);
+    },
+    
+    __endEdit: function(applyChanges) { 
+        var ds = this.__editRow.get_dataSource();
+
+        if(applyChanges) {
+            var hasErrors = false;
+        
+            for(var prop in this.options.columnProperties) {
+                if(this.options.columnProperties[prop].readOnly || this.options.columnProperties[prop].custom)
+                    continue;
+
+                var cell = this.__editRow[prop + 'Cell'];
+                var editControl = cell.controls.first();
+
+                if(editControl.validate) {
+                    editControl.validate();
+                    
+                    if(!editControl.get_isValid())
+                        hasErrors = true;
+                }
+            }
+            
+            if(hasErrors)
+                return;
+            
+            for(var prop in this.options.columnProperties) {
+                if(this.options.columnProperties[prop].readOnly || this.options.columnProperties[prop].custom)
+                    continue;
+                
+                var cell = this.__editRow[prop + 'Cell'];
+                var editControl = cell.controls.first();
+                
+                ds['set_' + prop](editControl.get_dataSource());
+            }
+        }
+        
+        for(var prop in this.options.columnProperties) {
+            if(this.options.columnProperties[prop].readOnly  || this.options.columnProperties[prop].custom)
+                continue;
+                
+            var cell = this.__editRow[prop + 'Cell'];
+            var editControl = cell.controls.first();
+        
+            editControl.free();  
+            cell.controls.remove(editControl);  
+                    
+            cell.controls.last().show();
+        }
+        
+        this.__editRow.editCell.removeCssClass('editMode');
+        this.__editRow = null;
+    },
+    
+    __createEditFrom: function(columnProperty) {
+        if(columnProperty.editTemplate)
+            return new Template(columnProperty.editTemplate).instantiate();
+
+        var editControl =  ControlsFactory.create('textBox');
+
+        var options = {
+            width: columnProperty.width || '100%',
+            validation: columnProperty.validation
+        };
+
+        editControl.initFromOptions(options);
+
+        return editControl;
+    },
+    
+    _dataSource_itemRemoved: function(sender, args) {
+        if(this.__editRow && args.items.contains(this.__editRow.get_dataSource()))
+            this.__editRow = null;
+    }
+};
+
+Phoenix.UI.DataGrid.prototype.makeEditable = function() {
+    Trait.Apply(this, Phoenix.UI.DataGrid.Editable);
+};
+Phoenix.UI.DataGrid.Resizable = {
+    _border: { none: 0, left: 1, right: 2 },
+
+    _resizableBorderSize: 5,
+
+    _resizableColumnsSizes: {
+        indexes: []
+    },
+
+    _buildRow: function (properties, id, cssClass, allowBinding, cellControlGetter, rowProperties, createdRow) {
+        if (createdRow.id !== 'header')
+            return;
+
+        var that = this;
+
+        var forPropFunc = function (propName) {
+            var cellName = propName + 'Cell';
+            var cell = createdRow.controls.single(function (c) { return c.id === cellName });
+
+            cell.__hoveredBorder = that._border.none;
+
+            cell.domHandlers = {
+                mousemove: function (sender, args) {
+                    if (this._isResizing) {
+                        sender.addCssClass('resizable');
+                        return;
+                    }
+
+                    var border = this._getHoveredBorder(sender, args);
+
+                    if (border === sender.__hoveredBorder)
+                        return;
+
+                    if (border !== this._border.none) {
+                        sender.addCssClass('resizable');
+                    } else {
+                        sender.removeCssClass('resizable');
+                    }
+
+                    sender.__hoveredBorder = border;
+                } .bind(that),
+
+                mousedown: function (sender, args) {
+                    if (this._isResizing)
+                        return;
+
+                    if (sender.__hoveredBorder === this._border.none)
+                        return;
+
+                    this._beginResize(propName, sender.__hoveredBorder, args);
+                } .bind(that)
+            };
+
+            that._resizableColumnsSizes['add_' + propName + 'WidthChanged'](function (sender, args) {
+                var headerControl = this.header[propName + 'Cell'];
+
+                this.get_template().controls.single(function (control) {
+                    return control.id === propName + 'Cell';
+                }).width = args.newValue.pixels;
+
+                headerControl.set_width(args.newValue);
+                this.header.update(headerControl);
+
+                this.forEachRow(function (row, index) {
+                    var control = row[propName + 'Cell'];
+
+                    control.set_width(args.newValue);
+                    row.update(control);
+                }, this);
+            }, that);
+        };
+
+        for (var prop in properties) {
+            forPropFunc(prop);
+        }
+    },
+
+    _getHoveredBorder: function (item, hoverArgs) {
+        var itemWidth = item.get_clientWidth();
+
+        if (0 <= hoverArgs.offsetX && hoverArgs.offsetX <= this._resizableBorderSize)
+            return this._border.left;
+
+        var delta = itemWidth - hoverArgs.offsetX;
+
+        if (0 <= delta && delta <= this._resizableBorderSize)
+            return this._border.right;
+
+        return this._border.none;
+    },
+
+    _beginResize: function (columnName, border, args) {
+        this._isResizing = true;
+        this._resizeArgs = args;
+
+        var columnIndex = this._resizableColumnsSizes.indexes.indexOf(columnName);
+        var columnToResize = border === this._border.left ?
+                this._getLeftVisibleColumnFrom(columnIndex - 1) :
+                columnName;
+
+        var onMouseMove = function (sender, args) {
+            args.preventDefault();
+            args.stopPropagation();
+
+            if (columnToResize) {
+                var delta = args.screenX - this._resizeArgs.screenX;
+
+                var currentSize = this._resizableColumnsSizes['get_' + columnToResize + 'Width']();
+
+                if (currentSize === undefined) {
+                    currentSize = this.header[columnToResize + 'Cell'].get_width();
+                }
+
+                if (currentSize.pixels < -delta)
+                    return;
+
+                var newValue = currentSize.add(new DimensionUnit(delta));
+                this._resizableColumnsSizes['set_' + columnToResize + 'Width'](newValue);
+
+                this._resizeArgs = args;
+            }
+        } .bind(this);
+
+        var onEndResize = function (sender, args) {
+            this._isResizing = false;
+
+            this.header.detachDomHandler('mousemove', onMouseMove);
+            this.header.detachDomHandler('mouseup', onEndResize);
+            //this.header.detachDomHandler('mouseout', onEndResize);
+
+            if (columnToResize)
+                this.raise_columnResized({ columnName: columnToResize, width: this._resizableColumnsSizes['get_' + columnToResize + 'Width']() });
+        } .bind(this);
+
+        this.header.attachDomHandler('mousemove', onMouseMove);
+        this.header.attachDomHandler('mouseup', onEndResize);
+        //this.header.attachDomHandler('mouseout', onEndResize);
+    },
+
+    _getLeftVisibleColumnFrom: function (index) {
+        while (index >= 0 && this._hiddenColumns.contains(this._resizableColumnsSizes.indexes[index]))
+            index--;
+
+        return index >= 0 ? this._resizableColumnsSizes.indexes[index] : null;
+    }
+};
+
+Auto.Event(Phoenix.UI.DataGrid.Resizable, 'columnResized');
+
+Phoenix.UI.DataGrid.prototype.makeResizable = function (options) {
+    if (this.__resizable)
+        return;
+
+    Trait.Apply(this, Phoenix.UI.DataGrid.Resizable);
+
+    for (var prop in options.columnProperties) {
+        Auto.Property(this._resizableColumnsSizes, { name: prop + 'Width', autoEvent: true });
+        this._resizableColumnsSizes.indexes.add(prop);
+    }
+
+    this.__resizable = true;
+};
+Phoenix.UI.DataGrid.Selectable = {
+    set_dataSource: function() {
+        this._selectedItems.clear();
+    },
+    
+    _dataSource_itemAdded: function(sender, args) {
+        this._checkHeaderSelection();
+        this.updateSelection(args.items, []);
+    },
+
+    _dataSource_itemRemoved: function(sender, args) {
+        var toRemove = this._selectedItems.where(function(item) { return args.items.contains(item); } );
+        
+        //this._selectedItems.remove(toRemove);
+        
+        this._checkHeaderSelection();
+        this.updateSelection([], args.items);
+    },
+    
+    _buildRow: function(properties, id, cssClass, allowBinding, cellControlGetter, rowProperties, createdRow) {
+        var cell = this._createEmptyCell({ cellType: id });
+        cell.id = 'selectionCell';
+        cell.width = '26px';
+        
+        if(createdRow.id !== 'newItemRow' && (createdRow.id !== 'header' || this._selectionMode !== 'single')) {
+            var checkBox = {
+                id: 'checkBox',
+                type: 'checkbox',
+                width: '13px',
+                height: '14px',
+                halign: 'center',
+                valign: 'middle',
+                bindings: {},
+                onChanged: this._itemSelectionChanged.bind(this)
+            };
+            
+            cell.controls.add(checkBox);
+        }
+        createdRow.controls.insert(0, cell);
+    },
+    
+    _itemSelectionChanged: function(sender) {
+        var row = sender.parent.parent;
+        var selectionState = sender.get_state();        
+
+        if(row.id === 'header') {
+            this.changeAllSelection(selectionState);            
+            return;
+        }
+
+        if (this._selectionMode == 'single') {
+            this._selectedItems.clear();
+        }
+        
+        if(selectionState) {
+            this._selectedItems.add(row.get_dataSource());
+        } else if (this._selectionMode == 'multiple') {
+            this._selectedItems.remove(row.get_dataSource());
+        }
+        
+        this._checkHeaderSelection();
+    },
+    
+    updateSelection: function(added, removed) {
+        var items = this._selectedItems;
+
+        this.forEachRow(function(row) {
+            if(!row.selectionCell)
+                return;
+
+            var checkBox = row.selectionCell.checkBox;
+            var ds = row.get_dataSource();
+
+            if (items.contains(ds)) {
+                checkBox.set_state(CheckBoxStates.checked);
+            } else {
+                checkBox.set_state(CheckBoxStates.empty);
+            }
+        });
+    },
+
+    changeAllSelection: function(state) {
+        var items = [];
+
+        this.forEachRow(function(row) {
+            if(!row.selectionCell)
+                return;
+        
+            var checkBox = row.selectionCell.checkBox;
+            
+            if(checkBox.get_state() !== state)
+                items.add(row.get_dataSource());
+            
+            checkBox.set_state(state);
+        });
+        
+        if(state)
+            this._selectedItems.add(items);
+        else
+            this._selectedItems.remove(items);
+    },
+
+    _selectedChanged: function(sender, args) {
+        this.updateSelection();
+    },
+
+    // TODO: I think we should detach handlers on disposing too
+    set_selectedItems: function(value) {
+        if (this._selectedItems === value) {
+            return;
+        }
+
+        this._detachSelectionHandlers();
+        this._selectedItems = value;
+        this._attachSelectionHandlers();
+    },
+
+    _detachSelectionHandlers: function() {
+        if (this._selectedItems && this._selectedItems.__observable) {
+            this._selectedItems.remove_changed(this._selectedChanged, this);
+        }
+    },
+
+    _attachSelectionHandlers: function() {
+        if (this._selectedItems) {
+            this._selectedItems.add_changed(this._selectedChanged, this);
+        }
+    },
+    
+    _checkHeaderSelection: function() {
+        if (this._selectionMode === 'multiple') {
+            if (this._selectedItems.length == 0) {
+                this._header.selectionCell.checkBox.set_state(CheckBoxStates.empty);
+            } else if (this._selectedItems.length !== this._dataSource.length) {
+                this._header.selectionCell.checkBox.set_state(CheckBoxStates.gray);
+            }
+            else {
+                this._header.selectionCell.checkBox.set_state(CheckBoxStates.checked);
+            }
+        }
+    }
+};
+
+Auto.Properties(Phoenix.UI.DataGrid.Selectable, [
+    'selectedItems'
+]);
+
+Phoenix.UI.DataGrid.prototype.makeSelectable = function(options) {
+    Trait.Apply(this, Phoenix.UI.DataGrid.Selectable);
+    
+    this.set_selectedItems([].makeObservable());
+    this._selectionMode = options.selectionMode || 'multiple';
+};
 Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.DatePicker = function () {
@@ -24953,6 +24449,104 @@ ControlsFactory.registerControl('pager', Phoenix.UI.Pager);
 
 Type.createNamespace('Phoenix.UI');
 
+Phoenix.UI.FancyBox = function() {
+    Phoenix.UI.FancyBox.constructBase(this);
+};
+
+Phoenix.UI.FancyBox.prototype = {
+    _contentRounded: null,
+    _contentContainer: null,
+    _innerWidthDelta: 21,
+    _innerHeightDelta: 22,
+
+    get_innerWidth: function() {
+        return Math.max(Phoenix.UI.FancyBox.callBase(this, "get_innerWidth") - this._innerWidthDelta, 0);
+    },
+
+    get_innerHeight: function() {
+        return Math.max(Phoenix.UI.FancyBox.callBase(this, "get_innerHeight") - this._innerHeightDelta, 0);
+    },
+
+    _set_clientHeight: function(value) {
+        if (this.get_height().isAutoSize()) {
+            value += this._innerHeightDelta;
+        }
+        
+        Phoenix.UI.FancyBox.callBase(this, "_set_clientHeight", [value]);
+    },
+    
+    _set_clientWidth: function(value) {
+        if (this.get_width().isAutoSize()) {
+            value += this._innerWidthDelta;
+        }
+        
+        Phoenix.UI.FancyBox.callBase(this, "_set_clientWidth", [value]);
+    },
+
+    get_childsContainer: function() {
+        return this._contentContainer;
+    },
+
+    /**
+    * Instantiate this control in DOM
+    */
+    instantiateInDom: function(domElement) {
+        var element = DOM.create('div', domElement);
+        var $element = $(element);
+        
+        var layout = '<div class="top_rounded">' +
+                        '<span class="ltc">&nbsp;</span><span class="rtc">&nbsp;</span><div>&nbsp;</div>' +
+                     '</div>' +
+                     '<div class="content_rounded">' +
+                         '<span class="l">&nbsp;</span><span class="r">&nbsp;</span><div class="content">' +
+                             '<div class="main_content">' +
+                                 '<div class="content_container"></div>' +
+                             '</div>' +
+                         '</div>' +
+                     '</div>' +
+                     '<div class="bottom_rounded">' +
+                         '<span class="l">&nbsp;</span><span class="r">&nbsp;</span><div>&nbsp;</div>' +
+                     '</div>';
+
+        $element.html(layout);
+
+        this.domElement = element;
+        this.addCssClass('rounded_box');
+        
+        this._topRounded = $('.top_rounded', $element).get(0);
+        this._contentRounded = $('.content_rounded', $element).get(0);
+        this._contentContainer = $('.content_container', $element).get(0);
+
+        Phoenix.UI.FancyBox.callBase(this, "instantiateInDom", [ domElement ]);
+    },
+    
+    updateDom: function(sender) {
+        var element = this.domElement;
+            
+        var clientWidth = this.get_clientWidth();
+        var clientHeight = this.get_clientHeight();
+        var innerWidth = this.get_innerWidth();
+        var innerHeight = this.get_innerHeight();
+            
+        var elStyle = element.style;
+            
+        elStyle.width = clientWidth ? clientWidth + 'px' : '';
+        elStyle.height = clientHeight ? clientHeight + 'px' : '';
+            
+        this._contentRounded.style.height = innerHeight ? innerHeight + 'px' : '';
+            
+        var contentContainerStyle = this._contentContainer.style;
+        contentContainerStyle.width = innerWidth ? innerWidth + 'px' : '';
+        contentContainerStyle.height = innerHeight ? innerHeight + 'px' : '';
+        
+        Phoenix.UI.FancyBox.callBase(this, "updateDom", [sender]);
+    }
+};
+
+Phoenix.UI.FancyBox.createClass('Phoenix.UI.FancyBox', Control);
+ControlsFactory.registerControl('box', Phoenix.UI.FancyBox);
+Type.createNamespace('Phoenix.UI');
+
 Phoenix.UI.Popup = function() {
     Phoenix.UI.Popup.constructBase(this);
     this._fadeSpeed = $.browser.msie ? 0 : 'fast';
@@ -26576,119 +26170,6 @@ Phoenix.UI.TabPanel.createClass('Phoenix.UI.TabPanel', Control);
 Phoenix.UI.Tab.createClass('Phoenix.UI.Tab', Control);
 ControlsFactory.registerControl('tabPanel', Phoenix.UI.TabPanel);
 ControlsFactory.registerControl('_tab', Phoenix.UI.Tab);
-Phoenix.UI.TextBox.Validation = {
-    validate: function() {
-        this._isValid = true;        
-        
-        var options = this._validationOptions;
-        
-        if(!options)
-            return;
-        
-        var text = this.get_text().toString();
-        
-        if(options.notEmpty && String.isNullOrEmpty(text))
-            this._isValid = false;
-        
-        if (options.expression && text && !text.match(options.expression)) {
-            this._isValid = false;
-        }
-        
-        if (!this._isValid) {
-            this._validationIsFailed();
-            return false;
-        }
-        else {
-            this._validationIsSuccess();
-            return true;
-        }
-    },
-
-    _validationIsSuccess: function() {
-        this.removeCssClass('notValid');
-        this._hideValidationTooltip();
-    },
-
-    _validationIsFailed: function() {
-        this.addCssClass('notValid');
-        this._showValidationTooltip();
-    },
-
-    _showValidationTooltip: function() {
-        var domElement = this.domElement;
-
-        if (this._validationTooltip) {
-            return;
-        }
-
-        if (!domElement) {
-            return;
-        }
-
-        var validationText = this.get_validationOptions().errorText || 'Wrong format';
-        var offset = $(domElement).offset();
-
-        var tooltip = DOM.create('div', document.body, { className: 'validation_tooltip' });
-        this._validationTooltip = tooltip;
-        $(tooltip).text(validationText);
-        var tooltipStyle = tooltip.style;
-        tooltipStyle.position = 'absolute';
-        tooltipStyle.left = (offset.left) + 'px';
-        tooltipStyle.top = (offset.top - 21) + 'px';
-        tooltip.__height = $(tooltip).height();
-        tooltip.__top = offset.top - 21;
-
-        tooltipStyle.width = (this.get_clientWidth() - 6) + 'px';
-        tooltipStyle.zIndex = DepthManager.getNewZIndex();
-        
-        $(tooltip)
-            .animate({
-                height: 0,
-                top: offset.top,
-                opacity: 0
-            }, 0)
-            .animate({
-                height: tooltip.__height,
-                top: tooltip.__top,
-                opacity: 1
-            }, 150);
-
-        setTimeout(this._hideValidationTooltip.bind(this), 5000);
-        this.add_onFree(this._hideValidationTooltip, this);
-    },
-    
-    _hideValidationTooltip: function() {
-        if (this._validationTooltip) {
-            this.remove_onFree(this._hideValidationTooltip, this);
-            var tooltip = this._validationTooltip;
-            $(tooltip)
-                .animate({
-                    height: 0,
-                    top: tooltip.__top + 27,
-                    opacity: 0
-                }, 150, null, function() {
-                    DOM.remove(tooltip);
-                });
-            this._validationTooltip = null;
-        }
-    }
-};
-
-Auto.Properties(Phoenix.UI.TextBox.Validation, [
-    'validationOptions',
-    'isValid'
-]);
-
-Phoenix.UI.TextBox.prototype.initValidation = function(validationOptions) {
-    if(!this.__validationInitialized) {
-        Trait.Apply(this, Phoenix.UI.TextBox.Validation);
-        this.__validationInitialized = true;
-    }
-    
-    this._isValid = null;
-    
-    this.set_validationOptions(validationOptions);    
-};
 Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.TextBox = function() {
@@ -26925,6 +26406,119 @@ Auto.Events(Phoenix.UI.TextBox.prototype, [ 'keyPressed', 'enterPressed' ]);
 Phoenix.UI.TextBox.createClass('Phoenix.UI.TextBox', Control);
 ControlsFactory.registerControl('textBox', Phoenix.UI.TextBox);
 ControlsFactory.registerControl('textbox', Phoenix.UI.TextBox);
+Phoenix.UI.TextBox.Validation = {
+    validate: function() {
+        this._isValid = true;        
+        
+        var options = this._validationOptions;
+        
+        if(!options)
+            return;
+        
+        var text = this.get_text().toString();
+        
+        if(options.notEmpty && String.isNullOrEmpty(text))
+            this._isValid = false;
+        
+        if (options.expression && text && !text.match(options.expression)) {
+            this._isValid = false;
+        }
+        
+        if (!this._isValid) {
+            this._validationIsFailed();
+            return false;
+        }
+        else {
+            this._validationIsSuccess();
+            return true;
+        }
+    },
+
+    _validationIsSuccess: function() {
+        this.removeCssClass('notValid');
+        this._hideValidationTooltip();
+    },
+
+    _validationIsFailed: function() {
+        this.addCssClass('notValid');
+        this._showValidationTooltip();
+    },
+
+    _showValidationTooltip: function() {
+        var domElement = this.domElement;
+
+        if (this._validationTooltip) {
+            return;
+        }
+
+        if (!domElement) {
+            return;
+        }
+
+        var validationText = this.get_validationOptions().errorText || 'Wrong format';
+        var offset = $(domElement).offset();
+
+        var tooltip = DOM.create('div', document.body, { className: 'validation_tooltip' });
+        this._validationTooltip = tooltip;
+        $(tooltip).text(validationText);
+        var tooltipStyle = tooltip.style;
+        tooltipStyle.position = 'absolute';
+        tooltipStyle.left = (offset.left) + 'px';
+        tooltipStyle.top = (offset.top - 21) + 'px';
+        tooltip.__height = $(tooltip).height();
+        tooltip.__top = offset.top - 21;
+
+        tooltipStyle.width = (this.get_clientWidth() - 6) + 'px';
+        tooltipStyle.zIndex = DepthManager.getNewZIndex();
+        
+        $(tooltip)
+            .animate({
+                height: 0,
+                top: offset.top,
+                opacity: 0
+            }, 0)
+            .animate({
+                height: tooltip.__height,
+                top: tooltip.__top,
+                opacity: 1
+            }, 150);
+
+        setTimeout(this._hideValidationTooltip.bind(this), 5000);
+        this.add_onFree(this._hideValidationTooltip, this);
+    },
+    
+    _hideValidationTooltip: function() {
+        if (this._validationTooltip) {
+            this.remove_onFree(this._hideValidationTooltip, this);
+            var tooltip = this._validationTooltip;
+            $(tooltip)
+                .animate({
+                    height: 0,
+                    top: tooltip.__top + 27,
+                    opacity: 0
+                }, 150, null, function() {
+                    DOM.remove(tooltip);
+                });
+            this._validationTooltip = null;
+        }
+    }
+};
+
+Auto.Properties(Phoenix.UI.TextBox.Validation, [
+    'validationOptions',
+    'isValid'
+]);
+
+Phoenix.UI.TextBox.prototype.initValidation = function(validationOptions) {
+    if(!this.__validationInitialized) {
+        Trait.Apply(this, Phoenix.UI.TextBox.Validation);
+        this.__validationInitialized = true;
+    }
+    
+    this._isValid = null;
+    
+    this.set_validationOptions(validationOptions);    
+};
 Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.TextEditor = function() {

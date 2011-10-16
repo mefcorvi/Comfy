@@ -1,4 +1,4 @@
-﻿({
+({
     title: "Projects Summary",
     layout: 'stack',
     orientation: 'vertical',

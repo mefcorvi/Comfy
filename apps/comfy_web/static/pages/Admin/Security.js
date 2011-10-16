@@ -1,4 +1,4 @@
-﻿({
+({
     title: "Security",
     orientation: 'horizontal',
     cssClass: 'security_page',

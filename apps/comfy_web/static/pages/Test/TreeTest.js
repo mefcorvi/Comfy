@@ -1,4 +1,4 @@
-﻿({
+({
     title: 'TreeTest',
     onLoad: function() {
         var test = {

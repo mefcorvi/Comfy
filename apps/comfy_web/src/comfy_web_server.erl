@@ -24,26 +24,39 @@ handle(Req, "/") ->
     handle_file(Req, "/index.html");
 
 handle(Req, "/scripts.js") ->
+    comfy_scripts:combine_scripts(),
     handle_file(Req, "/scripts.js");
+
+handle(Req, "/styles.css") ->
+    comfy_scripts:combine_styles(),
+    handle_file(Req, "/styles.css");
+
+handle(Req, "/pages") ->
+    Args = Req:parse_qs(),
+    PageName = Req:get_variable("pageUri", Args),
+    handle_file(Req, "pages/" ++ PageName ++ ".js");
+
+handle(Req, "/pages/getLists") ->
+    Req:respond(200, [{'Content-Type', "application/json"}], "(["
+		"{\"href\": \"page:default\", \"title\": \"Main page\", \"showInMenu\": true},"
+		"{\"href\": \"page:Masters/Default\", \"title\": \"Main page\", \"showInMenu\": false}"
+		"])"),
+    ok;
 
 handle(Req, Uri) ->
     handle_file(Req, Uri).
 
 handle_file(Req, FileName) ->
-    ContentType = case filename:extension(FileName) of
-		      ".js" -> "text/javascript";
-		      ".css" -> "text/css";
-		      _ -> "text/html"
-		  end,
+    ContentType = misultin_utility:get_content_type(FileName),
     FilePath = filename:join([comfy_web_config:get(docroot) ++ FileName]),
     case file:read_file_info(FilePath) of
 	{ok, FileInfo} ->
-	    ModifyTime = httpd_util:rfc1123_date(FileInfo#file_info.mtime),
 	    Etag = httpd_util:create_etag(FileInfo),
 	    case get_header(Req, if_none_match) of
 		Etag ->
 		    Req:respond(304);
 		_ ->
+		    ModifyTime = httpd_util:rfc1123_date(FileInfo#file_info.mtime),
 		    Req:file(FilePath, [
 					{'Content-Type', ContentType},
 					{'Cache-Control', "public"},

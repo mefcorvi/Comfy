@@ -10,11 +10,14 @@ get(docroot) ->
 get(scripts_root) ->
     ?RootDir("static/scripts/");
 
+get(themes_root) ->
+    ?RootDir("static/theme/");
+
+get(controls_root) ->
+    ?RootDir("static/controls/");
+
 get(data_service_pid) ->
     {comfy_server, 'comfy@127.0.0.1'};
 
 get(data_service_timeout) ->
-    5000;
-
-get(_) ->
-    undefined.
+    5000.

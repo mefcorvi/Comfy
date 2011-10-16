@@ -1,5 +1,6 @@
--module(scripts).
--export([get_scripts_list/0, combine_scripts/0]).
+-module(comfy_scripts).
+-export([get_scripts_list/0, combine_scripts/0, combine_styles/0]).
+-include("comfy_web_log.hrl").
 
 get_scripts_list() ->
     [
@@ -44,7 +45,6 @@ get_scripts_list() ->
 
      "core/queue-processor.js",
      "data/dto-processor.js",
-     "data/repository.js",
      "data/entity.js",
      "data/entity-set.js",
      "data/data-filter.js",
@@ -61,6 +61,7 @@ get_scripts_list() ->
      "history/history.boolean.js",
      "history/history.date.js",
 
+     "services/pages-service.js",
      "core/keys.js",
      "core/ui/text-measurer.js",
      "core/ui/css-rules.js",
@@ -106,6 +107,7 @@ get_controls_list() ->
      {control, "Frame"},
      {control, "Form"},
      {control, "Pager"},
+     {control, "FancyBox"},
      {control, "Popup"},
      {control, "ScrollablePanel"},
      {control, "Silverlight"},
@@ -123,7 +125,7 @@ get_controls_list() ->
 
 combine_scripts() ->
     FileName = comfy_web_config:get(docroot) ++ "scripts.js",
-    io:format("Merging scripts into ~p...~n", [FileName]),
+    ?Log("Merging scripts into ~p...", [FileName]),
     {ok, Dest} = file:open(FileName, [write]),
     append_scripts(Dest, get_scripts_list()),
     append_controls(Dest, get_controls_list()),
@@ -137,7 +139,11 @@ append_scripts(Dest, Scripts) ->
 
 append_controls(Dest, Controls) ->
     %% get scripts names
-    Scripts = lists:map(fun({control, ControlName}) -> lists:concat(["../controls/", ControlName, "/*.js"]) end, Controls),
+    Scripts = lists:foldl(fun({control, ControlName}, AccIn) ->
+				  AccIn ++
+				      [lists:concat(["../controls/", ControlName, "/", ControlName, ".js"])] ++
+				      [lists:concat(["../controls/", ControlName, "/*.js"])]
+			  end, [], Controls),
     append_scripts(Dest, Scripts).
 
 append_file(Dest, FileName, DestSet) ->
@@ -166,3 +172,35 @@ append_file(Dest, FileName) when is_list(FileName) ->
 
 get_full_path(FileName) ->
     comfy_web_config:get(scripts_root) ++ FileName.
+
+combine_styles() ->
+    FileName = comfy_web_config:get(docroot) ++ "styles.css",
+    ?Log("Merging styles into ~p...", [FileName]),
+    {ok, Dest} = file:open(FileName, [write]),
+    append_styles(Dest, comfy_web_config:get(themes_root)),
+    append_styles(Dest, comfy_web_config:get(controls_root)),
+    ok = file:close(Dest).
+
+append_styles(Dest, Path) ->
+    ListOfStyles = filelib:fold_files(Path, ".*?\.css", true, fun(FileName, AccIn) -> AccIn ++ [FileName] end, []),
+    lists:foldl(fun(Item, AccIn) -> append_style(Dest, Item, AccIn) end, sets:new(), ListOfStyles).
+
+append_style(Dest, FileName, FilesSet) ->
+    case sets:is_element(FileName, FilesSet) of
+	true ->
+	    FilesSet;
+	false ->
+	    {ok, Result} = file:read_file(FileName),
+	    case unicode:bom_to_encoding(Result) of
+		{_, 0} -> ok;
+		_ -> io:format("Warning! File ~p contains BOM.~n", [FileName])
+	    end,
+	    Replacement = lists:concat(["url(\"", get_url_to_directory(FileName), "/\\2\")"]),
+	    NewResult = re:replace(Result, "url\\((\"|')?~/?(.+?)(\"|')?\\)", Replacement, [global]),
+	    file:write(Dest, <<10,13>>),
+	    ok = file:write(Dest, NewResult),
+	    sets:add_element(FileName, FilesSet)
+    end.
+
+get_url_to_directory(FileName) ->
+    "/" ++ filename:dirname(re:replace(FileName, comfy_web_config:get(docroot), "", [{return, list}])).

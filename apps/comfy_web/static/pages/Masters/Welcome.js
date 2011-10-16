@@ -1,4 +1,4 @@
-﻿({
+({
     title: "Welcome Master",
     cssClass: 'welcome_master_page',
     layout: 'grid',

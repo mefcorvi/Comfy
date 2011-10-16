@@ -1,4 +1,4 @@
-﻿({
+({
     title: "Constraints",
     cssClass: 'constraints_page',
     orientation: 'horizontal',

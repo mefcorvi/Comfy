@@ -11,6 +11,7 @@
 
 start(_StartType, _StartArgs) ->
     ?Log("Starting mirgames web application..."),
+    comfy_scripts:combine_scripts(),
     comfy_web_sup:start_link().
 
 stop(_State) ->

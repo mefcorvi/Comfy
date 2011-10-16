@@ -1,4 +1,4 @@
-﻿({
+({
     title: "Project Details",
     // #region Model
     data: [

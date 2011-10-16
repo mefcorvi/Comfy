@@ -1,4 +1,4 @@
-﻿({
+({
     title: "Manage Plans",
     layout: 'stack',
 

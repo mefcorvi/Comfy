@@ -1,4 +1,4 @@
-﻿({
+({
     title: "View and Edit Projects",
     controls: [
         {
