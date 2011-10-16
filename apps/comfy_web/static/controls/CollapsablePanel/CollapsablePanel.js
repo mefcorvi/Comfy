@@ -13,21 +13,21 @@ Phoenix.UI.CollapsablePanel.prototype = {
     _cookieEnabled: null,
     _cookieKey: null,
     _scrolling: null,
-    
+
     set_title: function(value) {
         if (this._title === value) {
             return;
         }
-    
+
         this.header.lblTitle.set_text(value);
         this._title = value;
     },
-    
+
     set_statusText: function(value) {
         if (this._statusText === value) {
             return;
         }
-        
+
         if (this.statusBar) {
             this.statusBar.lblStatus.set_dataSource(value);
         }
@@ -40,7 +40,7 @@ Phoenix.UI.CollapsablePanel.prototype = {
             this.statusBar.show();
         }
     },
-    
+
     hideStatusBar: function() {
         if (this.statusBar) {
             this.statusBar.hide();
@@ -50,27 +50,27 @@ Phoenix.UI.CollapsablePanel.prototype = {
     initFromOptions: function(options) {
         this._showCollapseButton = isNullOrUndefined(options.showCollapseButton) ? true : options.showCollapseButton;
         this._headerAsCollapseButton = isNullOrUndefined(options.headerAsCollapseButton) ? true : options.headerAsCollapseButton;
-        
+
         if (isFunction(options.onCollapsed)) {
             this.add_onCollapsed(options.onCollapsed, this);
         }
-        
+
         if (isFunction(options.onExpanded)) {
             this.add_onExpanded(options.onExpanded, this);
         }
-        
+
         if (isFunction(options.onCommand)) {
             this.add_onCommand(options.onCommand, this);
         }
-        
+
         options.minHeight = options.minHeight || 28;
         this._scrolling = options.scrolling;
-        
+
         this.addCssClass('collapsable_panel');
         this._cookieKey = options.cookieKey;
         this._cookieEnabled = !!this._cookieKey;
         this._statusText = options.statusText;
-        
+
         var panel = {};
 
         // TODO: !!! Bad smell code
@@ -92,14 +92,14 @@ Phoenix.UI.CollapsablePanel.prototype = {
         panel.horizontal = options.horizontal;
         panel.margin = '0 1 0 0';
         options.padding = undefined;
-        
+
         if (options.bindings) {
             panel.bindings = { '*': '*' };
         }
-        
+
         options.layout = 'stack';
         options.orientation = 'vertical';
-        
+
         options.controls = [
             {
                 type: 'panel',
@@ -138,7 +138,7 @@ Phoenix.UI.CollapsablePanel.prototype = {
             },
             panel
         ];
-        
+
         if (options.showStatusBar) {
             var thisObj = this;
 
@@ -152,7 +152,7 @@ Phoenix.UI.CollapsablePanel.prototype = {
             if (options.statusLabelTemplate) {
                 statusLabel = options.statusLabelTemplate;
             }
-            
+
             statusLabel.id = 'lblStatus';
             statusLabel.cssClass = 'status_label';
 
@@ -203,16 +203,16 @@ Phoenix.UI.CollapsablePanel.prototype = {
                     if (this.lblStatus) {
                         this.lblStatus.set_dataSource(thisObj._statusText);
                     }
-                    
+
                     if (options.buttons) {
                         thisObj.set_buttons(options.buttons);
                     }
                 }
             };
-            
+
             options.controls.add(statusBar);
         }
-        
+
         Phoenix.UI.CollapsablePanel.callBase(this, "initFromOptions", [ options ]);
     },
 
@@ -229,7 +229,7 @@ Phoenix.UI.CollapsablePanel.prototype = {
             this.controls._registerControl(child);
         }
     },
-    
+
     __unregisterInnerChilds: function() {
         var controls = this.innerPanel.controls;
 
@@ -251,87 +251,82 @@ Phoenix.UI.CollapsablePanel.prototype = {
             throw new Error("Status bar is not enabled! Use 'showStatusBar' option");
         }
     },
-    
+
     set_buttons: function(buttons) {
         var ds = this.statusBar.buttons.get_dataSource();
         ds.clear();
-        
+
         //buttons.reverse();
         ds.add(buttons);
     },
-    
-	instantiateInDom: function(domElement) {
+
+    instantiateInDom: function(domElement) {
         Phoenix.UI.CollapsablePanel.callBase(this, "instantiateInDom", [ domElement ]);
-	    
+
         if (this.get_isCollapsed()) {
             this._collapse();
         }
-        
+
         this._initCollapsable();
-	},
+    },
 
     free: function() {
         this.__unregisterInnerChilds();
         Phoenix.UI.CollapsablePanel.callBase(this, "free");
     },
-	
-	_setCollapsedHeight: function() {
+
+    _setCollapsedHeight: function() {
         this._oldHeight = this.get_height();
         this._oldMinHeight = this.options.minHeight;
         this.options.minHeight = undefined;
         this.set_height(new DimensionUnit('?'));
-	},
-	
-	_setOriginalHeight: function() {
+    },
+
+    _setOriginalHeight: function() {
         this.set_height(this._oldHeight);
         this.options.minHeight = this._oldMinHeight;
-	},
+    },
 
     _collapse: function() {
         var collapseLink = this.header.lnkCollapse;
-        var $element = $(this.innerPanel.domElement);
 
         collapseLink.addCssClass("collapse_arrow_toggled");
         collapseLink.removeCssClass("collapse_arrow");
-            
-        $element.fadeOut(350, function() {
-            this._setCollapsedHeight();
-            this.innerPanel.hide();
-            this.raise_onCollapsed();
-            this.update();
-        }.bind(this));
+
+        this._setCollapsedHeight();
+        this.innerPanel.hide();
+        this.raise_onCollapsed();
+        this.update();
     },
 
     _expand: function() {
         var collapseLink = this.header.lnkCollapse;
-        var $element = $(this.innerPanel.domElement);
 
         collapseLink.removeCssClass("collapse_arrow_toggled");
         collapseLink.addCssClass("collapse_arrow");
-            
+
         if (this._oldHeight) {
             this._setOriginalHeight();
             this.innerPanel.show();
             this.update();
         }
-            
-        $element.fadeIn(350);
+
         this.raise_onExpanded();
     },
-	
-	get_isCollapsed: function() {
-	    if (this._isCollapsed === null) {
-            this._isCollapsed = this._showCollapseButton && (this._cookieEnabled && $.cookie(this._getCookieKey()) == 1);	        
-	    }
-	    
-	    return this._isCollapsed;
-	},
-	
-	set_isCollapsed: function(value) {
-	    if (value == this.get_isCollapsed()) {
-	        return;
-	    }
-	
+
+    get_isCollapsed: function() {
+	if (this._isCollapsed === null) {
+            this._isCollapsed = this._showCollapseButton && (this._cookieEnabled && $.cookie(this._getCookieKey()) == 1);
+	}
+
+	return this._isCollapsed;
+    },
+
+    set_isCollapsed: function(value) {
+	if (value == this.get_isCollapsed()) {
+	    return;
+	}
+
         if (this.get_isCollapsed()) {
             this._expand();
         }
@@ -339,22 +334,21 @@ Phoenix.UI.CollapsablePanel.prototype = {
             this._collapse();
         }
 
-	    this._isCollapsed = value;
-	    
-	    if (this._cookieEnabled) {
+	this._isCollapsed = value;
+
+	if (this._cookieEnabled) {
             $.cookie(this._getCookieKey(), value ? 1 : 0, { expires: 7 });
         }
-	},
-	
-	_getCookieKey: function() {
-	    return encodeURIComponent(document.location.href + this._cookieKey);
-	},
-	
-	_initCollapsable: function() {
+    },
+
+    _getCookieKey: function() {
+	return encodeURIComponent(document.location.href + this._cookieKey);
+    },
+
+    _initCollapsable: function() {
         var element = this.innerPanel;
         var collapseLink = this.header.lnkCollapse;
-        var $element = $(this.innerPanel.domElement);
-        
+
         if (!this._showCollapseButton) {
             collapseLink.hide();
         }
@@ -362,24 +356,22 @@ Phoenix.UI.CollapsablePanel.prototype = {
         if (this.get_isCollapsed()) {
             collapseLink.addCssClass("collapse_arrow_toggled");
             collapseLink.removeCssClass("collapse_arrow");
-            
-            $element.fadeOut(0);
-            
+
             this.raise_onCollapsed();
         }
         else {
             collapseLink.removeCssClass("collapse_arrow_toggled");
             collapseLink.addCssClass("collapse_arrow");
-            
+
             this.raise_onExpanded();
         }
-	},
-	
-	_collapseClicked: function(sender, args) {
+    },
+
+    _collapseClicked: function(sender, args) {
         args.stopPropagation();
         args.preventDefault();
         this.set_isCollapsed(!this._isCollapsed);
-	}
+    }
 };
 
 Auto.Events(Phoenix.UI.CollapsablePanel.prototype, [
