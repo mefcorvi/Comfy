@@ -19,6 +19,10 @@ call(Pid, get_tasks) ->
 call(Pid, {login, Login, Password}) ->
     gen_server:call(Pid, {login, Login, Password});
 
+call(Pid, logout) ->
+    {ok, logout} = gen_server:call(Pid, logout),
+    {ok, logout, comfy_web_config:get(data_service_pid)};
+
 call(Pid, Msg) ->
     {error, cannot_handle, Msg}.
 
@@ -28,9 +32,15 @@ loop(Ws, Pid) ->
 	    try
 		Reply = call(Pid, Msg),
 		case Reply of
-		    {new_server, NewPid} ->
-			Ws:send_term(call(NewPid, Msg)),
+		    {ok, user_authorized, NewPid} ->
+			Ws:send_term({ok, user_authorized}),
 			loop(Ws, NewPid);
+		    {ok, logout, NewPid} ->
+			Ws:send_term({ok, logout}),
+			loop(Ws, NewPid);
+		    Bin when is_binary(Bin) ->
+			Ws:send(Bin),
+			loop(Ws, Pid);
 		    _ ->
 			Ws:send_term(Reply),
 			loop(Ws, Pid)

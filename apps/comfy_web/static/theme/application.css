@@ -1,0 +1,154 @@
+html, body, form, h1, h2, h3, h4, h5, div, span
+{
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    outline: 0;
+}
+
+textarea
+{
+    resize: none;
+}
+
+html, body
+{
+    cursor: default;
+}
+
+a, a span
+{
+    cursor: pointer;
+}
+
+input,
+textarea
+{
+    margin: 0;
+    padding: 2px;
+    border: 1px solid #bbb;
+    font-size: 10pt;
+    outline: 0;
+    background: #fff;
+    font-family: "Trebuchet MS", sans-serif;
+}
+
+html, body
+{
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+    font-size: 10pt;
+    font-family: "Trebuchet MS", sans-serif;
+    color: #000;
+}
+
+#appContainer
+{
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+}
+
+a
+{
+    color: #669;
+    text-decoration: underline;
+    outline: 0;
+}
+
+a:hover, a:focus, a:active
+{
+    color: #336;
+}
+
+a img
+{
+    border: 0;
+}
+
+.msie a
+{
+    ie-dummy: expression(this.hideFocus=true);
+}
+
+.normalLoading
+{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 274px;
+    height: 144px;
+    margin-left: -137px;
+    margin-top: -72px;
+    background: #ecf1f0;
+    line-height: 100px;
+    text-align: center;
+    color: #fff;
+    z-index: 30000;
+}
+
+.normalLoading span.loading_progress
+{
+    position: absolute;
+    left: 40px;
+    top: 40px;
+    display: block;
+    height: 24px;
+    width: 24px;
+    background: url("~/master/ajax-loader.gif") center center no-repeat;
+}
+
+img.loading
+{
+    background: url("~/master/ajax-loader.gif") center center no-repeat;
+}
+
+div.loading
+{
+    height: 25px;
+    background: url("~/master/ajax-loader.gif") center center no-repeat;
+}
+
+img.loading_error
+{
+    background: #666;
+}
+
+div.loading_error
+{
+    height: 25px;
+    background: #666;
+}
+
+.form_label
+{
+    color: #666;
+}
+
+.align_center
+{
+    text-align: center;
+}
+
+.error_403_page .not_authorized_error
+{
+    font-size: 13px;
+    display: block;
+    padding: 10px;
+}
+
+.data_not_found_label
+{
+    display: block;
+    color: #666;
+}
+
+.red_label
+{
+    color: #f00;
+}

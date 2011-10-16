@@ -1,0 +1,69 @@
+.default_master .top_panel
+{
+    background: #5b7973 url("~/default/top_panel_bgr.png");
+}
+
+.default_master .hints
+{
+    color: #adbcb9;
+}
+
+.default_master .user_panel a
+{
+    color: #a6b6b3;
+}
+
+.default_master .user_panel a:hover,
+.default_master .user_panel a:focus,
+.default_master .user_panel a:active
+{
+    color: #fff;
+}
+
+.default_master .top_search_panel
+{
+    background: #ecf1f0;
+    border-color: #d8e2e1;
+    color: #aac2bd;
+    transition: background 200ms linear 200ms, box-shadow 100ms ease-out, border-color 200ms linear;
+    -webkit-transition: background 200ms linear 200ms, box-shadow 100ms ease-out, border-color 200ms linear;
+    box-shadow: 0px 0px 0px 0px #c8d2d1;
+}
+
+.default_master .top_search_panel:hover
+{
+    background: #f5faf9;
+    border-color: #c8d2d1;
+}
+
+.default_master .top_search_panel:focus,
+.default_master .top_search_panel:active
+{
+    background: #f5faf9;
+    border-color: #a8c2c1;
+    color: #000;
+    box-shadow: 0px 0px 15px 1px #c8d2d1;
+}
+
+.default_master .page_title
+{
+    font-size: 1.5em;
+    text-align: right;
+    border-color: #e2e7e6;
+}
+
+.default_master .page_menu a
+{
+    font-size: 1.1em;
+    color: #8ca19d;
+    border-color: #e2e7e6;
+    text-decoration: none;
+    line-height: 25px;
+}
+
+.default_master .page_menu a:hover,
+.default_master .page_menu a:focus,
+.default_master .page_menu a:active
+{
+    color: #000;
+}

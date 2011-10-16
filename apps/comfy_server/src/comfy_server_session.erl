@@ -19,8 +19,8 @@ init({Login, Password}) ->
     {ok, Db} = couchbeam:open_db(Server, DbName),
     {ok, #state{db=Db}}.
 
-handle_call({login, Login, Pwd}, _From, State) ->
-    {reply, {ok, user_authorized}, State};
+handle_call(logout, _From, State) ->
+    {stop, normal, {ok, logout}, State};
 
 handle_call({add_new_task, TaskData}, _From, State) ->
     Db = State#state.db,

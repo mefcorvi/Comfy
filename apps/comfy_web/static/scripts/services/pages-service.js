@@ -14,7 +14,7 @@ Services.PagesService = {
         
         return jQuery.ajax({
             type: 'GET',
-            url: serviceFullUrl + "?rnd=" + Math.random(),
+            url: serviceFullUrl,
             data: { pageUri: pageUri },
             success: function(data) {
                 this._cache[pageUri] = '(' + data + ')';
@@ -31,7 +31,7 @@ Services.PagesService = {
         
         return jQuery.ajax({
             type: 'GET',
-            url: serviceFullUrl + "/getLists" + "?rnd=" + Math.random(),
+            url: serviceFullUrl + "/getLists",
             success: function(data) {
                 callback(eval(data));
             }.bind(this),

@@ -12,3 +12,9 @@ input.notValid
     padding: 2px;
     font-size: 11px;
 }
+
+input.watermark,
+textarea.watermark
+{
+    color: #999;
+}

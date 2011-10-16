@@ -38,8 +38,11 @@ handle(Req, "/pages") ->
 
 handle(Req, "/pages/getLists") ->
     Req:respond(200, [{'Content-Type', "application/json"}], "(["
-		"{\"href\": \"page:default\", \"title\": \"Main page\", \"showInMenu\": true},"
-		"{\"href\": \"page:Masters/Default\", \"title\": \"Main page\", \"showInMenu\": false}"
+		"{\"href\": \"page:default\", \"title\": \"Summary\", \"showInMenu\": true},"
+		"{\"href\": \"page:settings\", \"title\": \"Settings\", \"showInMenu\": false},"
+		"{\"href\": \"page:masters/default\", \"title\": \"Main page\", \"showInMenu\": false},"
+		"{\"href\": \"page:errors/error404\", \"title\": \"Error 404\", \"showInMenu\": false},"
+		"{\"href\": \"page:errors/error403\", \"title\": \"Error 403\", \"showInMenu\": false}"
 		"])"),
     ok;
 

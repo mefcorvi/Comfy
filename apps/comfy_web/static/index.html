@@ -8,7 +8,7 @@
   </head>
   <body>
     <div id="loading" class="normalLoading">
-        <img src="theme/Master/loading.gif" width="128" height="15" alt="Loading..." />
+        <span class="loading_progress">&nbsp;</span>
     </div>
     <div id="appContainer"></div>
     <script type="text/javascript" language="javascript" src="/scripts.js"></script>
@@ -18,7 +18,7 @@
         Application.set_configuration({
             rootUrl: '/',
             pagesServiceUrl: "/pages",
-            masterPage: "Masters/Default",
+            masterPage: "masters/default",
             domElement: $get("appContainer"),
             startPageUri: "default",
             error403Uri: 'errors/error403',
