@@ -7,6 +7,10 @@
 
     customFunctions: {},
 
+    onLoad: function() {
+	this["page_container"] = this.content.page_container;
+    },
+
     controls: [
         {
             type: 'popup',
@@ -50,16 +54,17 @@
 	    type: 'panel',
 	    cssClass: 'top_panel',
 	    height: 40,
-	    padding: '5 0 5 6',
+	    padding: '0 0 0 6',
 	    controls: [
 		{
 		    type: 'panel',
 		    orientation: 'horizontal',
 		    halign: 'center',
 		    maxWidth: 1000,
+		    padding: '5 0',
 		    controls: [
-			{ type: 'link', id: 'logo', width: 220, height: '*', url: 'page:default' },
-			{ type: 'label', id: 'hints', cssClass: 'hints', width: '*', height: '?', valign: 'middle', text: 'Press "?" to see the hot keys' },
+			{ type: 'link', id: 'logo', width: 220, cssClass: 'logo', height: '*', url: 'page:default', text: 'Comfy Task Manager' },
+			{ type: 'label', id: 'hints', cssClass: 'hints', width: '*', height: '?', margin: '25 0 0 0', valign: 'middle', text: 'Press "?" to see the hot keys' },
 			{
 			    type: 'panel',
 			    id: 'user_panel',
@@ -78,52 +83,54 @@
 	},
 	{
 	    type: 'panel',
-	    height: '25px',
-	    orientation: 'horizontal',
+	    id: 'content',
 	    padding: '5px 0',
-	    margin: '0 15px 0 0',
-	    maxWidth: 1000,
 	    halign: 'center',
+	    maxWidth: 1000,
 	    controls: [
 		{
-		    type: 'label',
-		    text: 'Summary',
-		    width: 185,
-		    height: '*',
-		    padding: '0 0 25px 0',
-		    cssClass: 'page_title',
-		    border: '0 0 1 0'
+		    type: 'panel',
+		    height: '25px',
+		    orientation: 'horizontal',
+		    margin: '0 15px 0 0',
+		    controls: [
+			{
+			    type: 'label',
+			    text: 'Summary',
+			    width: 185,
+			    height: '*',
+			    padding: '0 0 25px 0',
+			    cssClass: 'page_title',
+			    border: '0 0 1 0'
+			},
+			{
+			    type: 'panel',
+			    orientation: 'horizontal',
+			    cssClass: 'page_menu',
+			    controls: [
+				{ type: 'link', text: 'Add task', height: '*', padding: '25px 0', border: '0 0 1 0' },
+				{ type: 'link', text: 'Show categories', height: '*', padding: '25px 0', border: '0 0 1 0' }
+			    ]
+			}
+		    ]
 		},
 		{
-		    type: 'panel',
-		    orientation: 'horizontal',
-		    cssClass: 'page_menu',
-		    controls: [
-			{ type: 'link', text: 'Add task', height: '*', padding: '25px 0', border: '0 0 1 0' },
-			{ type: 'link', text: 'Show categories', height: '*', padding: '25px 0', border: '0 0 1 0' }
-		    ]
+		    type: 'textBox',
+		    width: '*',
+		    height: '30px',
+		    cssClass: 'top_search_panel',
+		    margin: '0px 15px 0px 0',
+		    padding: '10px 5px',
+		    watermark: 'Search...'
+		},
+
+		// top panel
+		{
+		    id: "page_container",
+		    type: "panel",
+		    margin: '0px 15px 0px 0'
 		}
 	    ]
-	},
-	{
-	    type: 'textBox',
-	    width: '*',
-	    height: '30px',
-	    cssClass: 'top_search_panel',
-	    margin: '5px 15px 5px 0',
-	    padding: '10px',
-	    watermark: 'Search...',
-	    maxWidth: '1000',
-	    halign: 'center'
-	},
-
-	// top panel
-        {
-            id: "page_container",
-            type: "panel",
-	    maxWidth: 1000,
-	    halign: 'center',
-	    margin: '5px 15px 5px 0'
-        }
+	}
     ]
 })

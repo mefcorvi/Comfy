@@ -21,14 +21,14 @@ Application =
             if (resourceInfo.length != 2) {
 		throw new Error('The "resource" args should have a "<source>:<resourceName>" format');
             }
-            
+
             if (resourceInfo[0] == 'page') {
 		return Application.get_currentPage().get_resource(resourceInfo[1]);
             }
 	},
 
 	set_resource: function(resourceName, value) {
-            
+
 	},
 
 	// ======== Properties ========
@@ -237,7 +237,7 @@ Application =
             // support for cancelation
             if (args.cancel) {
 		return;
-            }        
+            }
 
             // pageUri can be changed in page pre loading
             pageUri = args.pageUri || Application.get_configuration().get_startPageUri();

@@ -82,6 +82,9 @@
 	}
     ],
     onLoad: function() {
+	if (window["MozWebSocket"])
+	    window["WebSocket"] = window["MozWebSocket"];
+
 	if ("WebSocket" in window) {
 	    // browser supports websockets
 	    var ws = new WebSocket("ws://localhost:8080/service");
