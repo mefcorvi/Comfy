@@ -1,5 +1,5 @@
 -module(comfy_business_service).
--export([create_new_user/2, remove_user/2, authorize/2, start_user_session/2]).
+-export([create_new_user/2, remove_user/2, authorize/2, start_user_session/3]).
 -include("comfy_server.hrl").
 
 create_new_user(Login, Password) ->
@@ -41,8 +41,8 @@ authorize(Login, Password) ->
 	    false
     end.
 
-start_user_session(Login, Password) ->
-    comfy_server_session:start_link(Login, Password).
+start_user_session(Login, Password, SessionPid) ->
+    comfy_server_session:start_link(Login, Password, SessionPid).
     
 get_tasks_view() ->
     {[

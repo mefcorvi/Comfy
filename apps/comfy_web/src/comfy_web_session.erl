@@ -12,9 +12,8 @@ call(Pid, {add_new_task, TaskJson}) ->
     {TaskData} = ejson:decode(TaskJson),
     gen_server:call(Pid, {add_new_task, TaskData});
 
-call(Pid, get_tasks) ->
-    TasksList = gen_server:call(Pid, get_tasks),
-    ejson:encode(TasksList);
+call(Pid, {create_datasource, ViewName}) ->
+    DataSourceId = gen_server:call(Pid, {create_datasource, ViewName});
 
 call(Pid, {login, Login, Password}) ->
     gen_server:call(Pid, {login, Login, Password});
@@ -28,6 +27,13 @@ call(Pid, Msg) ->
 
 loop(Ws, Pid) ->
     receive
+	{Pid, Msg} ->
+	    io:format("Received message ~p~n", [Msg]),
+	    case Msg of
+		{datasource_loaded, DataSourceId, Rows} ->
+		    Ws:send_term({datasource_loaded, DataSourceId, ejson:encode(Rows)}),
+		    loop(Ws, Pid)
+	    end;
 	Msg ->
 	    try
 		Reply = call(Pid, Msg),
