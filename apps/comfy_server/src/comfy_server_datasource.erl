@@ -18,5 +18,7 @@ init(#state{db=Db,viewName=ViewName,parentPid=ParentPid}=State) ->
 
 loop(State) ->
     receive
+	stop ->
+	    ok;
 	_ -> loop(State)
     end.

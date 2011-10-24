@@ -6,45 +6,61 @@
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
 	 terminate/2, code_change/3]).
 
--record(state, {
-	  db :: any(),
-	  client :: pid()
-	 }).
-
+%% Создаёт новую сессию
 start_link(Login, Password, SessionPid) ->
     gen_server:start_link(?MODULE, {Login, Password, SessionPid}, []).
 
+%% Инициализирует новую сессию
 init({Login, Password, ClientPid}) ->
     Server = connect_to_user_db(),
     DbName = user_utils:get_db_name(Login),
     {ok, Db} = couchbeam:open_db(Server, DbName),
-    {ok, #state{db=Db,client=ClientPid}}.
+    {ok, #session_state{
+       db=Db,
+       client=ClientPid,
+       dataSources=[]}
+    }.
 
+%% Логаут пользователя
 handle_call(logout, _From, State) ->
     {stop, normal, {ok, logout}, State};
 
-handle_call({add_new_task, TaskData}, _From, State) ->
-    Db = State#state.db,
-    ?Log("TaskData: ~p~n", [TaskData]),
-    couchbeam:save_doc(Db, {[
-			     {type, task},
-			     {name, proplists:get_value(<<"name">>, TaskData)}
-			    ]}),
-    {reply, {ok, task_created}, State};
+%% Хэндлинг комманд
+handle_call({command, CommandName, Args}, _From, State) ->
+    ModuleName = list_to_atom(lists:append(["comfy_", atom_to_list(CommandName), "_command"])),
+    {Reply, NewState} = erlang:apply(ModuleName, handle, [Args, State]),
+    {reply, Reply, NewState};
 
+%% Создаёт новый датасурс
 handle_call({create_datasource, ViewName}, _From, State) ->
-    Db = State#state.db,
+    Db = State#session_state.db,
     {ok, Pid} = comfy_server_datasource:start_link(Db, ViewName),
-    {reply, Pid, State};
+    DataSourceId = erlang:phash2({node(), now()}),
+    NewDataSources = State#session_state.dataSources ++ [{DataSourceId, Pid}],
+    {reply, DataSourceId, State#session_state{dataSources=NewDataSources}};
 
+%% Дропает старый датасурс
+handle_call({drop_datasource, DataSourceId}, _From, State) ->
+    case proplists:lookup(DataSourceId, State#session_state.dataSources) of
+	none ->
+	    {reply, {error, datasource_not_found}, State};
+	{DataSourceId, DataSourcePid} ->
+	    DataSourcePid ! stop,
+	    NewDataSources = proplists:delete(DataSourceId, State#session_state.dataSources),
+	    {reply, ok, State#session_state{dataSources=NewDataSources}}
+    end;
+
+%% Убивает сессию
 handle_call(stop, _From, State) ->
     {reply, stop, normal, State};
 
+%% Неверный запрос
 handle_call(Request, _From, State) ->
     {reply, {error, wrong_request, Request}, State}.
 
+%% Получили инфу от датасурса о том, что он загружен
 handle_cast({datasource_loaded, From, Rows}, State) ->
-    {ClientPid, _} = State#state.client,
+    {ClientPid, _} = State#session_state.client,
     Msg = {self(), {datasource_loaded, From, Rows}},
     io:format("Client Pid: ~p~n", [ClientPid]),
     ClientPid ! Msg,

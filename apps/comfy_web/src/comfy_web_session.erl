@@ -8,16 +8,24 @@ start(Ws) ->
 init(Ws) ->
     loop(Ws, comfy_web_config:get(data_service_pid)).
 
-call(Pid, {add_new_task, TaskJson}) ->
+%% Добавление новой таски
+call(Pid, {command, add_new_task, TaskJson}) ->
     {TaskData} = ejson:decode(TaskJson),
-    gen_server:call(Pid, {add_new_task, TaskData});
+    gen_server:call(Pid, {command, add_new_task, TaskData});
 
+%% Создание нового датасурса
 call(Pid, {create_datasource, ViewName}) ->
     DataSourceId = gen_server:call(Pid, {create_datasource, ViewName});
 
+%% Удаление датасурса
+call(Pid, {drop_datasource, DataSourceId}) ->
+    gen_server:call(Pid, {drop_datasource, DataSourceId});
+
+%% Логин пользователя
 call(Pid, {login, Login, Password}) ->
     gen_server:call(Pid, {login, Login, Password});
 
+%% Логаут пользователя
 call(Pid, logout) ->
     {ok, logout} = gen_server:call(Pid, logout),
     {ok, logout, comfy_web_config:get(data_service_pid)};
@@ -28,7 +36,6 @@ call(Pid, Msg) ->
 loop(Ws, Pid) ->
     receive
 	{Pid, Msg} ->
-	    io:format("Received message ~p~n", [Msg]),
 	    case Msg of
 		{datasource_loaded, DataSourceId, Rows} ->
 		    Ws:send_term({datasource_loaded, DataSourceId, ejson:encode(Rows)}),
