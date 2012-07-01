@@ -153,7 +153,6 @@ div.loading_error
 {
     color: #f00;
 }
-
 .default_master .top_panel
 {
     background: #5b7973 url("/theme/master/default/top_panel_bgr.png");
@@ -237,108 +236,6 @@ div.loading_error
 {
     color: #000;
 }
-input.notValid 
-{
-    color: #f00;
-    border-color: #FF6060;
-}
-
-.validation_tooltip
-{
-    background: #666;
-    color: #fff;
-    border: 1px solid #333;
-    padding: 2px;
-    font-size: 11px;
-}
-
-input.watermark,
-textarea.watermark
-{
-    color: #999;
-}
-.slider
-{
-    background: url("/controls/Slider/Style/slider_right.png") no-repeat right bottom;
-    height: 61px;
-    padding-right: 18px;
-}
-
-.slider h3
-{
-    display: inline;
-    background: url("/controls/Slider/Style/header_r.png") no-repeat right top;
-    padding-right: 5px;
-    font-weight: normal;
-    font-size: 11px;
-    padding-bottom: 1px;
-    padding-top: 1px;
-}
-
-.gecko .slider h3
-{
-    padding-top: 2px;
-}
-
-.msie .slider h3
-{
-    padding-top: 0;
-}
-
-.slider h3 span
-{
-    display: inline-block;
-    background: url("/controls/Slider/Style/header_l.png") no-repeat left top;
-    padding: 0px;
-    line-height: 19px;
-    padding-left: 15px;
-    padding-right: 10px;
-    text-align: center;
-}
-
-.slider ul
-{
-    display: block;
-    list-style: none;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-    height: 42px;
-    background: url("/controls/Slider/Style/slider_left.png") no-repeat left bottom;
-    padding-left: 16px;
-}
-
-.slider ul li
-{
-    float: left;
-    background: url("/controls/Slider/Style/slider.png") no-repeat center 9px;
-    width: 50%;
-    height: 22px;
-    padding: 0;
-    margin: 0;
-    padding-top: 20px;
-    cursor: pointer;
-    color: #999;
-    text-align: center;
-}
-
-.slider ul li.selected, .slider ul li.hovered
-{
-    background-image: url("/controls/Slider/Style/slider_sel.png");
-    color: #000;
-}
-
-.slider ul li.first
-{
-    background-position: left 9px;
-    text-align: left;
-}
-
-.slider ul li.last
-{
-    background-position: right 9px;
-    text-align: right;
-}
 a.color_picker_control
 {
     display: block;
@@ -350,161 +247,6 @@ textarea.watermark
 a.color_picker_control:hover
 {
     border: 1px solid #000;
-}
-a.link_button
-{
-	margin: 0;
-	float: none;
-	background: url("/controls/Button/Style/button_bgr.png") no-repeat left top;
-	margin-right: 1px;
-	margin-left: 1px;
-	line-height: 31px;
-	text-decoration: none;
-	cursor: pointer;
-	display: block;
-	overflow: hidden;
-}
-
-a.link_button:focus
-{
-	background-position: left -62px;
-}
-
-a.link_button:focus span
-{
-	background-position: right -62px;
-}
-
-.msie6 a.link_button, .msie7 a.link_button
-{
-    zoom: 1 !important;
-	padding-top: 0;
-}
-
-a.link_button span
-{
-	margin: 0;
-	padding: 0;
-	display: block;
-	float: none;
-	background: url("/controls/Button/Style/button_bgr.png") no-repeat right top;
-	padding: 0 20px 12px 0;
-	text-decoration: none;
-	color: #eee;
-	line-height: 32px;
-	text-align: center;
-	cursor: pointer;
-	text-shadow: 1px 1px 0 #000;
-	white-space: nowrap;
-}
-
-a.link_button:hover
-{
-	background-position: left -31px;
-}
-
-a.link_button:hover span
-{
-	background-position: right -31px;
-	color: #fff;
-}
-
-a.link_button:active
-{
-	background-position: left -62px;
-}
-
-a.link_button:active span
-{
-	background-position: right -62px;
-}
-
-a.red_button, a.red_button span
-{
-	background-image: url("/controls/Button/Style/button_red_bgr.png");
-}
-
-a.link_button_disabled, a.link_button_disabled:hover, a.link_button_disabled:active, a.link_button_disabled:focus
-{
-	background-position: left -93px;
-	cursor: default;
-}
-
-a.link_button_disabled span, a.link_button_disabled:hover span, a.link_button_disabled:active span, a.link_button_disabled:focus span
-{
-	background-position: right -93px;
-	color: #999;
-	cursor: default;
-	text-shadow: none;
-}
-
-.treeview
-{
-	padding: 0;
-	margin: 0;
-	list-style: none;
-	overflow: hidden;
-}
-
-.treeview li.tree_node
-{
-	margin: 0;
-	padding: 3px 0pt 3px 0px;
-	font-size: 11px;
-}
-
-.treeview li.tree_node .treeview li.tree_node
-{
-    padding-left: 16px;
-}
-
-.treeview a
-{
-    padding: 2px 5px;
-    color: #777777;
-    text-decoration: none;
-}
-
-.treeview a:focus,
-.treeview a:active,
-.treeview a:hover,
-.treeview .tree_node_selected a
-{
-	border: 1px solid #ccc;
-    padding: 1px 4px;
-	background: url("/controls/Tree/Style/sel.png") 50% 50% repeat-x;
-	color: #fff !important;
-}
-
-.treeview li.selected > div > a
-{
-	border: 1px solid #ccc;
-    padding: 1px 4px;
-	background: url("/controls/Tree/Style/sel0.png") 50% 50% repeat-x;
-	color: #fff !important;
-}
-
-.treeview span.tree_collapser,
-.treeview span.tree_collapser:hover
-{
-	padding: 0;
-	margin: 0;
-	border: 0;
-	display: block;
-	width: 11px;
-	height: 11px;
-	font-size: 6px;
-	float: left;
-	background: url("/controls/Tree/Style/plus_minus.png") left bottom no-repeat;
-	margin-top: 2px;
-	margin-right: 2px;
-	cursor: pointer;
-}
-
-.treeview span.tree_collapsed,
-.treeview span.tree_collapsed:hover
-{
-	background-position: left top;
 }
 .rounded_box
 {
@@ -707,82 +449,220 @@ a.link_button_disabled span, a.link_button_disabled:hover span, a.link_button_di
 	margin-right: 14px;
 	background: url("/controls/FancyBox/Style/b.png") repeat-x left top;
 }
-.wizard_control .wizardNavigation
+div.section_header a.collapse_arrow
 {
-    background: #E5E5E5;
-    padding: 5px;
-}
-
-.wizard_control .wizardNavigation .stepLink
-{
+    float: right;
+    width: 18px;
+    height: 28px;
     display: block;
-    background: url("/controls/Wizard/Style/step_link_bgr.png") repeat-x;
-    padding: 2px 10px;
-    border-top: 1px solid #fff;
-    border-left: 1px solid #fff;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ccc;
     text-decoration: none;
-    font-size: 11px;
-    cursor: default;
+    background: url("/controls/CollapsablePanel/Style/collapse_arrow.png") 0 0 no-repeat;
+    zoom: 1;
+    cursor: pointer;
 }
 
-.wizard_control .wizardNavigation .stepLink:hover
+div.section_header a.collapse_arrow:hover, div.section_header a.collapse_arrow:focus, div.section_header a.collapse_arrow:active
 {
-    background: #fff;
+    background-position: -18px 0;
 }
 
-.wizard_control .wizardNavigation .stepLink_selected
+div.section_header a.collapse_arrow_toggled
 {
-    background: url("/controls/Wizard/Style/step_link_bgr_h.png") repeat-x !important;
+    float: right;
+    width: 18px;
+    height: 28px;
+    display: block;
+    text-decoration: none;
+    background: url("/controls/CollapsablePanel/Style/collapse_arrow.png") -36px 0 no-repeat;
+    zoom: 1;
+    cursor: pointer;
 }
 
-.wizard_control .wizardNavigation .stepLink div
+div.section_header a.collapse_arrow_toggled:focus,
+div.section_header a.collapse_arrow_toggled:hover,
+div.section_header a.collapse_arrow_toggled:active
 {
-    cursor: default;
-    color: #555;
+    background-position: -54px 0;
 }
 
-.wizard_control .wizardNavigation .stepLink div.step_num
+div.section_header
 {
-    color: #000;
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	zoom: 1;
+	font-weight: normal;
+	background: #FFFFFF url("/controls/CollapsablePanel/Style/bckg_details_h.png") repeat-x scroll left top;
+	height: 23px;
+	padding: 0 4px 0 4px;
+	padding-left: 10px;
+	line-height: 23px;
+	border: 1px solid #dadada;
+	margin-top: 1px;
+	color: #000;
 }
 
-.wizard_control .wizardNavigation .stepLink_selected div
+div.section_header_expandable
 {
-    color: #EFE0E0;
+	cursor: pointer;
 }
 
-.wizard_control .wizardNavigation .stepLink_selected div.step_num
+div.section
 {
-    color: #fff;
+	padding: 5px;
+	padding-left: 10px;
+	padding-bottom: 0;
+	background: #fff url("/controls/CollapsablePanel/Style/bckg_details.png") no-repeat left top;
+	margin-top: 0px;
+	border: 1px solid #dadada;
+	border-top: 0px;
+	color: #000;
 }
 
-.wizard_control .wizardNavigation .navigation_buttons
+div.section_status
 {
-    margin-bottom: 5px;
+    border: 1px solid #dadada;
+    border-top: 0;
+    background: #fff url("/controls/CollapsablePanel/Style/bgr_status_bar.png") repeat-x bottom;
 }
 
-.wizard_control .wizardNavigation .navigation_buttons a
+div.section_status .status_button
 {
+    display: block;
+    border-color: #dadada;
+    line-height: 20px;
+    background: #f0f0f0 url("/controls/CollapsablePanel/Style/bgr_status_button.png") repeat-x 0 0;
+    text-decoration: none;
+}
+
+div.section_status .status_button:hover
+{
+    background-position: 0 -24px;
+    border-color: #bababa;
+}
+
+div.section_status .status_button:active,
+div.section_status .status_button:focus
+{
+    background-position: 0 -48px;
+    border-color: #aaa;
+}
+
+div.section_status .status_label
+{
+    line-height: 24px;
+    text-align: right;
+    padding-left: 5px;
+    color: #666;
     display: block;
 }
 
-.wizard_control .wizardNavigation a.link_disabled
+div.section_status .status_button_first
 {
-    color: #bbb;
-    cursor: default;
+    margin-left: 5px;
 }
 
-.wizard_control .wizardNavigation a.btnNext
+div.section_no_padding
 {
-    text-align: right;
+    padding: 0;
+}
+.stack_layout_column,
+.column_layout_column
+{
+    float: left;
+}
+.label_header
+{
+    font-size: 15px;
+}
+a.link_button
+{
+	margin: 0;
+	float: none;
+	background: url("/controls/Button/Style/button_bgr.png") no-repeat left top;
+	margin-right: 1px;
+	margin-left: 1px;
+	line-height: 31px;
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	overflow: hidden;
 }
 
-.wizard_control .wizard_content
+a.link_button:focus
 {
-    padding-right: 5px;
+	background-position: left -62px;
 }
+
+a.link_button:focus span
+{
+	background-position: right -62px;
+}
+
+.msie6 a.link_button, .msie7 a.link_button
+{
+    zoom: 1 !important;
+	padding-top: 0;
+}
+
+a.link_button span
+{
+	margin: 0;
+	padding: 0;
+	display: block;
+	float: none;
+	background: url("/controls/Button/Style/button_bgr.png") no-repeat right top;
+	padding: 0 20px 12px 0;
+	text-decoration: none;
+	color: #eee;
+	line-height: 32px;
+	text-align: center;
+	cursor: pointer;
+	text-shadow: 1px 1px 0 #000;
+	white-space: nowrap;
+}
+
+a.link_button:hover
+{
+	background-position: left -31px;
+}
+
+a.link_button:hover span
+{
+	background-position: right -31px;
+	color: #fff;
+}
+
+a.link_button:active
+{
+	background-position: left -62px;
+}
+
+a.link_button:active span
+{
+	background-position: right -62px;
+}
+
+a.red_button, a.red_button span
+{
+	background-image: url("/controls/Button/Style/button_red_bgr.png");
+}
+
+a.link_button_disabled, a.link_button_disabled:hover, a.link_button_disabled:active, a.link_button_disabled:focus
+{
+	background-position: left -93px;
+	cursor: default;
+}
+
+a.link_button_disabled span, a.link_button_disabled:hover span, a.link_button_disabled:active span, a.link_button_disabled:focus span
+{
+	background-position: right -93px;
+	color: #999;
+	cursor: default;
+	text-shadow: none;
+}
+
 .popup .popupContainer
 {
 	background: url("/controls/Popup/Style/bgr.png") repeat-x left 0px;
@@ -1068,186 +948,157 @@ a.link_button_disabled span, a.link_button_disabled:hover span, a.link_button_di
 	margin-right: 14px;
 	background: url("/controls/Popup/Style/b.png") repeat-x left top;
 }
-.link_disabled, .link_disabled:hover
+input.notValid 
 {
-    text-decoration: none;
-    cursor: default;
-    color: #aaa;
-}
-.scrollable_panel
-{
-    position: relative;
+    color: #f00;
+    border-color: #FF6060;
 }
 
-.scrollable_panel .focus_detector
+.validation_tooltip
 {
-    width: 0;
-    height: 0;
-    position: absolute;
-    left: 0;
-    top: 0;
-    display: block;
-    overflow: hidden;
+    background: #666;
+    color: #fff;
+    border: 1px solid #333;
+    padding: 2px;
+    font-size: 11px;
 }
 
-.vscroll_container
+input.watermark,
+textarea.watermark
 {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 12px;
-    bottom: 0;
-    background: #fff url("/controls/ScrollablePanel/Style/scrollbar_track.png") center center repeat-y;
+    color: #999;
+}
+.checkbox
+{
+    font-size: 11px;
     cursor: pointer;
-    zoom: 1;
-    border-left: 1px solid #fff;
-    border-right: 1px solid #fff;
-}
-
-.hscroll_container
-{
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height: 12px;
-    background: #fff url("/controls/ScrollablePanel/Style/scrollbar_htrack.png") center center repeat-x;
-    cursor: pointer; 
-    zoom: 1;
-}
-
-.msie6 .vscroll_container
-{
-    height: 100%;
-}
-
-.msie6 .hscroll_container
-{
-    width: 100%;
-}
-
-.hscrollable_panel .vscroll_container
-{
-    bottom: 13px;
-}
-
-.vscrollable_panel .hscroll_container
-{
-    right: 13px;
-}
-
-.vscroll_container a,
-.hscroll_container a
-{
-    display: block;
-    position: absolute;
+    color: #555;
+    display: inline-block;
     text-decoration: none;
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    margin: 0;
-    padding: 0;
-    line-height: 12px;
-    font-size: 6px;
 }
 
-.vscroll_container a
+.checkbox span
 {
-    left: 0;
-    width: 12px;
-    height: 17px;
+    background: url("/controls/Checkbox/Style/bgr.png") no-repeat left 2px;
+    width: 16px;
+    height: 16px;
+    font-size: 11px;
+    float: left;
 }
 
-.hscroll_container a
+.checkbox_selected
 {
-    top: 0;
-    width: 17px;
-    height: 12px;
+    color: #000;
 }
 
-.hscroll_container a:hover
+.checkbox_selected span
 {
-    background-position: 0 -12px;
+    background-position: left -28px;
 }
 
-.vscroll_container a:hover
+.checkbox_gray
 {
-    background-position: 0 -17px;    
+    color: #555;
 }
 
-.hscroll_container a:active
+.checkbox_gray span
 {
-    background-position: 0 -24px;
+    background-position: left -58px;
 }
 
-.vscroll_container a:active
+.checkbox_disabled
 {
-    background-position: 0 -34px;    
-}
-
-.vscroll_container .slider_item
-{
-    top: 17px;
-    width: 12px;
-    height: 36px;
-    background-image: url("/controls/ScrollablePanel/Style/scrollbar_vSlider.png");
-}
-
-.hscroll_container .slider_item
-{
-    left: 17px;
-    width: 36px;
-    height: 12px;
-    background-image: url("/controls/ScrollablePanel/Style/scrollbar_drag_grab.png");
-}
-
-.vscroll_container a.slider_item:hover
-{
-    background-position: 0 -36px;
-}
-
-.vscroll_container a.slider_item:active
-{
-    background-position: 0 -72px;
-}
-
-.hscroll_container a.slider_item:hover
-{
-    background-position: 0 -12px;
-}
-
-.hscroll_container a.slider_item:active
-{
-    background-position: 0 -24px;
-}
-
-.vscroll_container .top_arrow
-{
-    top: 0;
-    background: url("/controls/ScrollablePanel/Style/scrollbar_arrow_up.png");    
-}
-
-.vscroll_container .bottom_arrow
-{
-    bottom: 0;
-    background: url("/controls/ScrollablePanel/Style/scrollbar_arrow_down.png");    
-}
-
-.hscroll_container .left_arrow
-{
-    left: 0;
-    background: url("/controls/ScrollablePanel/Style/scrollbar_arrow_left.png");    
-}
-
-.hscroll_container .right_arrow
-{
-    right: 0;
-    background: url("/controls/ScrollablePanel/Style/scrollbar_arrow_right.png");    
+    cursor: default;
+    color: #999;
+    opacity: 0.6;
+    filter:alpha(opacity=60);
 }
 .tooltip {
 	background-color : #282828;
 	color : #FFF;
 }
 
+.tabs_panel
+{
+}
+
+.tabs_panel .tab_page
+{
+    background: url("/controls/TabPanel/Style/tab_bgr.png") repeat-x left top;
+    border-color: #e0e0e0;
+}
+
+ul.tab_panel_header
+{
+    list-style: none;
+    display: block;
+    overflow: hidden;
+    zoom: 1;
+    height: 26px;
+    padding: 0;
+    margin: 0;
+}
+
+ul.tab_panel_header li
+{
+    display: block;
+    float: left;
+    height: 26px;
+    width: 100px;
+    padding: 0;
+    margin: 0;
+    color: #666;
+    padding-left: 5px;
+    background: url("/controls/TabPanel/Style/tab_not_active_bgr.png") left top no-repeat;
+}
+
+ul.tab_panel_header li a
+{
+    display: block;
+    height: 26px;
+    padding: 0;
+    margin: 0;
+    line-height: 26px;
+    padding-right: 5px;
+    background: url("/controls/TabPanel/Style/tab_not_active_bgr.png") right top no-repeat;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    outline: 0;
+    color: #666;
+}
+
+ul.tab_panel_header li.hovered
+{
+    background-position: left bottom;
+    color: #000;
+}
+
+ul.tab_panel_header li.hovered a
+{
+    background-position: right bottom;
+    color: #000;
+}
+
+ul.tab_panel_header li.active
+{
+    background-image: url("/controls/TabPanel/Style/tab_active_bgr.png");
+}
+
+ul.tab_panel_header li.active a
+{
+    background-image: url("/controls/TabPanel/Style/tab_active_bgr.png");
+}
+
+div.tab_nav_panel
+{
+    background: url("/controls/TabPanel/Style/nav_bgr.png") repeat-x left top;
+}
+
+div.tab_nav_panel a
+{
+    display: block;
+}
 /*
 * jQuery UI CSS Framework
 * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
@@ -1790,9 +1641,29 @@ div.calendar
     background: #6868FE;
     color: #fff;
 }
-.label_header
+.pager_control
 {
-    font-size: 15px;
+	background: #ececec url("/controls/Pager/Style/pager_bgr.png") repeat-x left bottom;
+	color: #666;
+	border-color: #dcdcdc;
+	border-top-color: #cdcdcd;
+	font-size: 11px;
+}
+
+.pager_control .link_disabled
+{
+    color: #aaa;
+    text-decoration: none;
+}
+
+.pager_control .pager_link
+{
+}
+
+.pager_control .pager_link_selected
+{
+    text-decoration: none;
+    color: #000;
 }
 .dataGrid
 {
@@ -1935,283 +1806,79 @@ div.calendar
     padding: 0px !important;
     margin: 0px !important;
 }
-.pager_control
+.link_disabled, .link_disabled:hover
 {
-	background: #ececec url("/controls/Pager/Style/pager_bgr.png") repeat-x left bottom;
-	color: #666;
-	border-color: #dcdcdc;
-	border-top-color: #cdcdcd;
+    text-decoration: none;
+    cursor: default;
+    color: #aaa;
+}
+.treeview
+{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	overflow: hidden;
+}
+
+.treeview li.tree_node
+{
+	margin: 0;
+	padding: 3px 0pt 3px 0px;
 	font-size: 11px;
 }
 
-.pager_control .link_disabled
+.treeview li.tree_node .treeview li.tree_node
 {
-    color: #aaa;
+    padding-left: 16px;
+}
+
+.treeview a
+{
+    padding: 2px 5px;
+    color: #777777;
     text-decoration: none;
 }
 
-.pager_control .pager_link
+.treeview a:focus,
+.treeview a:active,
+.treeview a:hover,
+.treeview .tree_node_selected a
 {
+	border: 1px solid #ccc;
+    padding: 1px 4px;
+	background: url("/controls/Tree/Style/sel.png") 50% 50% repeat-x;
+	color: #fff !important;
 }
 
-.pager_control .pager_link_selected
+.treeview li.selected > div > a
 {
-    text-decoration: none;
-    color: #000;
-}
-.checkbox
-{
-    font-size: 11px;
-    cursor: pointer;
-    color: #555;
-    display: inline-block;
-    text-decoration: none;
+	border: 1px solid #ccc;
+    padding: 1px 4px;
+	background: url("/controls/Tree/Style/sel0.png") 50% 50% repeat-x;
+	color: #fff !important;
 }
 
-.checkbox span
+.treeview span.tree_collapser,
+.treeview span.tree_collapser:hover
 {
-    background: url("/controls/Checkbox/Style/bgr.png") no-repeat left 2px;
-    width: 16px;
-    height: 16px;
-    font-size: 11px;
-    float: left;
-}
-
-.checkbox_selected
-{
-    color: #000;
-}
-
-.checkbox_selected span
-{
-    background-position: left -28px;
-}
-
-.checkbox_gray
-{
-    color: #555;
-}
-
-.checkbox_gray span
-{
-    background-position: left -58px;
-}
-
-.checkbox_disabled
-{
-    cursor: default;
-    color: #999;
-    opacity: 0.6;
-    filter:alpha(opacity=60);
-}
-.listview .item_hovered
-{
-    background: #eee;
-    cursor: pointer;
-}
-
-.listview .item_selected
-{
-    background: #ddd;
-}
-div.section_header a.collapse_arrow
-{
-    float: right;
-    width: 18px;
-    height: 28px;
-    display: block;
-    text-decoration: none;
-    background: url("/controls/CollapsablePanel/Style/collapse_arrow.png") 0 0 no-repeat;
-    zoom: 1;
-    cursor: pointer;
-}
-
-div.section_header a.collapse_arrow:hover, div.section_header a.collapse_arrow:focus, div.section_header a.collapse_arrow:active
-{
-    background-position: -18px 0;
-}
-
-div.section_header a.collapse_arrow_toggled
-{
-    float: right;
-    width: 18px;
-    height: 28px;
-    display: block;
-    text-decoration: none;
-    background: url("/controls/CollapsablePanel/Style/collapse_arrow.png") -36px 0 no-repeat;
-    zoom: 1;
-    cursor: pointer;
-}
-
-div.section_header a.collapse_arrow_toggled:focus,
-div.section_header a.collapse_arrow_toggled:hover,
-div.section_header a.collapse_arrow_toggled:active
-{
-    background-position: -54px 0;
-}
-
-div.section_header
-{
-	font-size: 12px;
 	padding: 0;
 	margin: 0;
-	overflow: hidden;
-	zoom: 1;
-	font-weight: normal;
-	background: #FFFFFF url("/controls/CollapsablePanel/Style/bckg_details_h.png") repeat-x scroll left top;
-	height: 23px;
-	padding: 0 4px 0 4px;
-	padding-left: 10px;
-	line-height: 23px;
-	border: 1px solid #dadada;
-	margin-top: 1px;
-	color: #000;
-}
-
-div.section_header_expandable
-{
+	border: 0;
+	display: block;
+	width: 11px;
+	height: 11px;
+	font-size: 6px;
+	float: left;
+	background: url("/controls/Tree/Style/plus_minus.png") left bottom no-repeat;
+	margin-top: 2px;
+	margin-right: 2px;
 	cursor: pointer;
 }
 
-div.section
+.treeview span.tree_collapsed,
+.treeview span.tree_collapsed:hover
 {
-	padding: 5px;
-	padding-left: 10px;
-	padding-bottom: 0;
-	background: #fff url("/controls/CollapsablePanel/Style/bckg_details.png") no-repeat left top;
-	margin-top: 0px;
-	border: 1px solid #dadada;
-	border-top: 0px;
-	color: #000;
-}
-
-div.section_status
-{
-    border: 1px solid #dadada;
-    border-top: 0;
-    background: #fff url("/controls/CollapsablePanel/Style/bgr_status_bar.png") repeat-x bottom;
-}
-
-div.section_status .status_button
-{
-    display: block;
-    border-color: #dadada;
-    line-height: 20px;
-    background: #f0f0f0 url("/controls/CollapsablePanel/Style/bgr_status_button.png") repeat-x 0 0;
-    text-decoration: none;
-}
-
-div.section_status .status_button:hover
-{
-    background-position: 0 -24px;
-    border-color: #bababa;
-}
-
-div.section_status .status_button:active,
-div.section_status .status_button:focus
-{
-    background-position: 0 -48px;
-    border-color: #aaa;
-}
-
-div.section_status .status_label
-{
-    line-height: 24px;
-    text-align: right;
-    padding-left: 5px;
-    color: #666;
-    display: block;
-}
-
-div.section_status .status_button_first
-{
-    margin-left: 5px;
-}
-
-div.section_no_padding
-{
-    padding: 0;
-}
-.tabs_panel
-{
-}
-
-.tabs_panel .tab_page
-{
-    background: url("/controls/TabPanel/Style/tab_bgr.png") repeat-x left top;
-    border-color: #e0e0e0;
-}
-
-ul.tab_panel_header
-{
-    list-style: none;
-    display: block;
-    overflow: hidden;
-    zoom: 1;
-    height: 26px;
-    padding: 0;
-    margin: 0;
-}
-
-ul.tab_panel_header li
-{
-    display: block;
-    float: left;
-    height: 26px;
-    width: 100px;
-    padding: 0;
-    margin: 0;
-    color: #666;
-    padding-left: 5px;
-    background: url("/controls/TabPanel/Style/tab_not_active_bgr.png") left top no-repeat;
-}
-
-ul.tab_panel_header li a
-{
-    display: block;
-    height: 26px;
-    padding: 0;
-    margin: 0;
-    line-height: 26px;
-    padding-right: 5px;
-    background: url("/controls/TabPanel/Style/tab_not_active_bgr.png") right top no-repeat;
-    text-align: center;
-    text-decoration: none;
-    font-size: 12px;
-    outline: 0;
-    color: #666;
-}
-
-ul.tab_panel_header li.hovered
-{
-    background-position: left bottom;
-    color: #000;
-}
-
-ul.tab_panel_header li.hovered a
-{
-    background-position: right bottom;
-    color: #000;
-}
-
-ul.tab_panel_header li.active
-{
-    background-image: url("/controls/TabPanel/Style/tab_active_bgr.png");
-}
-
-ul.tab_panel_header li.active a
-{
-    background-image: url("/controls/TabPanel/Style/tab_active_bgr.png");
-}
-
-div.tab_nav_panel
-{
-    background: url("/controls/TabPanel/Style/nav_bgr.png") repeat-x left top;
-}
-
-div.tab_nav_panel a
-{
-    display: block;
+	background-position: left top;
 }
 div.dropDownList
 {
@@ -2315,8 +1982,340 @@ div.dropDownList_container .scroll_panel_container
     padding-left: 0;
     padding-right: 0;
 }
-.stack_layout_column,
-.column_layout_column
+.listview .item_hovered
+{
+    background: #eee;
+    cursor: pointer;
+}
+
+.listview .item_selected
+{
+    background: #ddd;
+}
+.wizard_control .wizardNavigation
+{
+    background: #E5E5E5;
+    padding: 5px;
+}
+
+.wizard_control .wizardNavigation .stepLink
+{
+    display: block;
+    background: url("/controls/Wizard/Style/step_link_bgr.png") repeat-x;
+    padding: 2px 10px;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ccc;
+    text-decoration: none;
+    font-size: 11px;
+    cursor: default;
+}
+
+.wizard_control .wizardNavigation .stepLink:hover
+{
+    background: #fff;
+}
+
+.wizard_control .wizardNavigation .stepLink_selected
+{
+    background: url("/controls/Wizard/Style/step_link_bgr_h.png") repeat-x !important;
+}
+
+.wizard_control .wizardNavigation .stepLink div
+{
+    cursor: default;
+    color: #555;
+}
+
+.wizard_control .wizardNavigation .stepLink div.step_num
+{
+    color: #000;
+}
+
+.wizard_control .wizardNavigation .stepLink_selected div
+{
+    color: #EFE0E0;
+}
+
+.wizard_control .wizardNavigation .stepLink_selected div.step_num
+{
+    color: #fff;
+}
+
+.wizard_control .wizardNavigation .navigation_buttons
+{
+    margin-bottom: 5px;
+}
+
+.wizard_control .wizardNavigation .navigation_buttons a
+{
+    display: block;
+}
+
+.wizard_control .wizardNavigation a.link_disabled
+{
+    color: #bbb;
+    cursor: default;
+}
+
+.wizard_control .wizardNavigation a.btnNext
+{
+    text-align: right;
+}
+
+.wizard_control .wizard_content
+{
+    padding-right: 5px;
+}
+.slider
+{
+    background: url("/controls/Slider/Style/slider_right.png") no-repeat right bottom;
+    height: 61px;
+    padding-right: 18px;
+}
+
+.slider h3
+{
+    display: inline;
+    background: url("/controls/Slider/Style/header_r.png") no-repeat right top;
+    padding-right: 5px;
+    font-weight: normal;
+    font-size: 11px;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+
+.gecko .slider h3
+{
+    padding-top: 2px;
+}
+
+.msie .slider h3
+{
+    padding-top: 0;
+}
+
+.slider h3 span
+{
+    display: inline-block;
+    background: url("/controls/Slider/Style/header_l.png") no-repeat left top;
+    padding: 0px;
+    line-height: 19px;
+    padding-left: 15px;
+    padding-right: 10px;
+    text-align: center;
+}
+
+.slider ul
+{
+    display: block;
+    list-style: none;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    height: 42px;
+    background: url("/controls/Slider/Style/slider_left.png") no-repeat left bottom;
+    padding-left: 16px;
+}
+
+.slider ul li
 {
     float: left;
+    background: url("/controls/Slider/Style/slider.png") no-repeat center 9px;
+    width: 50%;
+    height: 22px;
+    padding: 0;
+    margin: 0;
+    padding-top: 20px;
+    cursor: pointer;
+    color: #999;
+    text-align: center;
+}
+
+.slider ul li.selected, .slider ul li.hovered
+{
+    background-image: url("/controls/Slider/Style/slider_sel.png");
+    color: #000;
+}
+
+.slider ul li.first
+{
+    background-position: left 9px;
+    text-align: left;
+}
+
+.slider ul li.last
+{
+    background-position: right 9px;
+    text-align: right;
+}
+.scrollable_panel
+{
+    position: relative;
+}
+
+.scrollable_panel .focus_detector
+{
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    overflow: hidden;
+}
+
+.vscroll_container
+{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 12px;
+    bottom: 0;
+    background: #fff url("/controls/ScrollablePanel/Style/scrollbar_track.png") center center repeat-y;
+    cursor: pointer;
+    zoom: 1;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+
+.hscroll_container
+{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 12px;
+    background: #fff url("/controls/ScrollablePanel/Style/scrollbar_htrack.png") center center repeat-x;
+    cursor: pointer; 
+    zoom: 1;
+}
+
+.msie6 .vscroll_container
+{
+    height: 100%;
+}
+
+.msie6 .hscroll_container
+{
+    width: 100%;
+}
+
+.hscrollable_panel .vscroll_container
+{
+    bottom: 13px;
+}
+
+.vscrollable_panel .hscroll_container
+{
+    right: 13px;
+}
+
+.vscroll_container a,
+.hscroll_container a
+{
+    display: block;
+    position: absolute;
+    text-decoration: none;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    line-height: 12px;
+    font-size: 6px;
+}
+
+.vscroll_container a
+{
+    left: 0;
+    width: 12px;
+    height: 17px;
+}
+
+.hscroll_container a
+{
+    top: 0;
+    width: 17px;
+    height: 12px;
+}
+
+.hscroll_container a:hover
+{
+    background-position: 0 -12px;
+}
+
+.vscroll_container a:hover
+{
+    background-position: 0 -17px;    
+}
+
+.hscroll_container a:active
+{
+    background-position: 0 -24px;
+}
+
+.vscroll_container a:active
+{
+    background-position: 0 -34px;    
+}
+
+.vscroll_container .slider_item
+{
+    top: 17px;
+    width: 12px;
+    height: 36px;
+    background-image: url("/controls/ScrollablePanel/Style/scrollbar_vSlider.png");
+}
+
+.hscroll_container .slider_item
+{
+    left: 17px;
+    width: 36px;
+    height: 12px;
+    background-image: url("/controls/ScrollablePanel/Style/scrollbar_drag_grab.png");
+}
+
+.vscroll_container a.slider_item:hover
+{
+    background-position: 0 -36px;
+}
+
+.vscroll_container a.slider_item:active
+{
+    background-position: 0 -72px;
+}
+
+.hscroll_container a.slider_item:hover
+{
+    background-position: 0 -12px;
+}
+
+.hscroll_container a.slider_item:active
+{
+    background-position: 0 -24px;
+}
+
+.vscroll_container .top_arrow
+{
+    top: 0;
+    background: url("/controls/ScrollablePanel/Style/scrollbar_arrow_up.png");    
+}
+
+.vscroll_container .bottom_arrow
+{
+    bottom: 0;
+    background: url("/controls/ScrollablePanel/Style/scrollbar_arrow_down.png");    
+}
+
+.hscroll_container .left_arrow
+{
+    left: 0;
+    background: url("/controls/ScrollablePanel/Style/scrollbar_arrow_left.png");    
+}
+
+.hscroll_container .right_arrow
+{
+    right: 0;
+    background: url("/controls/ScrollablePanel/Style/scrollbar_arrow_right.png");    
 }

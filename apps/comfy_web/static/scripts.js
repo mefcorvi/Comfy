@@ -10467,6 +10467,9 @@ Error.prototype.toString = function() {
     return typeof(o) === 'function';
 };
 
+Function.empty = function() {
+};
+
 Function.prototype.bind = function bind(obj) {
     var func = this;
 
@@ -10541,7 +10544,32 @@ required = function(obj, params) {
             throw new Error("Argument " + params[i] + " is null");
     }
   }
-}
+};
+
+require = function(params) {
+    if (!isArray(params)) {
+	throw new Error("Params should be an array.");
+    }
+
+    for (var i = 0; i < params.length; i += 2) {
+	var value = params[i];
+	var type = params[i + 1];
+	var guardFunction = require.typeGuards[type];
+
+	if (!isFunction(guardFunction)) {
+	    throw new Error("Guard function for \"" + type + "\" type have not been found.");
+	}
+
+	if (!guardFunction(value)) {
+	    throw new Error('[' + type + ' guard]: ' + value + ' is wrong value.');
+	}
+    }
+};
+
+require.typeGuards = {
+    "String": isString,
+    "Function": isFunction
+};
 
 tryEval = function(text, defaulValue) {
     try {
@@ -10554,31 +10582,31 @@ tryEval = function(text, defaulValue) {
 
 isNumber = function(o) {
     return typeof(o) == 'number';
-}
+};
 
 isBoolean = function(o) {
     return typeof(o) == 'boolean';
-}
+};
 
 isArray = function(o) {
     return o instanceof Array;
-}
+};
 
 isObject = function(o) {
     return typeof(o) == 'object';
-}
+};
 
 isUndefined = function(o) {
     return typeof(o) == 'undefined';
-}
+};
 
 isNullOrUndefined = function(o) {
     return o === null || isUndefined(o);
-}
+};
 
 isDefined = function(o) {
     return !isNullOrUndefined(o);
-}
+};
 
 Object.extend = function (target, src, deep) {
     if (!src)
@@ -13465,6 +13493,124 @@ Auto.Events(QueueProcessor.prototype, [
 ]);
 
 QueueProcessor.createClass('QueueProcessor');
+var Socket = function() {
+    this._messages = [];
+};
+
+Socket.prototype = {
+    /**
+     * Url web-socket сервера
+     */
+    _address: null,
+
+    /**
+     * Объект соединения
+     */
+    _connection: null,
+
+    /**
+     * Сообщения
+     */
+    _messages: null,
+
+    awaitMessage: function(message, callback) {
+	var messageContainer = {
+	    message: message,
+	    callback: callback,
+	    handle: function(msg) {
+		if (this.message == msg) {
+		    this.clearTimeout();
+		    this.callback(msg);
+		}
+	    },
+	    timeout: function(time, callback) {
+		this._timeout = setTimeout(callback, time);
+	    },
+	    clearTimeout: function() {
+		clearTimeout(this._timeout);
+		this._timeout = null;
+	    }
+	};
+
+	this._messages.add(messageContainer);
+	return messageContainer;
+    },
+
+    /**
+     * Осуществляет подключение к серверу с указанным адресом
+     */
+    connect: function $connect(address) {
+	this._address = address;
+
+	if (window["MozWebSocket"]) {
+	    window["WebSocket"] = window["MozWebSocket"];
+	}
+
+	if ("WebSocket" in window) {
+	    this._connection = new WebSocket(this._address);
+	    this._connection.onopen = this._onOpen.bind(this);
+	    this._connection.onmessage = this._onMessage.bind(this);
+	    this._connection.onclose = this._onClose.bind(this);
+	} else {
+	    throw new Error("Sorry, your browser does not support websockets.");
+	}
+    },
+
+    /**
+     * Отправляет сообщение серверу
+     */
+    send: function $send(msg) {
+	if (!this.get_connected()) {
+	    throw new Error("Cannot sent message because connection is closed.");
+	}
+	this._connection.send(msg);
+	return this;
+    },
+
+    /**
+     * Обработчик события открытия соединения
+     */
+    _onOpen: function $onOpen() {
+	this.set_connected(true);
+	this.raise_onOpen();
+    },
+
+    /**
+     * Обработчик события получения сообщения
+     */
+    _onMessage: function $onMessage(evt) {
+	var message = evt.data;
+
+	for (var i = 0; i < this._messages.length; i++) {
+	    if (this._messages[i].handle(message)) {
+		this._messages.removeAt(i);
+		break;
+	    }
+	}
+
+	this.raise_onMessage({ data: evt.data });
+    },
+
+    /**
+     * Обработчик события закрытия соединения
+     */
+    _onClose: function $onClose() {
+	this.set_connected(false);
+	this.raise_onClose();
+    }
+};
+
+Auto.Events(Socket.prototype, [
+    'onOpen',
+    'onMessage',
+    'onClose'
+]);
+
+Auto.Properties(Socket.prototype, [
+    { name: 'connected', autoEvent: true }
+]);
+
+Socket.createClass("Socket");
 var DTOProcessor = function() {
 
 };
@@ -15336,6 +15482,74 @@ Services.PagesService = {
         });        
     }
 };
+var Session = function() {
+};
+
+Session.prototype = {
+    _socket: null,
+
+    _createSocket: function() {
+	this._socket = new Socket();
+    
+	this._socket.add_onOpen(function() {
+	    console.log("Connection has been opened.");
+	    this.set_isConnected(true);
+	}, this);
+    
+	this._socket.add_onClose(function() {
+	    console.log("Connection has been closed.");
+	    this.set_isConnected(false);
+	    callback(false);
+	}, this);
+    },
+
+    /**
+     * Подключаемся к серверу
+     * @param string login
+     * @param string password
+     * @param function callback
+     */
+    connect: function(login, password, callback) {
+	this._createSocket();
+	this._socket.connect("ws://localhost:8080/service");
+	this._socket.add_onOpen(function() {
+	    this.executeCommand(new AuthorizeCommand(login, password), callback);
+	}, this);
+    },
+
+    /**
+     * Отключается от сервера
+     */
+    disconnect: function() {
+	this._socket.close();
+	this._socket = null;
+    },
+
+    /**
+     * Выполняет комманду в текущей сессии
+     */
+    executeCommand: function(command, callback) {
+	if (!callback) {
+	    callback = Function.empty;
+	}
+	require([callback, "Function"]);
+	command.execute(this._socket, callback);
+    }
+};
+
+Session.get_instance = function() {
+    if (!Session._instance) {
+	Session._instance = new Session();
+    }
+
+    return Session._instance;
+},
+
+Auto.Properties(Session.prototype, [
+    { name: 'isConnected', autoEvent: true } // состояние сессии
+]);
+
+Session.createClass('Session');
 var Keys = {
     Esc: 27,
     PgUp: 33,
@@ -19947,6 +20161,60 @@ Template.createClass('Template');
         this._checkEmptiness();
     }
 };
+var AddNewTaskCommand = function(name) {
+    this._task = {
+	name: name
+    };
+};
+
+AddNewTaskCommand.prototype = {
+    execute: function(socket, callback) {
+	socket
+	    .send(String.format("{command, add_new_task, \"{0}\"}", [this.get_json().replaceAll("\"", "\\\"")]))
+	    .awaitMessage("{ok, task_created}", function() {
+		callback(true);
+	    })
+	    .timeout(5000, function() {
+		callback(false);
+	    });
+    },
+
+    get_json: function() {
+	return $.toJSON(this._task);
+    }
+};
+var AuthorizeCommand = function(login, password) {
+    require([
+	login, "String",
+	password, "String"
+    ]);
+    this._login = login;
+    this._password = password;
+};
+
+AuthorizeCommand.prototype = {
+    execute: function(socket, callback) {
+	socket
+	    .send(String.format("{login, \"{0}\", \"{1}\"}", this._login, this._password))
+	    .awaitMessage("{ok,user_authorized}", function() { callback(true); })
+	    .timeout(5000, function() { callback(false); });
+    }
+};
+
+AuthorizeCommand.createClass("AuthorizeCommand");
+var CreateDataSourceCommand = function(dataSourceName) {
+    require([dataSourceName, "String"]);
+    this._dataSourceName = dataSourceName;
+};
+
+CreateDataSourceCommand.prototype = {
+    execute: function(socket, callback) {
+	socket.
+	    send(String.format("{create_datasource,\"{0}\"}", this._dataSourceName));
+    }
+};
+
+CreateDataSourceCommand.createClass("CreateDataSourceCommand");
 Type.createNamespace('Phoenix.UI');
 
 Phoenix.UI.Panel = function() {
@@ -27274,3 +27542,52 @@ Auto.Events(Phoenix.UI.ColorPicker.prototype, [
 
 Phoenix.UI.ColorPicker.createClass('Phoenix.UI.ColorPicker', Control);
 ControlsFactory.registerControl('colorPicker', Phoenix.UI.ColorPicker);
+Type.createNamespace('Phoenix.UI');
+
+Phoenix.UI.HistoryTextBox = function() {
+    Phoenix.UI.HistoryTextBox.constructBase(this);
+};
+
+Phoenix.UI.HistoryTextBox.prototype = {
+    initFromOptions: function(options) {
+	Object.extend(options,
+		      {
+			  mode: 'multiline',
+			  onKeyDown: function(sender, args) {
+			      if (args.keyCode == Keys.Up && this.getCaret() < 1 && this._history.length > 0 && this._historyPos > 0) {
+				  this._historyPos--;
+				  var lastMsg = this._history[this._historyPos];
+				  this.set_text(lastMsg);
+			      }
+			      if (args.keyCode == Keys.Down && (this.getCaret() >= this.get_text().length)) {
+				  if (this._historyPos < this._history.length - 1) {
+				      this._historyPos++;
+				      var lastMsg = this._history[this._historyPos];
+				      this.set_text(lastMsg);
+				  } else {
+				      this.set_text("");
+				      this._historyPos = this._history.length;
+				  }
+			      }
+			  },
+			  onEnterPressed: function(sender, args) {
+			      args.preventDefault();
+			      args.stopPropagation();
+			      var msg = this.get_text();
+			      this.get_window().sendMsg(msg);
+			      this.set_text('');
+			      this._history.push(msg);
+			      this._historyPos = this._history.length;
+			  },
+			  onLoad: function() {
+			      this._historyPos = -1;
+			      this._history = [];
+			  }
+		      });
+
+        Phoenix.UI.HistoryTextBox.callBase(this, "initFromOptions", [ options ]);
+    }
+};
+
+Phoenix.UI.HistoryTextBox.createClass('Phoenix.UI.HistoryTextBox', Phoenix.UI.TextBox);
+ControlsFactory.registerControl('historyTextBox', Phoenix.UI.HistoryTextBox);

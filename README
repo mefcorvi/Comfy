@@ -1,0 +1,10 @@
+Server Protocol:
+{login, <Login>, <Password>}
+
+{command, <CommandName>, <Json Task Data>}
+
+{logout}
+
+{create_datasource, <ViewName>} -> DataSourceId
+
+{drop_datasource, <DataSourceId>}

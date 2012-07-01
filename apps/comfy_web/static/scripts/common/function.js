@@ -2,6 +2,9 @@ var isFunction = function(o) {
     return typeof(o) === 'function';
 };
 
+Function.empty = function() {
+};
+
 Function.prototype.bind = function bind(obj) {
     var func = this;
 

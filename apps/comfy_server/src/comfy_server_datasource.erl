@@ -9,16 +9,23 @@
 
 start_link(Db, ViewName) ->
     SelfPid = self(),
-    {ok, spawn_link(fun() -> init(#state{db=Db, viewName=ViewName, parentPid=SelfPid}) end)}.
+    Pid = spawn_link(fun() -> init(#state{db=Db, viewName=ViewName, parentPid=SelfPid}) end),
+    couchbeam_changes:stream(Db, Pid, [continuous, include_docs, heartbeat, {filter, "default/"++ViewName}]),
+    {ok, Pid}.
 
 init(#state{db=Db,viewName=ViewName,parentPid=ParentPid}=State) ->
-    {ok, Rows} = couchbeam_view:fetch(Db, {"default", ViewName}),
-    gen_server:cast(ParentPid, {datasource_loaded, self(), Rows}),
+    gen_server:cast(ParentPid, {datasource_loaded, self()}),
     loop(State).
 
-loop(State) ->
+loop(#state{db=Db,viewName=ViewName,parentPid=ParentPid}=State) ->
     receive
 	stop ->
 	    ok;
-	_ -> loop(State)
+	{error, LastSeq, Msg} ->
+	    gen_server:cast(ParentPid, {datasource_error, self()});	    
+	{change, StartRef, Row} ->
+	    gen_server:cast(ParentPid, {datasource_updated, self(), Row}),
+	    loop(State);
+	_ ->
+	    loop(State)
     end.

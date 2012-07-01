@@ -47,7 +47,7 @@ handle_call({drop_datasource, DataSourceId}, _From, State) ->
 	{DataSourceId, DataSourcePid} ->
 	    DataSourcePid ! stop,
 	    NewDataSources = proplists:delete(DataSourceId, State#session_state.dataSources),
-	    {reply, ok, State#session_state{dataSources=NewDataSources}}
+	    {reply, {ok, datasource_dropped, DataSourceId}, State#session_state{dataSources=NewDataSources}}
     end;
 
 %% Убивает сессию
@@ -59,15 +59,22 @@ handle_call(Request, _From, State) ->
     {reply, {error, wrong_request, Request}, State}.
 
 %% Получили инфу от датасурса о том, что он загружен
-handle_cast({datasource_loaded, From, Rows}, State) ->
-    {ClientPid, _} = State#session_state.client,
-    Msg = {self(), {datasource_loaded, From, Rows}},
-    io:format("Client Pid: ~p~n", [ClientPid]),
-    ClientPid ! Msg,
+handle_cast(Msg={datasource_loaded, From}, State) ->
+    send_message(self(), Msg, State),
     {noreply, State};
 
-handle_cast(_Msg, State) ->
-    {noreply, State}.
+%% Получили инфу от датасурса о том, что он изменен
+handle_cast(Msg={datasource_updated, From, Row}, State) ->
+    send_message(self(), Msg, State),
+    {noreply, State};
+
+%% Получили инфу от датасурса о том, что он изменен
+handle_cast(Msg={datasource_error, From}, State) ->
+    send_message(self(), Msg, State),
+    {noreply, State};
+
+handle_cast(Msg, State) ->
+    {stop, {?MODULE, unknown_message, Msg}, State}.
 
 handle_info(_Info, State) ->
     {noreply, State}.
@@ -79,6 +86,12 @@ code_change(_OldVsn, State, _Extra) ->
     {ok, State}.
 
 %%% Internal
+
+%% Отправляет сообщение клиенту
+send_message(Pid, Msg, State) ->
+    {ClientPid, _} = State#session_state.client,
+    InnerMsg = {Pid, Msg},
+    ClientPid ! InnerMsg.    
 
 connect_to_user_db() ->
     couchbeam:server_connection(comfy_server_config:get(db_host), comfy_server_config:get(db_port)).

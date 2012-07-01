@@ -44,6 +44,7 @@ get_scripts_list() ->
      "common/dom.js",
 
      "core/queue-processor.js",
+     "data/socket.js",
      "data/dto-processor.js",
      "data/entity.js",
      "data/entity-set.js",
@@ -62,6 +63,8 @@ get_scripts_list() ->
      "history/history.date.js",
 
      "services/pages-service.js",
+     "services/session.js",
+
      "core/keys.js",
      "core/ui/text-measurer.js",
      "core/ui/css-rules.js",
@@ -81,7 +84,8 @@ get_scripts_list() ->
      "core/ui/controls-collection.js",
      "core/ui/controls-factory.js",
      "core/ui/template.js",
-     "core/ui/base-list-data-control.js"
+     "core/ui/base-list-data-control.js",
+     "commands/*.js"
     ].
 
 get_controls_list() ->
@@ -120,7 +124,8 @@ get_controls_list() ->
      {control, "Tooltip"},
      {control, "Wizard"},
      {control, "ColorPicker"},
-     {control, "MultiView"}
+     {control, "MultiView"},
+     {control, "HistoryTextBox"}
     ].
 
 combine_scripts() ->

@@ -10,7 +10,32 @@ required = function(obj, params) {
             throw new Error("Argument " + params[i] + " is null");
     }
   }
-}
+};
+
+require = function(params) {
+    if (!isArray(params)) {
+	throw new Error("Params should be an array.");
+    }
+
+    for (var i = 0; i < params.length; i += 2) {
+	var value = params[i];
+	var type = params[i + 1];
+	var guardFunction = require.typeGuards[type];
+
+	if (!isFunction(guardFunction)) {
+	    throw new Error("Guard function for \"" + type + "\" type have not been found.");
+	}
+
+	if (!guardFunction(value)) {
+	    throw new Error('[' + type + ' guard]: ' + value + ' is wrong value.');
+	}
+    }
+};
+
+require.typeGuards = {
+    "String": isString,
+    "Function": isFunction
+};
 
 tryEval = function(text, defaulValue) {
     try {
@@ -23,31 +48,31 @@ tryEval = function(text, defaulValue) {
 
 isNumber = function(o) {
     return typeof(o) == 'number';
-}
+};
 
 isBoolean = function(o) {
     return typeof(o) == 'boolean';
-}
+};
 
 isArray = function(o) {
     return o instanceof Array;
-}
+};
 
 isObject = function(o) {
     return typeof(o) == 'object';
-}
+};
 
 isUndefined = function(o) {
     return typeof(o) == 'undefined';
-}
+};
 
 isNullOrUndefined = function(o) {
     return o === null || isUndefined(o);
-}
+};
 
 isDefined = function(o) {
     return !isNullOrUndefined(o);
-}
+};
 
 Object.extend = function (target, src, deep) {
     if (!src)

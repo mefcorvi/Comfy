@@ -31,15 +31,20 @@ call(Pid, logout) ->
     {ok, logout, comfy_web_config:get(data_service_pid)};
 
 call(Pid, Msg) ->
-    {error, cannot_handle, Msg}.
+    {error, ?MODULE, cannot_handle, Msg}.
 
 loop(Ws, Pid) ->
     receive
 	{Pid, Msg} ->
 	    case Msg of
-		{datasource_loaded, DataSourceId, Rows} ->
-		    Ws:send_term({datasource_loaded, DataSourceId, ejson:encode(Rows)}),
-		    loop(Ws, Pid)
+		{datasource_loaded, DataSourceId} ->
+		    Ws:send_term({datasource_loaded, DataSourceId}),
+		    loop(Ws, Pid);
+		{datasource_updated, DataSourceId, Row} ->
+		    Ws:send_term({datasource_updated, DataSourceId, ejson:encode(Row)}),
+		    loop(Ws, Pid);
+		_Other ->
+		    ?Log("[Comfy Web Session] Wrong command: ~p~n", [_Other])
 	    end;
 	Msg ->
 	    try
