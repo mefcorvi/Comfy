@@ -108,7 +108,14 @@
 			    orientation: 'horizontal',
 			    cssClass: 'page_menu',
 			    controls: [
-				{ type: 'link', text: 'Add task', height: '*', padding: '25px 0', border: '0 0 1 0' },
+				{ type: 'link', text: 'Add task', height: '*', padding: '25px 0', border: '0 0 1 0', onClick: function() {
+					var session = Session.get_instance();
+					var command = new AddNewTaskCommand({
+										name: 'test',
+										date: new Date()
+									    });
+				      session.executeCommand(command);
+} },
 				{ type: 'link', text: 'Show categories', height: '*', padding: '25px 0', border: '0 0 1 0' }
 			    ]
 			}

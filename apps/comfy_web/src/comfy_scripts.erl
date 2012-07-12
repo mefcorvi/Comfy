@@ -43,6 +43,8 @@ get_scripts_list() ->
      "common/culture.js",
      "common/dom.js",
 
+     "core/erlang.js",
+     "core/pattern.js",
      "core/queue-processor.js",
      "data/socket.js",
      "data/dto-processor.js",

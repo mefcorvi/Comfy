@@ -1,5 +1,6 @@
 var Socket = function() {
     this._messages = [];
+    this._handlers = {};
 };
 
 Socket.prototype = {
@@ -18,14 +19,19 @@ Socket.prototype = {
      */
     _messages: null,
 
+    /**
+     * Обработчики сообщений
+     */
+    _handlers: null,
+
     awaitMessage: function(message, callback) {
 	var messageContainer = {
-	    message: message,
+	    message: new Pattern(message),
 	    callback: callback,
 	    handle: function(msg) {
-		if (this.message == msg) {
+		if (this.message.match(msg)) {
 		    this.clearTimeout();
-		    this.callback(msg);
+		    this.callback(msg, this.message.get_variables());
 		}
 	    },
 	    timeout: function(time, callback) {
@@ -39,6 +45,30 @@ Socket.prototype = {
 
 	this._messages.add(messageContainer);
 	return messageContainer;
+    },
+
+    /**
+     * Регистрирует обработчик событий
+     */
+    registerMessageHandler: function(pattern, callback) {
+	if (!this._handlers[pattern]) {
+	    this._handlers[pattern] = {
+		pattern: new Pattern(pattern),
+		handle: function(msg) {
+		    if (this.pattern.match(msg)) {
+			this.invokeCallbacks(msg, this.pattern.get_variables());
+		    }
+		},
+		invokeCallbacks: function(msg, vars) {
+		    for (var i = 0; i < this.callbacks.length; i++) {
+			this.callbacks[i](msg, vars);
+		    }
+		},
+		callbacks: []
+	    };
+	};
+
+	this._handlers[pattern].callbacks.add(callback);
     },
 
     /**
@@ -85,11 +115,24 @@ Socket.prototype = {
      */
     _onMessage: function $onMessage(evt) {
 	var message = evt.data;
+	var handled = false;
 
-	for (var i = 0; i < this._messages.length; i++) {
-	    if (this._messages[i].handle(message)) {
-		this._messages.removeAt(i);
-		break;
+	for (var handlerKey in this._handlers) {
+	    if (this._handlers.hasOwnProperty(handlerKey)) {
+		if (this._handlers[handlerKey].handle(message)) {
+		    handled = true;
+		    break;
+		}
+	    }
+	}
+
+	if (!handled) {    
+	    for (var i = 0; i < this._messages.length; i++) {
+		if (this._messages[i].handle(message)) {
+		    this._messages.removeAt(i);
+		    handled = true;
+		    break;
+		}
 	    }
 	}
 

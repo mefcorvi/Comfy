@@ -5,8 +5,13 @@ var CreateDataSourceCommand = function(dataSourceName) {
 
 CreateDataSourceCommand.prototype = {
     execute: function(socket, callback) {
-	socket.
-	    send(String.format("{create_datasource,\"{0}\"}", [this._dataSourceName]));
+	socket
+	    .send(String.format("{create_datasource,\"{0}\"}", [this._dataSourceName]))
+	    .awaitMessage("{datasource_loaded, <Pid>}", function(msg, vars) {
+		if (callback) {
+		    callback(vars.Pid);
+		}
+	    });
     }
 };
 

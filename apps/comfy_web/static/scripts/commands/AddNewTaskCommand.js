@@ -1,7 +1,5 @@
-var AddNewTaskCommand = function(name) {
-    this._task = {
-	name: name
-    };
+var AddNewTaskCommand = function(task) {
+    this._task = task;
 };
 
 AddNewTaskCommand.prototype = {
